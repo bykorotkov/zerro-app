@@ -1,0 +1,18 @@
+@use "@/css/variables" as *;
+
+#root {
+
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: grey;
+  color: #fff;
+}
+
+.site-lock {
+  overflow: hidden;
+  transition: $transition;
+}

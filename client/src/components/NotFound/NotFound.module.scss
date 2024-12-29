@@ -1,0 +1,14 @@
+.NotFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100svh;
+  flex-direction: column;
+  gap: 40px;
+
+  h1 {
+    font-size: 40px;
+    line-height: 50px;
+    font-weight: 600;
+  }
+}
