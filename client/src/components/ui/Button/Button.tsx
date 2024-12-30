@@ -4,7 +4,7 @@ import cn from "classnames";
 
 interface ButtonProps {
     onClick?: MouseEventHandler<HTMLButtonElement>
-    children: ReactNode
+    children?: ReactNode
     variant?: 'primary' | 'secondary'
     href?: string
     target?: string
@@ -12,7 +12,7 @@ interface ButtonProps {
     className?: string
 }
 
-const Button:FC<ButtonProps> = ({onClick, children, variant = 'primary', href, target, type, className}: ButtonProps) => {
+const Button:FC<ButtonProps> = ({onClick, children = 'button', variant = 'primary', href, target, type, className}: ButtonProps) => {
     const ButtonClass = variant === 'primary' ? classes.Primary : classes.Secondary
 
     return (

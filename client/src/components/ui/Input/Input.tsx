@@ -8,17 +8,17 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement>  {
     type?: string
     placeholder?: string
     onChange?: ChangeEventHandler<HTMLInputElement>
-    value: string
+    value?: string
     id?: string
     name?: string
     isError?: boolean
 }
 
-const Input = ({className, type, placeholder, onChange, value, name, id, isError, ...otherProps}: InputProps) => {
+const Input = ({className, type, placeholder, onChange, value = '', name, id, isError, ...otherProps}: InputProps) => {
 
     return (
        <>
-           {type !== undefined && type === 'tel'   ? (
+           {type === 'tel'   ? (
                <InputMask
                    replacement={{ _: /\d/ }}
                    mask={'+7 (___) ___-__-__'}

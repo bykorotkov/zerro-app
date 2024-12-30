@@ -9,7 +9,7 @@ type LoaderProps = {
 const Loader: FC<LoaderProps> = ({type = 'default'}) => {
     return (
         <div className={classes.LoaderContainer}>
-            <div className={cn(classes.Loader, {
+            <div data-testid="loader" className={cn(classes.Loader, {
                 [classes.Default]: type === 'default',
                 [classes.Red]: type === 'red',
                 [classes.Green]: type === 'green',
