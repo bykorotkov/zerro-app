@@ -15,9 +15,17 @@ export interface CharactersData {
     results: IChar[]
 }
 
-interface InfoCharactersData {
+export interface InfoCharactersData {
     count: number;
     pages: number;
     next: string | null;
     prev: string | null;
+}
+
+export interface IBaseResponse {
+    status: string
+    errors: {
+        message: string
+        code: number
+    }[]
 }

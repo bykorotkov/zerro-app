@@ -19,6 +19,12 @@ async function start() {
 
     app.useGlobalPipes(new ValidationPipe())
 
+    app.enableCors({
+        origin: 'http://localhost:5173',
+        methods: 'GET,POST,PUT,DELETE,PATCH',
+        credentials: true
+    })
+
     await app.listen(PORT, () => console.log(`Server has started on port ${PORT}`))
 }
 
