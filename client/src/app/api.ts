@@ -1,8 +1,9 @@
+import {IAuthResponse, IBaseResponse} from "@/types/types.ts";
 
 const BaseUrl = 'http://localhost:5000'
 
 const Api = {
-    getUsers: async (): Promise<any> => {
+    getUsers: async (): Promise<IBaseResponse> => {
         const response: any = await fetch(`${BaseUrl}/users`, {
             method: 'GET'
         })
@@ -11,19 +12,23 @@ const Api = {
             throw new Error('Данные пользователей не могут быть показаны')
         }
 
-        return response.data
+        return await response.json()
     },
-    loginUser: async (data: FormData): Promise<any> => {
+    loginUser: async (data: string): Promise<IAuthResponse> => {
          const response = await fetch(`${BaseUrl}/auth/login`, {
-            method: 'POST',
-            body: data
-        })
+             method: 'POST',
+             body: data,
+             headers: {
+                'Content-Type': 'application/json'
+             }
+         })
 
         if (!response.ok) {
             const errorData = await response.json();
-            // console.error('Ошибка:', errorData);
-            throw new Error(errorData || 'Залогиниться не удалось');
+            throw new Error(errorData.message || 'Залогиниться не удалось');
         }
+
+        return await response.json()
     }
 }
 

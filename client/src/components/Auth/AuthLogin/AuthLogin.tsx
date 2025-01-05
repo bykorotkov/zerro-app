@@ -10,20 +10,24 @@ import {useMutation} from "@tanstack/react-query";
 import Loader from "@/components/ui/Loader/Loader.tsx";
 
 interface FormData {
-    name: string
-    phone: string
     email: string
+    password: string
 }
 
-const AuthLogin = () => {
+interface AuthLoginProps {
+    toggleAuthMode: () => void
+}
+
+const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
     const [error, setError] = useState<string | null>(null)
     const { login } = useAuth()
     const navigate = useNavigate()
 
     const mutation = useMutation( {
         mutationFn: loginUser,
-        onSuccess: () => {
-            login()
+        onSuccess: (data) => {
+            const token = data.token
+            login(token)
             navigate('/')
         },
         onError: (error: Error) => {
@@ -33,25 +37,19 @@ const AuthLogin = () => {
 
     const formik = useFormik<FormData>({
         initialValues: {
-            name: '',
-            phone: '',
-            email: ''
+            email: '',
+            password: ''
         },
         initialErrors: {
-            name: '',
             email: '',
-            phone: ''
+            password: ''
         },
         validate: values => {
             const errors: Partial<FormData> = {}
-            if (!values.name) {
-                errors.name = 'Поле обязательно для заполнения';
-            }
-
-            if (!values.phone) {
-                errors.phone = 'Поле обязательно для заполнения';
-            } else if (values.phone.length < 18) {
-                errors.phone = 'Введите номер полностью'
+            if (!values.password) {
+                errors.password = 'Поле обязательно для заполнения';
+            } else if (values.password.length <= 4) {
+                errors.password = 'Поле должно иметь не менее 4 символов'
             }
 
             if (!values.email) {
@@ -68,13 +66,9 @@ const AuthLogin = () => {
     })
 
     const handleLogin = async (values: FormData) => {
-        const formData = new FormData()
+        const body = JSON.stringify(values)
 
-        Object.entries(values).forEach(([key, value]) => {
-            formData.append(key, value)
-        })
-
-        mutation.mutate(formData)
+        mutation.mutate(body)
     }
 
     return (
@@ -82,20 +76,15 @@ const AuthLogin = () => {
             <div className={classes.Inner}>
                 <h1>Форма логина</h1>
 
-                <form onSubmit={formik.handleSubmit} className={classes.Form}>
-                    <div className={classes.InputItem}>
-                        <Input value={formik.values.name} type={'text'} id={'name'} name={'name'} placeholder={'Ваше имя...'} onChange={formik.handleChange} onBlur={formik.handleBlur} isError={Boolean(formik.errors.name && formik.touched.name)} />
-                        {formik.errors.name && formik.touched.name ? <div className={classes.Caption}>{formik.errors.name}</div> : null}
-                    </div>
-
-                    <div className={classes.InputItem}>
-                        <Input value={formik.values.phone} type={'tel'} id={'phone'} name={'phone'} placeholder={'Ваш телефон...'} onChange={formik.handleChange} onBlur={formik.handleBlur} isError={Boolean(formik.errors.phone && formik.touched.phone)} />
-                        {formik.errors.phone && formik.touched.phone ? <div className={classes.Caption}>{formik.errors.phone}</div> : null}
-                    </div>
-
+                <form onSubmit={formik.handleSubmit} className={classes.Form} data-testid={'authLoginForm'}>
                     <div className={classes.InputItem}>
                         <Input value={formik.values.email} type={'text'} id={'email'} name={'email'} placeholder={'Ваш email...'} onChange={formik.handleChange} onBlur={formik.handleBlur} isError={Boolean(formik.errors.email && formik.touched.email)} />
                         {formik.errors.email && formik.touched.email ? <div className={classes.Caption}>{formik.errors.email}</div> : null}
+                    </div>
+
+                    <div className={classes.InputItem}>
+                        <Input value={formik.values.password} type={'text'} id={'password'} name={'password'} placeholder={'Ваше пароль...'} onChange={formik.handleChange} onBlur={formik.handleBlur} isError={Boolean(formik.errors.password && formik.touched.password)} />
+                        {formik.errors.password && formik.touched.password ? <div className={classes.Caption}>{formik.errors.password}</div> : null}
                     </div>
 
                     {error ?
@@ -104,6 +93,7 @@ const AuthLogin = () => {
 
                     {mutation.isPending && <Loader />}
 
+                    <Button className={classes.Button} type={'button'} onClick={toggleAuthMode}>Перейти к регистрации</Button>
                     <Button className={classes.Button} type={'submit'}>Войти</Button>
                 </form>
             </div>

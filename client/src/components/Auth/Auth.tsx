@@ -1,18 +1,23 @@
-
-import {AuthProvider, useAuth} from "@/context/useAuthContext.tsx";
-import AuthLogin from "@/components/Auth/AuthLogin/AuthLogin.tsx";
-import AuthRegistration from "@/components/Auth/AuthRegistration/AuthRegistration.tsx";
+import AuthLogin from "./AuthLogin/AuthLogin.tsx";
+import AuthRegistration from "./AuthRegistration/AuthRegistration.tsx";
+import {useState} from "react";
 
 const Auth = () => {
-    const { isAuth } = useAuth()
+    const [isLoginMode, setIsLoginMode] = useState(true)
+
+    const toggleMode = () => {
+        setIsLoginMode(prevState => !prevState)
+    }
 
     return (
-        isAuth ? <AuthLogin /> : <AuthRegistration />
+        <>
+            {isLoginMode ? (
+                <AuthLogin toggleAuthMode={toggleMode} />
+            ) : (
+                <AuthRegistration toggleAuthMode={toggleMode} />
+            )}
+        </>
     )
 }
 
-export const AuthWrap = () => (
-    <AuthProvider>
-        <Auth />
-    </AuthProvider>
-)
+export default Auth

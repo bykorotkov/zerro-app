@@ -1,0 +1,46 @@
+
+
+.Wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100svh;
+
+  h1 {
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+.Inner {
+  background-color: #9cb8f3;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 428px;
+}
+
+.Form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.InputItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Caption {
+  margin-top: 10px;
+  color: #e22121;
+}
+
+.Button {
+  width: 100%;
+}

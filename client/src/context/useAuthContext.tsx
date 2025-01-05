@@ -1,9 +1,10 @@
 import {createContext, FC, ReactNode, useContext, useEffect, useState} from "react";
 import Loader from "@/components/ui/Loader/Loader.tsx";
+import Cookies from "js-cookie";
 
 interface AuthContextType {
     isAuth: boolean
-    login: () => void
+    login: (token: string) => void
     logout: () => void
 }
 
@@ -13,13 +14,15 @@ export const AuthProvider: FC<{children: ReactNode}> = ({children}) => {
     const [isAuth, setIsAuth] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(true);
 
-    const login = () => {
+    const login = (token: string) => {
         setIsAuth(true)
         sessionStorage.setItem('isAuth', 'true')
+        Cookies.set('authTokenZerro', token , {expires: 7, secure: true, sameSite: 'Strict'})
     }
     const logout = () => {
         setIsAuth(false)
         sessionStorage.setItem('isAuth', 'false')
+        Cookies.remove('authTokenZerro')
     }
 
     useEffect(() => {

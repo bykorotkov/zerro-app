@@ -24,8 +24,12 @@ export interface InfoCharactersData {
 
 export interface IBaseResponse {
     status: string
-    errors: {
+    errors?: {
         message: string
         code: number
     }[]
+}
+
+export interface IAuthResponse extends IBaseResponse{
+    token: string
 }
