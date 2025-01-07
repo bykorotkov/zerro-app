@@ -11,6 +11,7 @@
   padding: 10px;
   border: 1px solid navajowhite;
   width: auto;
+  border-radius: 10px;
 
   img {
     display: block;
@@ -38,10 +39,13 @@
   line-height: 26px;
 }
 
+.Image {
+  margin-top: 20px;
+}
+
 .Loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  margin-top: 150px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+  margin-top: 58px;
 }

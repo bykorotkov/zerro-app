@@ -1,6 +1,8 @@
-import AuthLogin from "./AuthLogin/AuthLogin.tsx";
-import AuthRegistration from "./AuthRegistration/AuthRegistration.tsx";
-import {useState} from "react";
+import {lazy, Suspense, useState} from "react";
+import Loader from "@/components/ui/Loader/Loader.tsx";
+
+const AuthLogin = lazy(() => import("./AuthLogin/AuthLogin.tsx")) ;
+const AuthRegistration = lazy(() => import("./AuthRegistration/AuthRegistration.tsx")) ;
 
 const Auth = () => {
     const [isLoginMode, setIsLoginMode] = useState(true)
@@ -10,13 +12,13 @@ const Auth = () => {
     }
 
     return (
-        <>
+        <Suspense fallback={<Loader />}>
             {isLoginMode ? (
                 <AuthLogin toggleAuthMode={toggleMode} />
             ) : (
                 <AuthRegistration toggleAuthMode={toggleMode} />
             )}
-        </>
+        </Suspense>
     )
 }
 

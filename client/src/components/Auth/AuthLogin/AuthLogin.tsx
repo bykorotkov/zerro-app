@@ -8,11 +8,11 @@ import {loginUser} from "@/app/api.ts";
 import {useState} from "react";
 import {useMutation} from "@tanstack/react-query";
 import Loader from "@/components/ui/Loader/Loader.tsx";
-
-interface FormData {
-    email: string
-    password: string
-}
+import {
+    AuthLoginFormData, AuthLoginResponse,
+    PartialAuthLoginErrorsFormData,
+    RequiredAuthLoginFormData
+} from "@/types/authTypes.ts";
 
 interface AuthLoginProps {
     toggleAuthMode: () => void
@@ -25,7 +25,7 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
 
     const mutation = useMutation( {
         mutationFn: loginUser,
-        onSuccess: (data) => {
+        onSuccess: (data: AuthLoginResponse) => {
             const token = data.token
             login(token)
             navigate('/')
@@ -35,7 +35,7 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
         }
     })
 
-    const formik = useFormik<FormData>({
+    const formik = useFormik<RequiredAuthLoginFormData<AuthLoginFormData>>({
         initialValues: {
             email: '',
             password: ''
@@ -45,7 +45,8 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
             password: ''
         },
         validate: values => {
-            const errors: Partial<FormData> = {}
+            // const errors: Partial<AuthLoginFormData> = {}
+            const errors: PartialAuthLoginErrorsFormData<AuthLoginFormData> = {}
             if (!values.password) {
                 errors.password = 'Поле обязательно для заполнения';
             } else if (values.password.length <= 4) {
@@ -65,7 +66,7 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
         onSubmit: (values) => handleLogin(values)
     })
 
-    const handleLogin = async (values: FormData) => {
+    const handleLogin = async (values: RequiredAuthLoginFormData<AuthLoginFormData>) => {
         const body = JSON.stringify(values)
 
         mutation.mutate(body)

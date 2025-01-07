@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "jest"
+    "test": "jest",
+    "analyze": "npx vite-bundle-visualizer"
   },
   "dependencies": {
     "@react-input/mask": "^2.0.4",
@@ -21,6 +22,8 @@
     "js-cookie": "^3.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-lazy-load-image-component": "^1.6.3",
+    "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "^6.28.1",
     "sass": "^1.82.0",
     "vite-tsconfig-paths": "^5.1.4"
@@ -47,6 +50,7 @@
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/react-lazy-load-image-component": "^1.6.4",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "babel-jest": "^29.7.0",
     "eslint": "^9.15.0",

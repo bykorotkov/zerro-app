@@ -16,17 +16,17 @@ export const AuthProvider: FC<{children: ReactNode}> = ({children}) => {
 
     const login = (token: string) => {
         setIsAuth(true)
-        sessionStorage.setItem('isAuth', 'true')
+        localStorage.setItem('isAuth', 'true')
         Cookies.set('authTokenZerro', token , {expires: 7, secure: true, sameSite: 'Strict'})
     }
     const logout = () => {
         setIsAuth(false)
-        sessionStorage.setItem('isAuth', 'false')
+        localStorage.setItem('isAuth', 'false')
         Cookies.remove('authTokenZerro')
     }
 
     useEffect(() => {
-        const storedAuth = sessionStorage.getItem('isAuth')
+        const storedAuth = localStorage.getItem('isAuth')
         if (storedAuth === 'true') {
             setIsAuth(true)
         }
