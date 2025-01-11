@@ -10,8 +10,6 @@ import {useMutation} from "@tanstack/react-query";
 import Loader from "@/components/ui/Loader/Loader.tsx";
 import {
     AuthLoginFormData, AuthLoginResponse,
-    PartialAuthLoginErrorsFormData,
-    RequiredAuthLoginFormData
 } from "@/types/authTypes.ts";
 
 interface AuthLoginProps {
@@ -35,7 +33,7 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
         }
     })
 
-    const formik = useFormik<RequiredAuthLoginFormData<AuthLoginFormData>>({
+    const formik = useFormik<Required<AuthLoginFormData>>({
         initialValues: {
             email: '',
             password: ''
@@ -45,8 +43,7 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
             password: ''
         },
         validate: values => {
-            // const errors: Partial<AuthLoginFormData> = {}
-            const errors: PartialAuthLoginErrorsFormData<AuthLoginFormData> = {}
+            const errors: Partial<AuthLoginFormData> = {}
             if (!values.password) {
                 errors.password = 'Поле обязательно для заполнения';
             } else if (values.password.length <= 4) {
@@ -66,7 +63,7 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
         onSubmit: (values) => handleLogin(values)
     })
 
-    const handleLogin = async (values: RequiredAuthLoginFormData<AuthLoginFormData>) => {
+    const handleLogin = async (values: Required<AuthLoginFormData>) => {
         const body = JSON.stringify(values)
 
         mutation.mutate(body)
