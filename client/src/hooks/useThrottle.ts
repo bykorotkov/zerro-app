@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 
-const useThrottle = <T extends {}>(value: T, delay: number): T => {
+const useThrottle = <T extends object>(value: T, delay: number): T => {
     const [throttledValue, setThrottledValue] = useState(value)
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {render, screen, fireEvent} from "@testing-library/react";
+import {render, screen, fireEvent, waitFor} from "@testing-library/react";
 import Auth from "./Auth.tsx";
 
 jest.mock('./AuthLogin/AuthLogin', () => {
@@ -16,13 +16,17 @@ jest.mock('./AuthRegistration/AuthRegistration', () => {
 })
 
 describe('Auth root component logic', () => {
-    test('renders AuthLogin by default and toggles to AuthRegistration', () => {
+    test('renders AuthLogin by default and toggles to AuthRegistration', async () => {
         render(<Auth />)
 
-        expect(screen.getByText(/Login Component/i)).toBeInTheDocument()
+        await waitFor(() => {
+            expect(screen.getByText(/Login Component/i)).toBeInTheDocument()
+        });
 
         fireEvent.click(screen.getByText(/Switch to registration/i))
 
-        expect(screen.getByText(/Registration Component/i)).toBeInTheDocument()
+        await waitFor(() => {
+            expect(screen.getByText(/Registration Component/i)).toBeInTheDocument();
+        });
     })
 })
