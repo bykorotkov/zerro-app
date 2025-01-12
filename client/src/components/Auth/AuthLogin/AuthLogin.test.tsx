@@ -29,7 +29,7 @@ describe(('AuthLogin component tests'), () => {
     test('submit button validates input values and throws some errors', async() => {
         const submitButton = screen.getByRole('button', {name: /Войти/i})
         fireEvent.click(submitButton)
-        const errorFields = await screen.findAllByText(/Поле обязательно для заполнения/i)
+        // const errorFields = await screen.findAllByText(/Поле обязательно для заполнения/i)
         expect(errorFields[0]).toBeInTheDocument()
     })
 })
