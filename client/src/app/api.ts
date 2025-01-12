@@ -1,19 +1,19 @@
-import {IAuthResponse, IBaseResponse} from "@/types/types.ts";
+import {IAuthResponse} from "@/types/types.ts";
 
 const BaseUrl = 'http://localhost:5000'
 
 const Api = {
-    getUsers: async (): Promise<IBaseResponse> => {
-        const response: any = await fetch(`${BaseUrl}/users`, {
-            method: 'GET'
-        })
-
-        if (!response.ok) {
-            throw new Error('Данные пользователей не могут быть показаны')
-        }
-
-        return await response.json()
-    },
+    // getUsers: async (): Promise<IBaseResponse> => {
+    //     const response: any = await fetch(`${BaseUrl}/users`, {
+    //         method: 'GET'
+    //     })
+    //
+    //     if (!response.ok) {
+    //         throw new Error('Данные пользователей не могут быть показаны')
+    //     }
+    //
+    //     return await response.json()
+    // },
     loginUser: async (data: string): Promise<IAuthResponse> => {
          const response = await fetch(`${BaseUrl}/auth/login`, {
              method: 'POST',
@@ -32,4 +32,4 @@ const Api = {
     }
 }
 
-export const { getUsers, loginUser } = Api
+export const { loginUser } = Api

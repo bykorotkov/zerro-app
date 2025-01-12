@@ -33,7 +33,7 @@ describe('Input component', () => {
         const inputElement = screen.getByPlaceholderText(/input value/i) as HTMLInputElement;
 
         const newValue = 'test'
-        for (let char of newValue) {
+        for (const char of newValue) {
             inputValue += char
             fireEvent.change(inputElement, { target: { value: inputValue} });
             rerender(<Input placeholder={'input value'} onChange={handleChange} value={inputValue} />)
@@ -54,7 +54,7 @@ describe('Input component', () => {
         const inputElement = screen.getByPlaceholderText(/phone input value/i) as HTMLInputElement;
 
         const newPhoneVal = '+7 (960) 999-99-43'
-        for (let char of newPhoneVal) {
+        for (const char of newPhoneVal) {
             inputValue += char
             fireEvent.change(inputElement, {target: {value: inputValue}})
             rerender(<Input type={'tel'} placeholder={'phone input value'} onChange={handleChange} value={inputValue} />)
