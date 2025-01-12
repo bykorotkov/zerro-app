@@ -16,11 +16,20 @@ jobs:
         run: cd client
       - name: install modules
         run: npm install
+        working-directory: client
+
       - name: build project
         run: npm run build
+        working-directory: client
+
       - name: ES lint
         run: npm run lint
+        working-directory: client
+
       - name: build sb
         run: npm run build-storybook
+        working-directory: client
+
       - name: unit tests
         run: npm run jest
+        working-directory: client
