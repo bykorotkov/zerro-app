@@ -31,5 +31,5 @@ jobs:
         working-directory: client
 
       - name: unit tests
-        run: npm run jest
+        run: npm run test
         working-directory: client
