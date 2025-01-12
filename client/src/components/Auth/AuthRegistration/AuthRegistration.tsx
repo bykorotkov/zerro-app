@@ -73,7 +73,7 @@ const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
             formData.append(key, value)
         })
 
-        mutation.mutate(formData)
+        // mutation.mutate(formData)
     }
 
     return (
