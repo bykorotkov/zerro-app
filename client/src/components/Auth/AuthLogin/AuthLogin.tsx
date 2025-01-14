@@ -91,8 +91,8 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
 
                     {mutation.isPending && <Loader />}
 
-                    <Button className={classes.Button} type={'button'} onClick={toggleAuthMode}>Перейти к регистрации</Button>
                     <Button className={classes.Button} type={'submit'}>Войти</Button>
+                    <Button className={classes.Button} type={'button'} onClick={toggleAuthMode}>Перейти к регистрации</Button>
                 </form>
             </div>
         </div>

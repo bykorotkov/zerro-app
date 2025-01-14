@@ -7,13 +7,23 @@ import {Post} from "../posts/posts.model";
 interface UserCreationAttr {
     email: string
     password: string
-
+    username: string
+    phone: string
 }
+
 @Table({tableName: 'users'})
 export class User extends Model<User, UserCreationAttr> {
     @ApiProperty({example: '1', description: 'Уникальный идентификатор'})
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
     id: number;
+
+    @ApiProperty({example: 'username', description: 'Имя пользователя'})
+    @Column({type: DataType.STRING, allowNull: false})
+    username: string;
+
+    @ApiProperty({example: '8-(960)-858-00-44', description: 'Имя пользователя'})
+    @Column({type: DataType.STRING, unique: true, allowNull: false})
+    phone: string;
 
     @ApiProperty({example: 'user@mail.ru', description: 'Почтовый адрес'})
     @Column({type: DataType.STRING, unique: true, allowNull: false})

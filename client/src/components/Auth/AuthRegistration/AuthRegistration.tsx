@@ -5,25 +5,35 @@ import Loader from "@/components/ui/Loader/Loader.tsx";
 import {useState} from "react";
 import {useFormik} from "formik";
 import {useMutation} from "@tanstack/react-query";
-import {loginUser} from "@/app/api.ts";
+import {signUpUser} from "@/app/api.ts";
+import PasswordIcon from "@/images/icons/PasswordIcon.tsx";
+import {AuthLoginResponse} from "@/types/authTypes.ts";
+import {useAuth} from "@/context/useAuthContext.tsx";
+import {useNavigate} from "react-router-dom";
 
 interface AuthRegistrationProps {
     toggleAuthMode: () => void
 }
 
 interface FormData {
-    name: string
+    username: string
     phone: string
     email: string
+    password: string
 }
 
 const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
     const [error, setError] = useState<string | null>(null)
+    const [passwordShown, setPasswordShown] = useState<boolean>(false)
+    const { login } = useAuth()
+    const navigate = useNavigate()
 
     const mutation = useMutation( {
-        mutationFn: loginUser,
-        onSuccess: () => {
-
+        mutationFn: signUpUser,
+        onSuccess: (data: AuthLoginResponse) => {
+            const token = data.token
+            login(token)
+            navigate('/')
         },
         onError: (error: Error) => {
             setError(error.message)
@@ -32,19 +42,21 @@ const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
 
     const formik = useFormik<FormData>({
         initialValues: {
-            name: '',
+            username: '',
             phone: '',
-            email: ''
+            email: '',
+            password: ''
         },
         initialErrors: {
-            name: '',
+            username: '',
             email: '',
-            phone: ''
+            phone: '',
+            password: ''
         },
         validate: values => {
             const errors: Partial<FormData> = {}
-            if (!values.name) {
-                errors.name = 'Поле обязательно для заполнения';
+            if (!values.username) {
+                errors.username = 'Поле обязательно для заполнения';
             }
 
             if (!values.phone) {
@@ -58,6 +70,13 @@ const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Введите корректный email';
             }
+
+            if (!values.password) {
+                errors.password = 'Поле обязательно для заполнения';
+            } else if (values.password.length <= 3) {
+                errors.password = 'Поле должно содержать не менее 4'
+            }
+
             return errors
         },
         validateOnMount: false,
@@ -67,13 +86,13 @@ const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
     })
 
     const handleRegistration = async (values: FormData) => {
-        const formData = new FormData()
+        const body = JSON.stringify(values)
 
-        Object.entries(values).forEach(([key, value]) => {
-            formData.append(key, value)
-        })
+        mutation.mutate(body)
+    }
 
-        // mutation.mutate(formData)
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown)
     }
 
     return (
@@ -83,8 +102,8 @@ const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
 
                 <form onSubmit={formik.handleSubmit} className={classes.Form}>
                     <div className={classes.InputItem}>
-                        <Input value={formik.values.name} type={'text'} id={'name'} name={'name'} placeholder={'Ваше имя...'} onChange={formik.handleChange} onBlur={formik.handleBlur} isError={Boolean(formik.errors.name && formik.touched.name)} />
-                        {formik.errors.name && formik.touched.name ? <div className={classes.Caption}>{formik.errors.name}</div> : null}
+                        <Input value={formik.values.username} type={'text'} id={'username'} name={'username'} placeholder={'Ваше имя...'} onChange={formik.handleChange} onBlur={formik.handleBlur} isError={Boolean(formik.errors.username && formik.touched.username)} />
+                        {formik.errors.username && formik.touched.username ? <div className={classes.Caption}>{formik.errors.username}</div> : null}
                     </div>
 
                     <div className={classes.InputItem}>
@@ -97,14 +116,23 @@ const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
                         {formik.errors.email && formik.touched.email ? <div className={classes.Caption}>{formik.errors.email}</div> : null}
                     </div>
 
+                    <div className={classes.InputItem}>
+                        <Input value={formik.values.password} type={passwordShown ? 'text' : 'password'} id={'password'} name={'password'} placeholder={'Ваш пароль...'} onChange={formik.handleChange} onBlur={formik.handleBlur} isError={Boolean(formik.errors.password && formik.touched.password)} />
+                        <div onClick={togglePassword} className={classes.PassIcon}>
+                            <PasswordIcon />
+                        </div>
+
+                        {formik.errors.password && formik.touched.password ? <div className={classes.Caption}>{formik.errors.password}</div> : null}
+                    </div>
+
                     {error ?
                         <div className={classes.Caption} dangerouslySetInnerHTML={{__html: error}} />
                         : null}
 
                     {mutation.isPending && <Loader />}
 
-                    <Button onClick={toggleAuthMode} className={classes.Button}>Перейти к авторизации</Button>
                     <Button className={classes.Button} type={'submit'}>Зарегистрироваться</Button>
+                    <Button onClick={toggleAuthMode} className={classes.Button}>Перейти к авторизации</Button>
                 </form>
             </div>
         </div>

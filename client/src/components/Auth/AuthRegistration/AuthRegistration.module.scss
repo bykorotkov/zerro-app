@@ -34,6 +34,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  position: relative;
 }
 
 .Caption {
@@ -43,4 +44,19 @@
 
 .Button {
   width: 100%;
+}
+
+.PassIcon {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  cursor: pointer;
+  width: 24px;
+  height: 18px;
+  
+  svg {
+    path {
+      stroke: #000;
+    }
+  }
 }

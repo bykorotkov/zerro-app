@@ -29,7 +29,23 @@ const Api = {
         }
 
         return await response.json()
+    },
+    signUpUser: async (data: string): Promise<IAuthResponse> => {
+        const response = await fetch(`${BaseUrl}/auth/registration`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Регистрация не удалась');
+        }
+
+        return await response.json()
     }
 }
 
-export const { loginUser } = Api
+export const { loginUser, signUpUser } = Api

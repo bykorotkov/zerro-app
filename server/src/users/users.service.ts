@@ -10,7 +10,7 @@ import {BanUserDto} from "./dto/ban-user.dto";
 export class UsersService {
 
     constructor(@InjectModel(User) private userRepository: typeof User,
-                private roleService: RolesService) {
+        private roleService: RolesService) {
     }
 
     async createUser(dto: CreateUserDto) {
@@ -28,6 +28,11 @@ export class UsersService {
 
     async getUserByEmail(email: string) {
         const user = await this.userRepository.findOne({where: {email}, include: {all: true}})
+        return user;
+    }
+
+    async getUserById(id: number) {
+        const user = await this.userRepository.findOne({where: {id}, include: {all: true}})
         return user;
     }
 
