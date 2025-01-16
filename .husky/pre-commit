@@ -10,3 +10,6 @@ if [ $? -ne 0 ]; then
   git reset HEAD -- .
   exit 1
 fi
+
+cd ..
+git push

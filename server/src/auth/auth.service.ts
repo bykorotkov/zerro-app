@@ -4,13 +4,16 @@ import {UsersService} from "../users/users.service";
 import {JwtService} from "@nestjs/jwt";
 import * as bcrypt from 'bcryptjs'
 import {User} from "../users/users.model";
+import {Token} from "../tokens/token.model";
 @Injectable()
 export class AuthService {
 
     constructor(
         private userService: UsersService,
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        private tokenModel: typeof Token
     ) {}
+
     async login(userDto: CreateUserDto) {
         const user = await this.validateUser(userDto)
         return this.generateTokens(user)
@@ -26,12 +29,14 @@ export class AuthService {
         return this.generateTokens(user)
     }
 
-    // private async generateToken(user: User) {
-    //     const payload = {email: user.email, id: user.id, roles: user.roles}
-    //     return {
-    //         token: this.jwtService.sign(payload)
-    //     }
-    // }
+    async logout(userDto: CreateUserDto) {
+        const user = await this.userService.getUserByEmail(userDto.email)
+        if (!user) {
+            throw new HttpException('Пользователь с таким email не существует', HttpStatus.BAD_REQUEST)
+        }
+
+        return { message: 'Вы успешно вышли из системы' }
+    }
 
     private async generateTokens(user: User) {
         const payload = {email: user.email, id: user.id, roles: user.roles}
