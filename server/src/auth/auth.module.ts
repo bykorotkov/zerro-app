@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 import {UsersModule} from "../users/users.module";
 import {JwtModule} from "@nestjs/jwt";
 import * as process from "process";
+import {Token} from "../tokens/token.model";
+import {SequelizeModule} from "@nestjs/sequelize";
 
 @Module({
   controllers: [AuthController],
@@ -15,7 +17,8 @@ import * as process from "process";
           signOptions: {
               expiresIn: '24h'
           }
-      })
+      }),
+      SequelizeModule.forFeature([Token]),
   ],
     exports: [
         AuthService,

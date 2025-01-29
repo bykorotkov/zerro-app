@@ -7,6 +7,7 @@ import AnimatedComponent from "@/components/Intro/AnimatedComponent/AnimatedComp
 import {useEffect, useState} from "react";
 import Cookies from 'js-cookie';
 import {useAuth} from "@/context/useAuthContext.tsx";
+import Posts from "@/components/Intro/Posts/Posts.tsx";
 
 const Intro = () => {
     const {isPending, error, data, search, searchHandler, page, nextPage, prevPage} = useGetData()
@@ -37,15 +38,20 @@ const Intro = () => {
                 </div>
             </div>
 
+            {/*<Users />*/}
+
             {data && data.info && data.info.pages ? (
                 <div className={classes.PageCount}>Страница <span>{page}</span> из <span>{data.info.pages}</span></div>
             ) : null}
+
+            <Posts />
 
             {isPreviewShown ? (
                 <AnimatedComponent />
             ) : null}
 
             <Items data={data} isPending={isPending} error={error} />
+
         </div>
     );
 };

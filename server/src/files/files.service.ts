@@ -4,7 +4,6 @@ import * as path from 'path'
 import * as uuid from 'uuid'
 @Injectable()
 export class FilesService {
-
     async createFile(file): Promise<string> {
         try {
             const fileName = uuid.v4() + '.jpg'

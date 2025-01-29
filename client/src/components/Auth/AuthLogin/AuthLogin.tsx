@@ -46,7 +46,7 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
             const errors: Partial<AuthLoginFormData> = {}
             if (!values.password) {
                 errors.password = 'Поле обязательно для заполнения';
-            } else if (values.password.length <= 4) {
+            } else if (values.password.length <= 3) {
                 errors.password = 'Поле должно иметь не менее 4 символов'
             }
 
@@ -64,9 +64,9 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
     })
 
     const handleLogin = async (values: Required<AuthLoginFormData>) => {
-        const body = JSON.stringify(values)
+        // const body = JSON.stringify(values)
 
-        mutation.mutate(body)
+        mutation.mutate(values)
     }
 
     return (

@@ -7,9 +7,7 @@ import {useFormik} from "formik";
 import {useMutation} from "@tanstack/react-query";
 import {signUpUser} from "@/app/api.ts";
 import PasswordIcon from "@/images/icons/PasswordIcon.tsx";
-import {AuthLoginResponse} from "@/types/authTypes.ts";
 import {useAuth} from "@/context/useAuthContext.tsx";
-import {useNavigate} from "react-router-dom";
 
 interface AuthRegistrationProps {
     toggleAuthMode: () => void
@@ -25,15 +23,12 @@ interface FormData {
 const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
     const [error, setError] = useState<string | null>(null)
     const [passwordShown, setPasswordShown] = useState<boolean>(false)
-    const { login } = useAuth()
-    const navigate = useNavigate()
+    const {setIsLoginMode} = useAuth()
 
     const mutation = useMutation( {
         mutationFn: signUpUser,
-        onSuccess: (data: AuthLoginResponse) => {
-            const token = data.token
-            login(token)
-            navigate('/')
+        onSuccess: () => {
+            setIsLoginMode(true)
         },
         onError: (error: Error) => {
             setError(error.message)
@@ -86,9 +81,9 @@ const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
     })
 
     const handleRegistration = async (values: FormData) => {
-        const body = JSON.stringify(values)
+        // const body = JSON.stringify(values)
 
-        mutation.mutate(body)
+        mutation.mutate(values)
     }
 
     const togglePassword = () => {

@@ -23,3 +23,15 @@ export class CreateUserDto {
     @Length(4, 16, {message: 'Пароль должен быть не менее 4 символов и не более 16'})
     readonly password: string
 }
+
+export class LoginUserDto {
+    @ApiProperty({example: 'user@mail.ru', description: 'Почта'})
+    @IsString({message: 'Должно быть строкой'})
+    @IsEmail({}, {message: 'Некорректный email'})
+    readonly email: string;
+
+    @ApiProperty({example: '123456', description: 'Пароль'})
+    @IsString({message: 'Должно быть строкой'})
+    @Length(4, 16, {message: 'Пароль должен быть не менее 4 символов и не более 16'})
+    readonly password: string
+}

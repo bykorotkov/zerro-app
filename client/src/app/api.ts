@@ -1,51 +1,77 @@
 import {IAuthResponse} from "@/types/types.ts";
-
-const BaseUrl = 'http://localhost:5000'
+import axios from "axios"
+import {AuthLoginFormData} from "@/types/authTypes.ts";
+import $api, {BaseUrl} from "@/app/axios.ts";
+import {PostsTypes} from "@/types/posts.ts";
 
 const Api = {
-    // getUsers: async (): Promise<IBaseResponse> => {
-    //     const response: any = await fetch(`${BaseUrl}/users`, {
-    //         method: 'GET'
-    //     })
-    //
-    //     if (!response.ok) {
-    //         throw new Error('Данные пользователей не могут быть показаны')
-    //     }
-    //
-    //     return await response.json()
-    // },
-    loginUser: async (data: string): Promise<IAuthResponse> => {
-         const response = await fetch(`${BaseUrl}/auth/login`, {
-             method: 'POST',
-             body: data,
-             headers: {
-                'Content-Type': 'application/json'
-             }
-         })
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Залогиниться не удалось');
-        }
-
-        return await response.json()
-    },
-    signUpUser: async (data: string): Promise<IAuthResponse> => {
-        const response = await fetch(`${BaseUrl}/auth/registration`, {
-            method: 'POST',
-            body: data,
-            headers: {
-                'Content-Type': 'application/json'
+    getUsers: async (): Promise<any> => {
+        try {
+            const response = await $api.get(`${BaseUrl}/users`)
+            return response.data
+        } catch (e) {
+            if (axios.isAxiosError(e) && e.response) {
+                const errorData = e.response.data;
+                throw new Error(errorData.message || 'Данные пользователей не могут быть показаны')
             }
-        })
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Регистрация не удалась');
         }
+        throw new Error('Не удалось получить пользователей')
+    },
+    createPost: async (data: FormData): Promise<IAuthResponse> => {
+     try {
+         const response = await $api.post(`${BaseUrl}/posts`, data)
+         return response.data
+     } catch (e) {
+         console.log(e)
+         throw new Error('Ошибка при создании поста')
+     }
+    },
+    getPosts: async (): Promise<PostsTypes[]> => {
+        try {
+            const response = await $api.get(`${BaseUrl}/posts`)
+            return response.data
+        } catch (e) {
+            console.log(e)
+            throw new Error('Ошибка при получении постов')
+        }
+    },
+    loginUser: async (data: AuthLoginFormData): Promise<IAuthResponse> => {
+        try {
+            const response = await $api.post(`${BaseUrl}/auth/login`, {...data})
+            localStorage.setItem('token', response.data.token)
 
-        return await response.json()
+            return response.data
+        } catch (e) {
+            if (axios.isAxiosError(e) && e.response) {
+                const errorData = e.response.data;
+                throw new Error(errorData.message || 'Залогиниться не удалось');
+            }
+            throw new Error('Произошла ошибка при попытке войти');
+        }
+    },
+    signUpUser: async (data: AuthLoginFormData): Promise<IAuthResponse> => {
+        try {
+            const response = await $api.post(`${BaseUrl}/auth/registration`, {...data})
+            return response.data
+        } catch (e) {
+            if (axios.isAxiosError(e) && e.response) {
+                const errorData = e.response.data;
+                throw new Error(errorData.message || 'Регистрация не удалась');
+            }
+            throw new Error('Произошла ошибка при регистрации');
+        }
+    },
+    logoutUser: async (): Promise<any> => {
+        try {
+            const response = await $api.post(`${BaseUrl}/auth/logout`)
+            localStorage.removeItem('token')
+
+            return response.data
+        } catch (e) {
+            console.log(e)
+            throw new Error('Ошибка выхода')
+        }
     }
 }
 
-export const { loginUser, signUpUser } = Api
+export const { loginUser, signUpUser, logoutUser, getUsers, createPost, getPosts } = Api

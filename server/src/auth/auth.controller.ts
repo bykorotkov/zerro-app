@@ -1,6 +1,6 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Post, Headers, HttpStatus, HttpException} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
-import {CreateUserDto} from "../users/dto/create-user-dto";
+import {CreateUserDto, LoginUserDto} from "../users/dto/create-user-dto";
 import {AuthService} from "./auth.service";
 
 @ApiTags('Авторизация')
@@ -10,7 +10,7 @@ export class AuthController {
     constructor(private authService: AuthService) {}
 
     @Post('/login')
-    login(@Body() userDto: CreateUserDto) {
+    login(@Body() userDto: LoginUserDto) {
         return this.authService.login(userDto)
     }
 
@@ -20,7 +20,16 @@ export class AuthController {
     }
 
     @Post('/logout')
-    logout(@Body() userDto: CreateUserDto) {
-        return this.authService.logout(userDto)
+    logout(@Headers('authorization') authHeader: string) {
+        const token = authHeader?.split(' ')[1]
+        if (!token) {
+            throw new HttpException('Токена не содержится в запросе', HttpStatus.UNAUTHORIZED);
+        }
+        return this.authService.logout(token)
+    }
+
+    @Post('/refresh')
+    refresh(@Headers('authorization') refreshToken: string) {
+        return this.authService.refresh(refreshToken);
     }
 }

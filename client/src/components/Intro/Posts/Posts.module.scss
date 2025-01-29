@@ -1,0 +1,54 @@
+
+.Wrap {
+  margin-top: 20px;
+}
+
+.Inputs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.InputItem {
+  width: 100%;
+}
+
+.Input {
+  width: -webkit-fill-available;
+}
+
+.Button {
+  margin-top: 20px;
+}
+
+.Posts {
+  margin-top: 30px;
+}
+
+.PostsTitle {
+
+}
+
+.PostItems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.PostItem {
+  border: 1px solid #1ea7fd;
+  padding: 10px;
+}
+
+.PostTitle {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+.Desc {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 26px;
+}

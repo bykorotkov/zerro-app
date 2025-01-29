@@ -11,9 +11,30 @@ export class PostsService {
                 private fileService: FilesService) {
     }
 
-    async create(dto: CreatePostDto, image) {
-        const fileName = await this.fileService.createFile(image)
-        const post = await this.postRepository.create({...dto, image: fileName})
+    // async create(dto: CreatePostDto, image) {
+    async create(dto: CreatePostDto) {
+        let fileName
+
+        // if (image) {
+        //     fileName = await this.fileService.createFile(image)
+        // }
+
+        if (!dto.title || !dto.content) {
+            throw new Error('Поля обязательны');
+        }
+
+        let post
+        if (fileName) {
+            post = await this.postRepository.create({...dto, image: fileName})
+        } else {
+            post = await this.postRepository.create({...dto})
+        }
+
         return post
+    }
+
+    async getPosts() {
+        const posts = await this.postRepository.findAll()
+        return posts
     }
 }

@@ -8,7 +8,7 @@ interface PostCreationAttr {
     title: string
     content: string
     userId: number
-    image: string
+    image?: string
 }
 
 @Table({tableName: 'posts'})

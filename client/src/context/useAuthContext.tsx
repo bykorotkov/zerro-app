@@ -1,11 +1,15 @@
-import {createContext, FC, ReactNode, useContext, useEffect, useState} from "react";
+import {createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
 import Loader from "@/components/ui/Loader/Loader.tsx";
-import Cookies from "js-cookie";
+import {logoutUser} from "@/app/api.ts";
+// import Cookies from "js-cookie";
 
 interface AuthContextType {
     isAuth: boolean
     login: (token: string) => void
     logout: () => void
+    isLoginMode: boolean
+    setIsLoginMode: Dispatch<SetStateAction<boolean>>
+    toggleMode: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -13,33 +17,36 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const AuthProvider: FC<{children: ReactNode}> = ({children}) => {
     const [isAuth, setIsAuth] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(true);
+    const [isLoginMode, setIsLoginMode] = useState(true)
 
-    const login = (token: string) => {
+    const login = () => {
         setIsAuth(true)
-        localStorage.setItem('isAuth', 'true')
-        Cookies.set('authTokenZerro', token , {expires: 7, secure: true, sameSite: 'Strict'})
     }
-    const logout = () => {
+    const logout = async () => {
         setIsAuth(false)
-        localStorage.setItem('isAuth', 'false')
-        Cookies.remove('authTokenZerro')
+        await logoutUser()
+    }
+
+    const toggleMode = () => {
+        setIsLoginMode(prevState => !prevState)
     }
 
     useEffect(() => {
-        const storedAuth = localStorage.getItem('isAuth')
-        if (storedAuth === 'true') {
+        const storedAuth = localStorage.getItem('token')
+        if (storedAuth) {
             setIsAuth(true)
         }
         setLoading(false)
 
     }, [isAuth])
 
+
     if (loading) {
         return <Loader />
     }
 
     return (
-        <AuthContext.Provider value={{isAuth, login, logout}}>
+        <AuthContext.Provider value={{isAuth, login, logout, isLoginMode, setIsLoginMode, toggleMode}}>
             {children}
         </AuthContext.Provider>
     )
