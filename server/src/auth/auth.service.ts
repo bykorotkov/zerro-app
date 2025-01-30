@@ -60,7 +60,12 @@ export class AuthService {
         await this.saveToken(user.id, accessToken, refreshToken)
 
         return {
-            token: accessToken
+            //Передаем только аксесс токен
+            // token: accessToken
+
+            //Передаем сразу оба токена
+            accessToken,
+            refreshToken
         }
     }
 
@@ -71,6 +76,27 @@ export class AuthService {
         return token;
     }
 
+    private async generateAccessToken(user: User) {
+        const payload = {email: user.email, id: user.id, roles: user.roles}
+
+        const accessToken = this.jwtService.sign(payload, { expiresIn: `15m`})
+
+        await this.saveAccessToken(user.id, accessToken)
+
+        return {
+            accessToken
+        }
+    }
+
+    async saveAccessToken(userId: number, accessToken: string) {
+        await this.tokenModel.update(
+            { accessToken }, // новые данные
+            { where: { userId } } // условие поиска
+        );
+
+        return await this.tokenModel.findOne({ where: { userId } });
+    }
+
     async refresh(refreshToken: string) {
         const userId = await this.verifyRefreshToken(refreshToken)
 
@@ -79,7 +105,7 @@ export class AuthService {
         }
 
         const user = await this.userService.getUserById(userId)
-        return this.generateTokens(user)
+        return this.generateAccessToken(user)
     }
 
     private async verifyRefreshToken(refreshToken: string): Promise<number | null> {

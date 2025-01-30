@@ -1,4 +1,4 @@
-import {Body, Controller, Post, Headers, HttpStatus, HttpException} from '@nestjs/common';
+import {Body, Controller, Post, Headers, HttpStatus, HttpException, Request} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {CreateUserDto, LoginUserDto} from "../users/dto/create-user-dto";
 import {AuthService} from "./auth.service";
@@ -29,7 +29,10 @@ export class AuthController {
     }
 
     @Post('/refresh')
-    refresh(@Headers('authorization') refreshToken: string) {
-        return this.authService.refresh(refreshToken);
+    refresh(@Request() req) {
+        const cookies = req.headers.cookie.split('; ');
+        const refreshTokenCookie = cookies.find(cookie => cookie.startsWith('refreshToken=')).split('=')[1];
+        // const refreshToken = req.headers.cookie['refreshToken']
+        return this.authService.refresh(refreshTokenCookie);
     }
 }
