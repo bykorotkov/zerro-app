@@ -24,7 +24,7 @@ const AuthLogin = ({toggleAuthMode}: AuthLoginProps) => {
     const mutation = useMutation( {
         mutationFn: loginUser,
         onSuccess: (data: AuthLoginResponse) => {
-            const token = data.token
+            const token = data.accessToken
             login(token)
             navigate('/')
         },

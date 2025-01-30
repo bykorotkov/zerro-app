@@ -6,5 +6,6 @@ export interface AuthLoginFormData {
 export type AuthLogoutFormData = Pick<AuthLoginFormData, 'email'>
 
 export interface AuthLoginResponse {
-    token: string
+    accessToken: string
+    refreshToken: string
 }

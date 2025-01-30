@@ -3,6 +3,7 @@ import axios from "axios"
 import {AuthLoginFormData} from "@/types/authTypes.ts";
 import $api, {BaseUrl} from "@/app/axios.ts";
 import {PostsTypes} from "@/types/posts.ts";
+import Cookies from "js-cookie";
 
 const Api = {
     getUsers: async (): Promise<any> => {
@@ -38,7 +39,8 @@ const Api = {
     loginUser: async (data: AuthLoginFormData): Promise<IAuthResponse> => {
         try {
             const response = await $api.post(`${BaseUrl}/auth/login`, {...data})
-            localStorage.setItem('token', response.data.token)
+            localStorage.setItem('token', response.data.accessToken)
+            Cookies.set('refreshToken', response.data.refreshToken, {secure: true, expires: 7, sameSite: 'None'})
 
             return response.data
         } catch (e) {
@@ -65,6 +67,7 @@ const Api = {
         try {
             const response = await $api.post(`${BaseUrl}/auth/logout`)
             localStorage.removeItem('token')
+            Cookies.remove('refreshToken')
 
             return response.data
         } catch (e) {

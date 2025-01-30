@@ -31,5 +31,7 @@ export interface IBaseResponse {
 }
 
 export interface IAuthResponse extends IBaseResponse{
-    token: string
+    // token: string
+    accessToken: string
+    refreshToken: string
 }
