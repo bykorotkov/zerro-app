@@ -1,0 +1,129 @@
+@use './variables' as *;
+
+@mixin underline-hover {
+  position: relative;
+  display: inline-block;
+  &>*{
+    display: inline-block;
+  }
+  &>:first-child{
+    margin-right: 10px;
+  }
+  &:hover{
+    &::after{
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+  }
+  &::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #000;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+}
+
+@mixin to-top-hover {
+  position: relative;
+  overflow: hidden;
+
+  a, span {
+    position: absolute;
+    transition: all .5s ease;
+    white-space: nowrap;
+    &:first-child {
+      top: 0;
+    }
+    &:last-child {
+      top: 130%;
+    }
+  }
+
+  &:hover {
+    a, span {
+      &:first-child {
+        top: -130%;
+      }
+      &:last-child {
+        top: 0;
+      }
+    }
+  }
+}
+
+@mixin linkHoverLine {
+  transition: $transition;
+  position: relative;
+  overflow: hidden;
+  width: max-content;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    top: unset;
+    left: 0;
+    background: #000;
+    width: 100%;
+    height: 1px;
+    opacity: 1;
+    transition: $transition;
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+
+  @include noTouch {
+    &:hover {
+      &::before {
+        transform: scaleX(0);
+      }
+    }
+  }
+}
+
+@mixin linkHoverLineInverted {
+  transition: $transition;
+  position: relative;
+  overflow: hidden;
+  width: max-content;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    top: unset;
+    left: 0;
+    background: #000;
+    width: 100%;
+    height: 1px;
+    opacity: 1;
+    transition: $transition;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @include noTouch {
+    &:hover {
+      &::before {
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+
+@mixin noTouch() {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
