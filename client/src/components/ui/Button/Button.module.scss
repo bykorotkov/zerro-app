@@ -1,4 +1,5 @@
 @use '@/css/variables' as *;
+@use '@/css/mixins' as *;
 
 .Button {
   color: #fff;
@@ -32,6 +33,29 @@
 
     &:hover {
       background-color: #fff;
+    }
+  }
+}
+
+.Link {
+  text-decoration: none;
+  color: #111;
+  font-weight: 700;
+  transition: $transition;
+
+  @include noTouch {
+    color: $blue;
+  }
+
+  &.Secondary {
+    border: 1px solid #66bf3c;
+    padding: 10px;
+    width: 100%;
+    border-radius: 14px;
+
+    @include noTouch {
+      color: $white;
+      background: #66bf3c;
     }
   }
 }

@@ -1,0 +1,148 @@
+@use '@/css/variables' as *;
+@use '@/css/mixins' as *;
+
+.Wrap {
+  height: 500px;
+  margin: 80px 0;
+  overflow: hidden;
+
+  &>div {
+    height: 100%;
+  }
+}
+
+.Outer {
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  background: #dfdfdfa3;
+  border-radius: 32px;
+  padding: 24px;
+}
+
+.Left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 500px;
+
+  &+div {
+    height: 100%;
+  }
+}
+
+.Title {
+  @include title;
+}
+
+.Previews {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.Preview {
+  width: 92px;
+  height: 92px;
+  cursor: pointer;
+  transition: $transition;
+  border: 1px solid transparent;
+  border-radius: 100%;
+  padding: 5px;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  &.ActivePreview {
+    border-color: $blue;
+  }
+}
+
+.Card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  height: 100%;
+  margin-bottom: 150px;
+}
+
+.Image {
+  width: 302px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 21px;
+}
+
+.CardTop {
+
+}
+
+.Name {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+}
+
+.Text {
+  margin-top: 20px;
+  color: $grey;
+  font-weight: 700;
+}
+
+.Shields {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.Shield {
+  background: $greyLight;
+  padding: 12px;
+  border-radius: 18px;
+  margin-top: 12px;
+  color: $grey;
+  font-weight: 600;
+}
+
+.Inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 400px;
+  width: 100%;
+}
+
+.cardEnter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.cardEnterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.cardExit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cardExitActive {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms, transform 300ms;
+}

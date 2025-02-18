@@ -1,3 +1,5 @@
+@use '@/css/variables' as *;
+@use '@/css/mixins' as *;
 
 .Wrap {
   margin-top: 0;
@@ -27,18 +29,20 @@
 }
 
 .PostsTitle {
-
+  font-size: $h2;
 }
 
 .PostItems {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 20px;
 }
 
 .PostItem {
   border: 1px solid #1ea7fd;
-  padding: 10px;
+  padding: 10px 20px;
+  border-radius: 14px;
 }
 
 .PostTitle {

@@ -2,10 +2,13 @@ import classes from './Header.module.scss'
 import {useEffect, useState} from "react";
 import Button from "@/components/ui/Button/Button.tsx";
 import {useAuth} from "@/context/useAuthContext.tsx";
+import {useAppDispatch} from "@/hooks/redux.ts";
+import {openModal} from "@/store/reducers/modalSlice.ts";
 
 const Header = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [isHeaderVisible, setHeaderVisible] = useState(true);
+    const dispatch = useAppDispatch()
     const { logout } = useAuth()
 
     useEffect(() => {
@@ -28,10 +31,14 @@ const Header = () => {
         }
     }, [scrollPosition])
 
+    const showMenu = () => {
+        dispatch(openModal("Menu"))
+    }
+
     return (
         <header className={classes.Header} id={'header'} style={{top: isHeaderVisible ? '0' : '-100px'}}>
             <div className={classes.Left}>
-                <div className={classes.BurgerContainer}>
+                <div className={classes.BurgerContainer} onClick={showMenu}>
                     <div className={classes.BurgerItems}>
                         <div className={classes.Line}></div>
                         <div className={classes.Line}></div>
@@ -43,11 +50,13 @@ const Header = () => {
 
             <div className={classes.Middle}>
                 <ul>
-                    <li><a href={'/'}>Главная</a></li>
-                    <li><a href={'/posts'}>Посты</a></li>
-                    <li><a href={'/'}>Личный кабинет</a></li>
-                    <li><a href={'/'}>Чат</a></li>
-                    <li><a href={'/'}>Фотографии</a></li>
+                    <li><Button href={'/'}>Главная</Button></li>
+                    <li><Button href={'/about'}>О школе</Button></li>
+                    <li><Button href={'/posts'}>Посты</Button></li>
+                    <li><Button href={'/study'}>Учебный процесс</Button></li>
+                    <li><Button href={'/reviews'}>Отзывы</Button></li>
+                    <li><Button href={'/prices'}>Стоимость</Button></li>
+                    <li><Button href={'/contacts'}>Контакты</Button></li>
                 </ul>
             </div>
 

@@ -23,7 +23,7 @@ export class PostsController {
 
     @UseGuards(JwtAuthGuard)
     @Get()
-    async getPosts(dto: CreatePostDto[]) {
+    async getPosts() {
         return await this.postService.getPosts()
     }
 

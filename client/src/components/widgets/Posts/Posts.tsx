@@ -5,6 +5,7 @@ import classes from './Posts.module.scss'
 import Button from "@/components/ui/Button/Button.tsx";
 import {createPost, getPosts} from "@/app/api.ts";
 import {useState} from "react";
+import DateComponent from "@/components/widgets/Posts/DateComponent/DateComponent.tsx";
 
 const Posts = () => {
     const [posts, setPosts] = useState<PostsTypes[] | []>([])
@@ -43,7 +44,6 @@ const Posts = () => {
     const getPostsFunc = async () => {
         try {
             const response = await getPosts()
-            console.log(response)
             setPosts(response)
         } catch (e) {
             console.error('Не удается получить посты', e)
@@ -80,13 +80,13 @@ const Posts = () => {
 
             {posts && posts.length ?
                 <div className={classes.Posts}>
-                    <h2 className={classes.PostsTitle}>Здесь будут показаны последние новости школы!</h2>
+                    <h2 className={classes.PostsTitle}>Последние новости школы!</h2>
                     <div className={classes.PostItems}>
                         {posts.map((post) => (
                             <div className={classes.PostItem} key={post.id}>
                                 <div dangerouslySetInnerHTML={{__html: post.title}} className={classes.PostTitle} />
                                 <div dangerouslySetInnerHTML={{__html: post.content}} className={classes.Desc} />
-                                <div className={classes.Date}>{post.createdAt}</div>
+                                {post.createdAt ? <DateComponent isoDate={post.createdAt} /> : null}
                             </div>
                         ))}
                     </div>

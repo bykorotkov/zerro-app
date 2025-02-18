@@ -1,7 +1,25 @@
 import axios from "axios";
 import {IAuthResponse} from "@/types/types.ts";
+import Cookies from "js-cookie";
 
 export const BaseUrl = 'http://localhost:5000'
+
+const logout = async (): Promise<any> => {
+    try {
+        const response = await axios.post<IAuthResponse>(`${BaseUrl}/auth/logout`, {}, {
+            withCredentials: true,
+            headers: {
+                Authorization: `Bearer ${Cookies.get('refreshToken')}`
+            }
+        })
+        localStorage.removeItem('token')
+        Cookies.remove('refreshToken')
+
+        return response.data
+    } catch (e) {
+        console.log('Ошибка выхода из личного кабинета', e)
+    }
+}
 
 const $api = axios.create({
     baseURL: BaseUrl,
@@ -27,6 +45,7 @@ $api.interceptors.response.use((config) => {
             return $api.request(originalRequest)
         } catch (e) {
             console.log('Пользователь не авторизован', e)
+            await logout()
         }
     }
 

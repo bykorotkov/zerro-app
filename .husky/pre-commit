@@ -6,6 +6,7 @@ cd client
 npm run build && npm run build-storybook && npm test
 
 if [ $? -ne 0 ]; then
+  cd ..
   echo "Коммит отменен из-за ошибок."
   git reset HEAD -- .
   exit 1

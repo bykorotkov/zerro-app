@@ -1,0 +1,68 @@
+@use '@/css/variables' as *;
+@use '@/css/mixins' as *;
+
+.Intro {
+  background-color: $blueLight;
+  padding: 60px 0;
+  height: calc(100vh - 100px);
+  max-height: 900px;
+}
+
+.Shields {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+}
+
+.Shield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: $white;
+  border: 1px solid $white;
+  padding: 10px;
+  border-radius: 24px;
+}
+
+.Title {
+  font-size: $h1;
+  max-width: 600px;
+  color: $white;
+
+  span {
+    background-color: $white;
+    color: $accent;
+    display: inline-block;
+    padding: 0 10px;
+    transform: rotate(-1.022deg);
+  }
+}
+
+.Caption {
+  margin-top: 20px;
+  color: $white;
+
+  a {
+    @include linkHoverLine;
+    &::before {
+      background-color: $white;
+    }
+  }
+}
+
+.Content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.Image {
+  border-radius: 20px;
+  max-width: 750px;
+  width: 100%;
+  object-fit: cover;
+}

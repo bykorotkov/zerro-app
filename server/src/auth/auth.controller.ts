@@ -22,6 +22,7 @@ export class AuthController {
     @Post('/logout')
     logout(@Headers('authorization') authHeader: string) {
         const token = authHeader?.split(' ')[1]
+
         if (!token) {
             throw new HttpException('Токена не содержится в запросе', HttpStatus.UNAUTHORIZED);
         }

@@ -60,10 +60,6 @@ export class AuthService {
         await this.saveToken(user.id, accessToken, refreshToken)
 
         return {
-            //Передаем только аксесс токен
-            // token: accessToken
-
-            //Передаем сразу оба токена
             accessToken,
             refreshToken
         }

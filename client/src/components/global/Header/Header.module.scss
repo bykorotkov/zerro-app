@@ -37,7 +37,7 @@
         .Line {
           width: 32px;
           height: 2px;
-          background-color: #5194F0;
+          background-color: $blue;
           margin-bottom: 4px;
           transition: all .25s ease;
 
@@ -87,16 +87,6 @@
 
       li {
 
-        a {
-          text-decoration: none;
-          color: #111;
-          font-weight: 700;
-          transition: $transition;
-
-          @include noTouch {
-            color: #2F80ED;
-          }
-        }
       }
     }
   }
@@ -134,7 +124,7 @@
     }
 
     .Link:last-of-type {
-      color: #2F80ED;
+      color: $blue;
       font-size: 13px;
       line-height: 13px;
       letter-spacing: 1px;

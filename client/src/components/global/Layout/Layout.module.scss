@@ -2,5 +2,15 @@
 
 .Layout {
   width: 100%;
-  padding-top: 140px;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.Inner {
+  flex-grow: 1;
+  position: static;
+  display: flex;
+  flex-direction: column;
 }

@@ -4,11 +4,24 @@ import {AuthLoginFormData} from "@/types/authTypes.ts";
 import $api, {BaseUrl} from "@/app/axios.ts";
 import {PostsTypes} from "@/types/posts.ts";
 import Cookies from "js-cookie";
+import {UserType} from "@/types/global.ts";
 
 const Api = {
     getUsers: async (): Promise<any> => {
         try {
             const response = await $api.get(`${BaseUrl}/users`)
+            return response.data
+        } catch (e) {
+            if (axios.isAxiosError(e) && e.response) {
+                const errorData = e.response.data;
+                throw new Error(errorData.message || 'Данные пользователей не могут быть показаны')
+            }
+        }
+        throw new Error('Не удалось получить пользователей')
+    },
+    getUser: async (): Promise<UserType> => {
+        try {
+            const response = await $api.get(`${BaseUrl}/users/detail`)
             return response.data
         } catch (e) {
             if (axios.isAxiosError(e) && e.response) {
@@ -40,7 +53,7 @@ const Api = {
         try {
             const response = await $api.post(`${BaseUrl}/auth/login`, {...data})
             localStorage.setItem('token', response.data.accessToken)
-            Cookies.set('refreshToken', response.data.refreshToken, {secure: true, expires: 7, sameSite: 'None'})
+            Cookies.set('refreshToken', response.data.refreshToken, {secure: true, sameSite: 'None'})
 
             return response.data
         } catch (e) {
@@ -77,4 +90,4 @@ const Api = {
     }
 }
 
-export const { loginUser, signUpUser, logoutUser, getUsers, createPost, getPosts } = Api
+export const { loginUser, signUpUser, logoutUser, getUsers, getUser, createPost, getPosts } = Api

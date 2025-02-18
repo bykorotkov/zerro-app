@@ -3,5 +3,5 @@ export interface PostsTypes {
     content: string
     image: string | null
     id?: number
-    createdAt?: string
+    createdAt?: Date
 }

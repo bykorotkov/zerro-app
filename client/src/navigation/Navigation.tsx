@@ -7,6 +7,7 @@ const NotFound = lazy(() => import ("@/components/pages/NotFound/NotFound.tsx"))
 const PrivateRoute = lazy(() => import ("@/components/pages/Auth/PrivateRoute.tsx"));
 const Main = lazy(() => import("@/components/pages/Main/Main.tsx"))
 const Posts = lazy(() => import('@/components/pages/Posts/Posts.tsx'))
+const About = lazy(() => import("@/components/pages/About/About.tsx"))
 
 const Navigation = () => {
     return (
@@ -14,6 +15,7 @@ const Navigation = () => {
             <Routes>
                 <Route path={'/login'} element={<Auth />}/>
                 <Route path={'/'} element={<PrivateRoute element={<Main />} />}/>
+                <Route path={'/about'} element={<PrivateRoute element={<About />} />}/>
                 <Route path={'/posts'} element={<PrivateRoute element={<Posts />} />}/>
                 <Route path={'*'} element={<NotFound />}/>
             </Routes>
