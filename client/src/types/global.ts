@@ -1,3 +1,4 @@
+import {PostsTypes} from "@/types/posts.ts";
 
 export interface UserType {
     id: number
@@ -7,5 +8,5 @@ export interface UserType {
     password: string
     banned: boolean
     banReason: string
-    posts: string[]
+    posts: PostsTypes[]
 }

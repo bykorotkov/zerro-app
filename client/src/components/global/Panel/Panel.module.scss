@@ -1,0 +1,47 @@
+@use '@/css/variables' as *;
+@use '@/css/mixins' as *;
+
+.Panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  position: fixed;
+  bottom: 50px;
+  right: 100px;
+  background: $white;
+  border-radius: 18px;
+  border: 1px solid $grey;
+  padding: 10px 20px;
+}
+
+.ChangeLightMode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+
+  svg {
+    transition: $transition;
+
+    g {
+      fill: $darkBlue;
+      transition: all .1s ease;
+    }
+  }
+
+  @include noTouch  {
+    svg {
+      g{
+        fill: $blueLight;
+      }
+    }
+  }
+
+  &.Dark {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}

@@ -1,12 +1,12 @@
 import classes from './Intro.module.scss';
 import Container from "@/components/global/Container/Container.tsx";
-import Posts from "@/components/widgets/Posts/Posts.tsx";
 
 const Intro = () => {
     return (
         <div className={classes.Intro}>
             <Container>
-                <Posts />
+                <h1>Страница постов</h1>
+                <h3>Здесь вы можете ознакомиться с существующими постами портала!</h3>
             </Container>
         </div>
     );

@@ -7,6 +7,7 @@ import Menu from "@/components/widgets/Menu/Menu.tsx";
 import {useAppSelector} from "@/hooks/redux.ts";
 import { CSSTransition } from "react-transition-group"
 import Footer from "@/components/global/Footer/Footer.tsx";
+import Panel from "@/components/global/Panel/Panel.tsx";
 
 type LayoutType = {
     children: React.ReactNode
@@ -15,6 +16,7 @@ type LayoutType = {
 const Layout = ({ children }: LayoutType) => {
     const [isPreviewShown, setIsPreviewShown] = useState(false)
     const { name } = useAppSelector((state) => state.modalReducer)
+    const themeType = localStorage.getItem('themeType')
 
     useEffect(() => {
         if (!Cookies.get('preview-is-shown')) {
@@ -24,7 +26,7 @@ const Layout = ({ children }: LayoutType) => {
     }, []);
 
     return (
-        <div className={classes.Layout}>
+        <div className={classes.Layout} data-theme={themeType} id={'Layout'}>
             <main className={classes.Inner}>
                 <Header />
                 {children}
@@ -32,6 +34,8 @@ const Layout = ({ children }: LayoutType) => {
                 {isPreviewShown ? (
                     <AnimatedComponent />
                 ) : null}
+
+                <Panel darkMode />
 
                 <Footer />
             </main>

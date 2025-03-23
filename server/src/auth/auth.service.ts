@@ -36,7 +36,7 @@ export class AuthService {
         let userId
 
         try {
-            const decoded = this.jwtService.verify(token)
+            const decoded = this.jwtService.decode(token)
             userId = decoded.id
         } catch (e) {
             throw new HttpException('Неверный токен', HttpStatus.UNAUTHORIZED);
@@ -97,6 +97,7 @@ export class AuthService {
         const userId = await this.verifyRefreshToken(refreshToken)
 
         if (!userId) {
+            await this.logout(refreshToken)
             throw new UnauthorizedException({message: 'Недействительный refresh токен'})
         }
 

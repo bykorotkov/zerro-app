@@ -6,6 +6,7 @@ import {User} from "../users/users.model";
 import {Post} from "./posts.model";
 import {FilesModule} from "../files/files.module";
 import {AuthModule} from "../auth/auth.module";
+import {UsersModule} from "../users/users.module";
 
 @Module({
   providers: [PostsService],
@@ -13,6 +14,7 @@ import {AuthModule} from "../auth/auth.module";
   imports: [
       SequelizeModule.forFeature([User, Post]),
       FilesModule,
+      UsersModule,
       forwardRef(() => AuthModule)
   ]
 })

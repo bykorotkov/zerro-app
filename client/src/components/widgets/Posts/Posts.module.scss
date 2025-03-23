@@ -20,7 +20,10 @@
   width: -webkit-fill-available;
 }
 
-.Button {
+.Buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
   margin-top: 20px;
 }
 

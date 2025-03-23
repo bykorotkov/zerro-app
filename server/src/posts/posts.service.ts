@@ -3,11 +3,13 @@ import {CreatePostDto} from "./dto/create-post.dto";
 import {InjectModel} from "@nestjs/sequelize";
 import {Post} from "./posts.model";
 import {FilesService} from "../files/files.service";
+import {UsersService} from "../users/users.service";
 
 @Injectable()
 export class PostsService {
 
     constructor(@InjectModel(Post) private postRepository: typeof Post,
+                private userService: UsersService,
                 private fileService: FilesService) {
     }
 
@@ -23,12 +25,19 @@ export class PostsService {
             throw new Error('Поля обязательны');
         }
 
+        let author
+        if (dto.userId) {
+            author = await this.userService.getUserById(dto.userId)
+        }
+
         let post
         if (fileName) {
             post = await this.postRepository.create({...dto, image: fileName})
         } else {
             post = await this.postRepository.create({...dto})
         }
+
+        await post.setAuthor(author)
 
         return post
     }
