@@ -48,7 +48,7 @@ const User = () => {
                         {user.posts && user.posts.length ? <div className={classes.Line}>
                             Ваши посты: {user.posts.map((post) => (
                                 <div>
-                                    <Button href={'/posts'}>{post.title}</Button>
+                                    <Button href={`/posts/${post.id}`}>{post.title}</Button>
                                 </div>
                         ))}
                         </div> : <Button variant={'secondary'} href={'/posts/'}>Создать пост!</Button>}

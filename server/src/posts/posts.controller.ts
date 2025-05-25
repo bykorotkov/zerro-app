@@ -1,4 +1,14 @@
-import {Body, Controller, Get, Post, Req, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    NotFoundException, Param,
+    Post,
+    Req,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors
+} from '@nestjs/common';
 import {CreatePostDto} from "./dto/create-post.dto";
 import {PostsService} from "./posts.service";
 import {FileInterceptor} from "@nestjs/platform-express";
@@ -27,4 +37,13 @@ export class PostsController {
         return await this.postService.getPosts()
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    async getPostById(@Param('id') id: number) {
+        const post = await this.postService.findOnePost(id);
+        if (!post) {
+            throw new NotFoundException('Пост не найден');
+        }
+        return post;
+    }
 }

@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {CreatePostDto} from "./dto/create-post.dto";
 import {InjectModel} from "@nestjs/sequelize";
 import {Post} from "./posts.model";
 import {FilesService} from "../files/files.service";
 import {UsersService} from "../users/users.service";
+import {User} from "../users/users.model";
 
 @Injectable()
 export class PostsService {
@@ -25,25 +26,50 @@ export class PostsService {
             throw new Error('Поля обязательны');
         }
 
-        let author
-        if (dto.userId) {
-            author = await this.userService.getUserById(dto.userId)
+        const author = await this.userService.getUserById(dto.userId);
+        if (!author) {
+            throw new Error('Пользователь не найден');
         }
 
-        let post
+        const postData: any = {
+            title: dto.title,
+            content: dto.content,
+            userId: dto.userId,
+        };
+
         if (fileName) {
-            post = await this.postRepository.create({...dto, image: fileName})
-        } else {
-            post = await this.postRepository.create({...dto})
+            postData.image = fileName;
         }
 
-        await post.setAuthor(author)
+        const post = await this.postRepository.create(postData);
 
-        return post
+        return await this.postRepository.findByPk(post.id, {
+            include: [{model: User, as: 'author'}],
+        })
     }
 
     async getPosts() {
-        const posts = await this.postRepository.findAll()
-        return posts
+        return this.postRepository.findAll({
+            include: [
+                {
+                    model: User,
+                    as: 'author',
+                    attributes: [`id`, `banned`, `banReason`, `createdAt`, `email`, `phone`, `updatedAt`, `username`]
+                }
+            ],
+        });
+    }
+
+    async findOnePost(id: number): Promise<Post> {
+        return this.postRepository.findOne({
+            where: { id },
+            include: [
+                {
+                    model: User,
+                    as: 'author',
+                    attributes: [`id`, `banned`, `banReason`, `createdAt`, `email`, `phone`, `updatedAt`, `username`]
+                }
+            ]
+        })
     }
 }

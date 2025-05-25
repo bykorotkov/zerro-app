@@ -14,7 +14,7 @@ const Posts = () => {
         initialValues: {
             title: '',
             content: '',
-            image: null
+            image: null,
         },
         initialErrors: {
             title: '',
@@ -90,11 +90,12 @@ const Posts = () => {
                         <h2 className={classes.PostsTitle}>Последние новости школы!</h2>
                         <div className={classes.PostItems}>
                             {posts.map((post) => (
-                                <div className={classes.PostItem} key={post.id}>
+                                <a href={`/posts/${post.id}`} className={classes.PostItem} key={post.id}>
                                     <div dangerouslySetInnerHTML={{__html: post.title}} className={classes.PostTitle} />
+                                    {post.author ? <div dangerouslySetInnerHTML={{__html: post.author.username + `. `}} className={classes.Desc} /> : null}
                                     <div dangerouslySetInnerHTML={{__html: post.content}} className={classes.Desc} />
                                     {post.createdAt ? <DateComponent isoDate={post.createdAt} /> : null}
-                                </div>
+                                </a>
                             ))}
                         </div>
                     </div>

@@ -8,6 +8,8 @@ const PrivateRoute = lazy(() => import ("@/components/pages/Auth/PrivateRoute.ts
 const Main = lazy(() => import("@/components/pages/Main/Main.tsx"))
 const Posts = lazy(() => import('@/components/pages/Posts/Posts.tsx'))
 const About = lazy(() => import("@/components/pages/About/About.tsx"))
+const PostDetail = lazy(() => import("@/components/pages/PostDetail/PostDetail.tsx"))
+const UserDetail = lazy(() => import("@/components/pages/UserDetail/UserDetail.tsx"))
 
 const Navigation = () => {
     return (
@@ -16,7 +18,11 @@ const Navigation = () => {
                 <Route path={'/login'} element={<Auth />}/>
                 <Route path={'/'} element={<PrivateRoute element={<Main />} />}/>
                 <Route path={'/about'} element={<PrivateRoute element={<About />} />}/>
-                <Route path={'/posts'} element={<PrivateRoute element={<Posts />} />}/>
+                <Route path="posts">
+                    <Route index element={<PrivateRoute element={<Posts />} />} />
+                    <Route path=":id" element={<PrivateRoute element={<PostDetail />} />} />
+                </Route>
+                <Route path={'/user/:id'} element={<PrivateRoute element={<UserDetail />} />} />
                 <Route path={'*'} element={<NotFound />}/>
             </Routes>
         </Suspense>

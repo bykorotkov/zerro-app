@@ -31,6 +31,15 @@ const Api = {
         }
         throw new Error('Не удалось получить пользователей')
     },
+    getUserById: async(id: number): Promise<any> => {
+        try {
+            const response = await $api.get(`${BaseUrl}/users/${id}`)
+            return response.data
+        } catch (e) {
+            console.log(e)
+            throw new Error('Ошибка получения данных для детальной страницы пользователя')
+        }
+    },
     createPost: async (data: FormData): Promise<IAuthResponse> => {
      try {
          const response = await $api.post(`${BaseUrl}/posts`, data)
@@ -48,6 +57,15 @@ const Api = {
             console.log(e)
             throw new Error('Ошибка при получении постов')
         }
+    },
+    getPostDetail: async (id: number): Promise<any> => {
+      try {
+          const response = await $api.get(`${BaseUrl}/posts/${id}`)
+          return response.data
+      } catch (e) {
+          console.log(e)
+          throw new Error('Ошибка получения данных для детальной страницы поста')
+      }
     },
     loginUser: async (data: AuthLoginFormData): Promise<IAuthResponse> => {
         try {
@@ -90,4 +108,4 @@ const Api = {
     }
 }
 
-export const { loginUser, signUpUser, logoutUser, getUsers, getUser, createPost, getPosts } = Api
+export const { loginUser, signUpUser, logoutUser, getUsers, getUser, getUserById, createPost, getPosts, getPostDetail } = Api
