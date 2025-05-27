@@ -1,31 +1,18 @@
-import  {useEffect, useState} from 'react';
-import {getUser} from "@/app/api.ts";
 import classes from './User.module.scss'
 import {UserType} from "@/types/global.ts";
 import cn from "classnames";
 import Button from "@/components/ui/Button/Button.tsx";
+import Loader from "@/components/ui/Loader/Loader.tsx";
 
-const User = () => {
-    const [user, setUser] = useState<UserType | null>(null)
+interface UserProps {
+    isLoading: boolean
+    error: Error | null
+    user?: UserType
+}
 
-    useEffect( () => {
-        const fetchUser = async () => {
-            try {
-                const userResponse: UserType = await getUser();
-                setUser(userResponse);
-
-                if (!localStorage.getItem('userId')) {
-                    localStorage.setItem('userId', userResponse.id.toString())
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchUser();
-    }, [])
-
-    console.log('log', user)
+const User = ({ isLoading, error, user }: UserProps) => {
+    if (isLoading) return <Loader />;
+    if (error) return <div>Ошибка загрузки данных пользователя</div>;
 
     return (
         <div className={classes.User}>
@@ -47,7 +34,7 @@ const User = () => {
                         {user.posts && user.posts.length ? <div className={classes.Head}>Ваши посты:</div> : <div className={classes.Head}>Постов на данный момент нет. Давайте их создадим!</div>}
                         {user.posts && user.posts.length ? <div className={classes.Line}>
                             Ваши посты: {user.posts.map((post) => (
-                                <div>
+                                <div key={post.id}>
                                     <Button href={`/posts/${post.id}`}>{post.title}</Button>
                                 </div>
                         ))}

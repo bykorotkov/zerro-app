@@ -7,6 +7,7 @@ import Loader from "@/components/ui/Loader/Loader.tsx";
 import {PostsTypes} from "@/types/posts.ts";
 import DateComponent from "@/components/widgets/Posts/DateComponent/DateComponent.tsx";
 import classes from './Intro.module.scss'
+import Link from "@/components/ui/Link/Link.tsx";
 
 const Intro = () => {
     const { id } = useParams<{ id: string }>();
@@ -38,7 +39,7 @@ const Intro = () => {
                 <h1>Название поста: {post.title}</h1>
                 <p>Пост №{post.id}</p>
                 {post.createdAt ? <p>Дата поста: <DateComponent isoDate={post.createdAt} /></p> : null}
-                {post.author ? <p>Имя автора: {post.author.username}</p> : null}
+                {post.author ? <p>Имя автора: <Link href={`/user/${post.author.id}`}>{post.author.username}</Link></p> : null}
                 <div>Конент поста: <p dangerouslySetInnerHTML={{__html: post.content}} /></div>
             </div>
         </Container>

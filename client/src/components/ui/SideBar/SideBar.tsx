@@ -2,8 +2,14 @@ import classes from './SideBar.module.scss'
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import photo from "@/images/temp/person_photo.webp";
 import Button from "@/components/ui/Button/Button.tsx";
+import {UserType} from "@/types/global.ts";
 
-const SideBar = () => {
+interface SideBarProps {
+    user?: UserType
+}
+
+const SideBar = ({user}: SideBarProps) => {
+
     return (
         <div className={classes.Sidebar}>
             <div className={classes.Person}>
@@ -12,7 +18,7 @@ const SideBar = () => {
                 </div>
 
                 <div className={classes.Info}>
-                    <div className={classes.Name}>Катя Иванова</div>
+                    <div className={classes.Name}>{user?.username}</div>
                     <div className={classes.Role}>ученик</div>
                 </div>
             </div>

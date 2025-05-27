@@ -29,9 +29,9 @@ const Panel = ({ darkMode }: PanelProps) => {
     }, [currentTheme]);
 
     return (
-        <div className={classes.Panel}>
+        <div className={classes.Panel} onClick={themeChanger}>
             {darkMode ? (
-                <div onClick={themeChanger} className={cn(classes.ChangeLightMode, currentTheme !== 'light' && classes.Dark)}>
+                <div className={cn(classes.ChangeLightMode, currentTheme !== 'light' && classes.Dark)}>
                     <ThemeIcon />
                 </div>
             ) : null}
