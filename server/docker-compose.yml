@@ -26,11 +26,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1
       POSTGRES_DB: zerro-app
-      PG_DATA: /var/lib/postgresql/data
+      PG_DATA: /var/model/postgresql/data
     ports:
       - 5432:5432
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/model/postgresql/data
     restart: always
 
 volumes:

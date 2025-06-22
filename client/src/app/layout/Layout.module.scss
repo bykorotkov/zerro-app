@@ -1,0 +1,23 @@
+@use '@/app/css/variables' as *;
+
+.Layout {
+  width: 100%;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: $lightBg;
+  transition: $transition;
+
+  &[data-theme='dark'] {
+    background: $darkBg;
+    color: $white;
+  }
+}
+
+.Inner {
+  flex-grow: 1;
+  position: static;
+  display: flex;
+  flex-direction: column;
+}

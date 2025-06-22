@@ -1,0 +1,115 @@
+@use '@/app/css/variables' as *;
+@use '@/app/css/mixins' as *;
+
+.Wrap {
+  margin: 80px 0;
+}
+
+.Title {
+  @include title;
+  text-align: center;
+}
+
+.Items {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto auto;
+  grid-gap: 24px;
+}
+
+.Item {
+  &:nth-of-type(1),
+  &:nth-of-type(2)
+  {
+    grid-column: span 3;
+}
+
+
+  &:nth-of-type(3),
+  &:nth-of-type(4),
+  &:nth-of-type(5) {
+    grid-column: span 2;
+  }
+
+  padding: 20px;
+  border-radius: 24px;
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+
+  @include noTouch {
+    .Button {
+      width: 150px;
+      padding-right: 32px;
+
+      p {
+        opacity: 1;
+      }
+
+      &::after {
+        right: 12px;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+.Info {
+  position: relative;
+  z-index: 1;
+}
+
+.Name {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.Subject {
+  margin-top: 12px;
+  color: $accent;
+
+}
+
+.Text {
+  margin-top: 20px;
+  max-width: 400px;
+}
+
+.Button {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1;
+  background-color: $white;
+  padding: 10px 20px;
+  border-radius: 24px;
+  width: 20px;
+  transition: $transition;
+
+  p {
+    transition: $transition;
+    opacity: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    background: url("../../../../images/chevronIcon.svg") no-repeat center / contain;
+    width: 24px;
+    height: 24px;
+    transform: translate(50%, -50%);
+  }
+}
+
+.Image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}

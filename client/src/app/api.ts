@@ -1,10 +1,9 @@
-import {IAuthResponse} from "@/types/types.ts";
 import axios from "axios"
-import {AuthLoginFormData} from "@/types/authTypes.ts";
+import {AuthLoginFormData} from "@/app/types/authTypes.ts";
 import $api, {BaseUrl} from "@/app/axios.ts";
-import {PostsTypes} from "@/types/posts.ts";
 import Cookies from "js-cookie";
-import {UserType} from "@/types/global.ts";
+import { IAuthResponse, UserType } from "@/app/types/global.ts"
+import { PostsTypes } from "@/widgets/get-posts/model/types.ts"
 
 const Api = {
     getUsers: async (): Promise<any> => {

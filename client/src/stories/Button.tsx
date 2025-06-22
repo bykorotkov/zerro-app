@@ -7,7 +7,7 @@ export interface ButtonProps {
   backgroundColor?: string;
   /** How large should the button be? */
   size?: 'small' | 'medium' | 'large';
-  /** Button contents */
+  /** button contents */
   label: string;
   /** Optional click handler */
   onClick?: () => void;

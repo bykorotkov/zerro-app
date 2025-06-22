@@ -1,0 +1,29 @@
+@use '@/app/css/variables' as *;
+
+.LoaderContainer {
+
+}
+
+.Loader {
+  border: 8px solid #B17F09; /* Цвет фона */
+  border-top: 8px solid #3498db; /* Цвет верхней части */
+  border-radius: 50%;
+  width: 60px; /* Ширина спиннера */
+  height: 60px; /* Высота спиннера */
+  animation: spin 1s linear infinite;
+
+  &.Red {
+    border-color: white;
+    border-top-color: #e22121;
+  }
+
+  &.Green {
+    border-color: #000;
+    border-top-color: #66bf3c;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

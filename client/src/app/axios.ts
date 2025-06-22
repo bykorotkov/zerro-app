@@ -1,6 +1,6 @@
 import axios from "axios";
-import {IAuthResponse} from "@/types/types.ts";
 import Cookies from "js-cookie";
+import { IAuthResponse } from "@/app/types/global.ts"
 
 export const BaseUrl = 'http://localhost:5000'
 

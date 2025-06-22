@@ -1,0 +1,39 @@
+import classes from './Intro.module.scss'
+import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
+import {AboutPageIntroTypes} from "../../model/types.ts";
+
+interface IntroProps {
+    data: AboutPageIntroTypes
+}
+
+export const Intro = ({data}: IntroProps) => {
+    return (
+        <div className={classes.Intro}>
+            <Container>
+                {data.shields && data.shields.length ?
+                    <div className={classes.Shields}>
+                        {data.shields.map((item) => (
+                            <div className={classes.Shield} key={item.id}>
+                                <img src={item.icon} alt={''} />
+                                <div dangerouslySetInnerHTML={{__html: item.text}} />
+                            </div>
+                        ))}
+                    </div>
+                : null}
+
+                {data.title || data.image ? (
+                    <div className={classes.Content}>
+                        {data.title || data.caption ? (
+                            <div className={classes.Left}>
+                                {data.title ? <h1 dangerouslySetInnerHTML={{__html: data.title}} className={classes.Title} /> : null}
+                                {data.caption ? <p dangerouslySetInnerHTML={{__html: data.caption}} className={classes.Caption} /> : null}
+                            </div>
+                        ) : null}
+
+                        {data.image ? <img className={classes.Image} src={data.image} alt={''} /> : null}
+                    </div>
+                ) : null}
+            </Container>
+        </div>
+    );
+};

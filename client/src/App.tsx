@@ -1,9 +1,9 @@
 import './App.scss'
-import Navigation from "@/navigation/Navigation.tsx";
+import Router from "@/app/router.tsx";
 
 function App() {
   return (
-      <Navigation />
+      <Router />
   )
 }
 

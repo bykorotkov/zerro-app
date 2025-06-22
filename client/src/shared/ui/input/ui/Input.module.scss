@@ -1,0 +1,14 @@
+@use '../../../../app/css/variables' as *;
+
+.Input {
+    padding: 13px;
+    outline: none;
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: $transition;
+}
+
+.Error {
+    border-color: #e22121;
+}
