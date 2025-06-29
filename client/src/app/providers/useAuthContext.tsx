@@ -1,6 +1,6 @@
 import {createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
 import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
-import {logoutUser} from "@/app/api.ts";
+import { logoutUser } from "@/features/auth/api"
 
 interface AuthContextType {
     isAuth: boolean

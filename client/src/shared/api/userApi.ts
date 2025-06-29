@@ -1,5 +1,5 @@
 import { UserType } from "@/app/types/global.ts"
-import $api, { BaseUrl } from "@/app/axios.ts"
+import $api, { BaseUrl } from "@/shared/api/axios.ts"
 import axios from "axios"
 
 export const getUser = async (): Promise<UserType> => {

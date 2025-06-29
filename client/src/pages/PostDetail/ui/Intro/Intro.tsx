@@ -4,8 +4,8 @@ import NotFound from "@/pages/NotFound"
 import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
 import classes from "./Intro.module.scss"
 import { Link } from "@/shared/ui/link/ui/Link.tsx"
-import { PostDate } from "@/widgets/get-posts/ui/PostDate/PostDate.tsx"
 import { usePostDetail } from "../../model/hooks/usePostDetail.ts"
+import { PostDate } from "@/features/posts/ui/PostDate/PostDate.tsx"
 
 const Intro = () => {
     const { id } = useParams<{ id: string }>()

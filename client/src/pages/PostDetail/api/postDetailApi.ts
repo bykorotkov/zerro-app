@@ -1,5 +1,5 @@
 import { PostsTypes } from "@/widgets/get-posts/model/types.ts"
-import $api, { BaseUrl } from "@/app/axios.ts"
+import $api, { BaseUrl } from "@/shared/api/axios.ts"
 
 export const getPostDetail = async (id: number): Promise<PostsTypes> => {
     try {

@@ -4,10 +4,11 @@ import { forwardRef } from "react"
 import { InputProps } from "@/shared/ui/input/model/types.ts"
 
 export const BaseInput = forwardRef<HTMLInputElement, InputProps>(
-    ({ className, isError, ...props }, ref) => (
+    ({ className, isError, value = "", ...props }, ref) => (
         <input
             ref={ref}
             className={cn(classes.Input, {[classes.Error]: isError}, className)}
+            value={value}
             {...props}
         />
     )

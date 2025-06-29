@@ -1,7 +1,7 @@
 import Layout from "@/app/layout/Layout.tsx";
 import { Intro } from "@/pages/Posts/ui/Intro/Intro.tsx"
 import classes from './Posts.module.scss'
-import { Posts } from "@/widgets/get-posts"
+import { Posts } from "@/features/posts"
 
 export const PostsPage = () => {
     return (

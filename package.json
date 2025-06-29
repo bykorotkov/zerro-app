@@ -1,10 +1,14 @@
 {
   "devDependencies": {
+    "concurrently": "^9.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0"
   },
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev": "concurrently \"npm:dev:client\" \"npm:dev:server\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev"
   },
   "lint-staged": {
     "client/**/*.{js,jsx,ts,tsx}": [
