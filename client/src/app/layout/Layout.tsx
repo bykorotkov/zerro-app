@@ -1,9 +1,9 @@
 import classes from './Layout.module.scss'
-import { Header } from "@/widgets/header/ui/Header.tsx"
+import { Header } from "@/widgets/header"
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import AnimatedComponent from "@/widgets/preloader/AnimatedComponent/AnimatedComponent.tsx";
-import { Menu } from "@/widgets/menu/ui/Menu.tsx"
+import { Menu } from "@/widgets/menu"
 import { CSSTransition } from "react-transition-group"
 import { Footer } from "@/widgets/footer/ui/Footer.tsx"
 import { Panel } from "@/widgets/theme-panel";
