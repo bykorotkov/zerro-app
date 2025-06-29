@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { PostsTypes } from "@/widgets/get-posts/model/types.ts"
 import { getPostDetail } from "@/pages/PostDetail/api/postDetailApi.ts"
+import { PostsTypes } from "@/features/posts/model/types.ts"
 
 export const usePostDetail = (id?: string) => {
     return useQuery<PostsTypes, Error>({

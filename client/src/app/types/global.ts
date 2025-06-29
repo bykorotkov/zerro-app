@@ -1,4 +1,4 @@
-import { PostsTypes } from "@/widgets/Posts/model/types.ts"
+import { PostsTypes } from "@/features/posts/model/types.ts"
 
 export interface UserType {
     id: number

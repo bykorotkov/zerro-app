@@ -1,11 +1,14 @@
 import classes from "@/widgets/Header/ui/Header.module.scss"
-import { useHeaderActions } from "@/widgets/Header/model/hooks/useHeaderActions.ts"
+import { useHeaderActions } from "@/widgets/header/model/hooks/useHeaderActions.ts"
 
 export const Burger = () => {
-    const {showMenu} = useHeaderActions();
+    const { showMenu } = useHeaderActions()
 
     return (
-        <div className={classes.BurgerContainer} onClick={showMenu}>
+        <div
+            className={classes.BurgerContainer}
+            onClick={showMenu}
+        >
             <div className={classes.BurgerItems}>
                 <div className={classes.Line}></div>
                 <div className={classes.Line}></div>

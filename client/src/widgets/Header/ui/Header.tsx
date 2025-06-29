@@ -1,9 +1,9 @@
 import classes from './Header.module.scss'
 import {Button} from "@/shared/ui/button/ui/Button.tsx";
-import { useHeaderScroll } from "@/widgets/Header/model/hooks/useHeaderScroll.ts"
-import { useHeaderActions } from "@/widgets/Header/model/hooks/useHeaderActions.ts"
-import { NavList } from "@/widgets/Header/ui/NavList.tsx"
-import { Burger } from "@/widgets/Header/ui/Burger.tsx"
+import { useHeaderScroll } from "../model/hooks/useHeaderScroll.ts"
+import { useHeaderActions } from "../model/hooks/useHeaderActions.ts"
+import { NavList } from "../ui/NavList.tsx"
+import { Burger } from "../ui/Burger.tsx"
 
 export const Header = () => {
     const { isHeaderVisible } = useHeaderScroll();

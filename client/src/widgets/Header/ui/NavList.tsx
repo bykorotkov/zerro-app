@@ -1,5 +1,5 @@
-import { NAV_ITEMS } from "@/widgets/Header/model/constants.ts"
 import { Button } from "@/shared/ui/button"
+import { NAV_ITEMS } from "@/widgets/header/model/constants.ts"
 
 export const NavList = () => {
     return (

@@ -1,6 +1,6 @@
-import { MENU_ITEMS } from "@/widgets/Menu/model/constants.ts"
 import { Button } from "@/shared/ui/button"
 import classes from './Menu.module.scss'
+import { MENU_ITEMS } from "../model/constants.ts"
 
 export const MenuList = () => {
     return (
