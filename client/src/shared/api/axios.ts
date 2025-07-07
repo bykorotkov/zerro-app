@@ -5,11 +5,13 @@ import { IAuthResponse } from "@/app/types/global.ts"
 export const BaseUrl = 'http://localhost:5000'
 
 const logout = async (): Promise<any> => {
+    const refreshToken = Cookies.get('refreshToken');
+    const token = localStorage.getItem('token')
     try {
         const response = await axios.post<IAuthResponse>(`${BaseUrl}/auth/logout`, {}, {
             withCredentials: true,
             headers: {
-                Authorization: `Bearer ${Cookies.get('refreshToken')}`
+                Authorization: `Bearer ${refreshToken ? refreshToken : token}`
             }
         })
         localStorage.removeItem('token')

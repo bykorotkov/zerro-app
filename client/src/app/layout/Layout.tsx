@@ -1,5 +1,4 @@
 import classes from './Layout.module.scss'
-import { Header } from "@/widgets/header"
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import AnimatedComponent from "@/widgets/preloader/AnimatedComponent/AnimatedComponent.tsx";
@@ -8,6 +7,7 @@ import { CSSTransition } from "react-transition-group"
 import { Footer } from "@/widgets/footer/ui/Footer.tsx"
 import { Panel } from "@/widgets/theme-panel";
 import { useAppSelector } from "@/app/providers/store/hooks/redux.ts"
+import { Header } from "@/widgets/header"
 
 type LayoutType = {
     children: React.ReactNode
