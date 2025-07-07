@@ -1,4 +1,4 @@
-import classes from "@/widgets/Header/ui/Header.module.scss"
+import classes from "../ui/Header.module.scss"
 import { useHeaderActions } from "../model/hooks/useHeaderActions.ts"
 
 export const Burger = () => {
