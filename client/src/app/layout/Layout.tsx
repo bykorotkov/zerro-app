@@ -1,7 +1,7 @@
 import classes from './Layout.module.scss'
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
-import AnimatedComponent from "@/widgets/preloader/AnimatedComponent/AnimatedComponent.tsx";
+import AnimatedComponent from "@/widgets/preloader/ui/AnimatedComponent.tsx";
 import { Menu } from "@/widgets/menu"
 import { CSSTransition } from "react-transition-group"
 import { Footer } from "@/widgets/footer/ui/Footer.tsx"

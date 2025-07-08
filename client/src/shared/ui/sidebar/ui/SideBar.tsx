@@ -11,7 +11,7 @@ export interface SideBarProps {
 export const SideBar = ({ user }: SideBarProps) => {
     return (
         <div className={classes.Sidebar}>
-            <div className={classes.Person}>
+            <Button href={`/user/${user?.id}`} className={classes.Person}>
                 <div className={classes.Photo}>
                     <LazyLoadImage
                         src={photo}
@@ -21,9 +21,9 @@ export const SideBar = ({ user }: SideBarProps) => {
 
                 <div className={classes.Info}>
                     <div className={classes.Name}>{user?.username}</div>
-                    <div className={classes.Role}>ученик</div>
+                    <div className={classes.Role}>{user?.email}</div>
                 </div>
-            </div>
+            </Button>
 
             <ul className={classes.Links}>
                 <li className={classes.Link}>

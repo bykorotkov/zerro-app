@@ -1,9 +1,7 @@
-import classes from './AnimatedComponent.module.scss'
-import {FC, useEffect, useRef} from "react";
-import {gsap} from "gsap";
-import rick from '@/shared/assets/images/rickImg.jpg'
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
 
-const AnimatedComponent: FC = () => {
+export const usePreloader = () => {
     const boxRef = useRef<HTMLDivElement>(null)
     const logoRef = useRef<HTMLDivElement>(null)
 
@@ -47,15 +45,9 @@ const AnimatedComponent: FC = () => {
                 }
             })
         }
+
+        return
     }, [])
 
-    return (
-        <div className={classes.Animated} ref={boxRef}>
-            <div className={classes.Logo} ref={logoRef}>
-                <img src={rick} alt={''} />
-            </div>
-        </div>
-    );
-};
-
-export default AnimatedComponent;
+    return { boxRef, logoRef }
+}
