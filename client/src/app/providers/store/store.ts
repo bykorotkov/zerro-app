@@ -1,14 +1,18 @@
 import { combineReducers } from "redux"
 import { configureStore } from "@reduxjs/toolkit"
 import modalReducer from './reducers/modalSlice'
+import { postDetailApi } from "@/pages/PostDetail/api/postDetailApi.ts"
 
 const rootReducer = combineReducers({
-    modalReducer
+    modalReducer,
+    [postDetailApi.reducerPath]: postDetailApi.reducer,
 })
 
 export const setupStore = () => {
     return configureStore({
-        reducer: rootReducer
+        reducer: rootReducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().concat(postDetailApi.middleware)
     })
 }
 

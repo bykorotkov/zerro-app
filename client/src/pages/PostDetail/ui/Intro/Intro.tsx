@@ -10,10 +10,10 @@ import { PostDate } from "@/features/posts/ui/PostDate/PostDate.tsx"
 const Intro = () => {
     const { id } = useParams<{ id: string }>()
 
-    const { data: post, isLoading, error, isError } = usePostDetail( id )
+    const { data: post, isLoading, error, isError } = usePostDetail(Number(id))
 
     if (isLoading) return <Loader />
-    if (isError) return <div>Ошибка: {error.message}</div>
+    if (isError) return <div>Ошибка: {error?.message}</div>
     if (!post) return <NotFound />
 
     return (

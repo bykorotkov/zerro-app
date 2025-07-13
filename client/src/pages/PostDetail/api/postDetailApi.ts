@@ -1,12 +1,17 @@
-import $api, { BaseUrl } from "@/shared/api/axios.ts"
-import { PostsTypes } from "@/features/posts/model/types.ts"
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { BaseUrl } from '@/shared/api/axios'
+import { PostsTypes } from '@/features/posts/model/types'
+import { customBaseQuery } from "@/shared/api/rtkBaseQuery.ts"
 
-export const getPostDetail = async (id: number): Promise<PostsTypes> => {
-    try {
-        const response = await $api.get(`${BaseUrl}/posts/${id}`)
-        return response.data
-    } catch (e) {
-        console.log(e)
-        throw new Error('Ошибка получения данных для детальной страницы поста')
-    }
-}
+export const postDetailApi = createApi({
+    reducerPath: 'postDetailApi',
+    baseQuery: customBaseQuery,
+    endpoints: (builder) => ({
+        getPostDetail: builder.query<PostsTypes, number>({
+            query: (id) => ({ url: `${BaseUrl}/posts/${id}` }),
+            keepUnusedDataFor: 60,
+        }),
+    }),
+})
+
+export const { useGetPostDetailQuery } = postDetailApi
