@@ -1,16 +1,17 @@
+import { createApi } from "@reduxjs/toolkit/query/react"
+import { customBaseQuery } from "@/shared/api/rtkBaseQuery.ts"
 import { UserType } from "@/app/types/global.ts"
-import $api, { BaseUrl } from "@/shared/api/axios.ts"
-import axios from "axios"
+import { BaseUrl } from "@/shared/api/axios.ts"
 
-export const getUser = async (): Promise<UserType> => {
-    try {
-        const response = await $api.get(`${BaseUrl}/users/detail`)
-        return response.data
-    } catch (e) {
-        if (axios.isAxiosError(e) && e.response) {
-            const errorData = e.response.data;
-            throw new Error(errorData.message || 'Данные пользователей не могут быть показаны')
-        }
-    }
-    throw new Error('Не удалось получить пользователей')
-}
+export const userApi = createApi({
+    reducerPath: "userApi",
+    baseQuery: customBaseQuery,
+    endpoints: (builder) => ({
+        getUser: builder.query<UserType, void>({
+            query: () => ({ url: `${BaseUrl}/users/detail` }),
+            keepUnusedDataFor: 60
+        })
+    })
+})
+
+export const { useGetUserQuery } = userApi;

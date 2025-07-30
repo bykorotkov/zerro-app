@@ -1,27 +1,16 @@
 import { useState } from "react"
-import { useAuth } from "@/app/providers/useAuthContext.tsx"
 import { useNavigate } from "react-router-dom"
-import { useMutation } from "@tanstack/react-query"
-import { loginUser } from "../../api"
-import { AuthLoginFormData, AuthLoginResponse } from "@/app/types/authTypes.ts"
+import { AuthLoginFormData } from "@/app/types/authTypes.ts"
 import { useFormik } from "formik"
+import { useLoginMutation } from "@/features/auth/api/authApi.ts"
+import { useAppDispatch } from "@/app/providers/store/hooks/redux.ts"
+import { login } from "@/app/providers/store/reducers/authSlice.ts"
 
 export const useLogin = () => {
     const [error, setError] = useState<string | null>(null)
-    const { login } = useAuth()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-
-    const mutation = useMutation( {
-        mutationFn: loginUser,
-        onSuccess: (data: AuthLoginResponse) => {
-            const token = data.accessToken
-            login(token)
-            navigate('/')
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
+    const [loginUser, { isLoading }] = useLoginMutation();
 
     const formik = useFormik<Required<AuthLoginFormData>>({
         initialValues: {
@@ -50,14 +39,17 @@ export const useLogin = () => {
         validateOnMount: false,
         validateOnBlur: true,
         validateOnChange: true,
-        onSubmit: (values) => handleLogin(values)
+        onSubmit: async (values) => {
+            try {
+                await loginUser(values).unwrap()
+                // dispatch(login(response.accessToken))
+                dispatch(login())
+                navigate('/')
+            } catch (e: any) {
+                setError(e.data.message || 'Ошибка при авторизации')
+            }
+        }
     })
 
-    const handleLogin = async (values: Required<AuthLoginFormData>) => {
-        // const body = JSON.stringify(values)
-
-        mutation.mutate(values)
-    }
-
-    return { formik, error, mutation }
+    return { formik, error, isLoading }
 }

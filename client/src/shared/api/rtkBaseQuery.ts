@@ -11,13 +11,11 @@ export const customBaseQuery: BaseQueryFn<
         const response = await $api.get(args.url)
         return { data: response.data }
     } catch (err) {
-        // Приводим ошибку к типу AxiosError
         const error = err as AxiosError<{
             status?: number
             message: string
         }>
 
-        // Возвращаем в формате, ожидаемом RTK Query
         return {
             error: {
                 status: error.response?.status,

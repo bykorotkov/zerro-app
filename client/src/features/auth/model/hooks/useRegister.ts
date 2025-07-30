@@ -1,24 +1,15 @@
 import { useState } from "react"
-import { useAuth } from "@/app/providers/useAuthContext.tsx"
-import { useMutation } from "@tanstack/react-query"
 import { useFormik } from "formik"
 import { FormData } from "../../model/types/types.ts"
-import { signUpUser } from "@/features/auth/api"
+import { useRegistrationMutation } from "@/features/auth/api/authApi.ts"
+import { useAppDispatch } from "@/app/providers/store/hooks/redux.ts"
+import { toggleLoginMode } from "@/app/providers/store/reducers/authSlice.ts"
 
 export const useRegister = () => {
     const [error, setError] = useState<string | null>(null)
     const [passwordShown, setPasswordShown] = useState<boolean>(false)
-    const {setIsLoginMode} = useAuth()
-
-    const mutation = useMutation( {
-        mutationFn: signUpUser,
-        onSuccess: () => {
-            setIsLoginMode(true)
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
+    const dispatch = useAppDispatch();
+    const [ signUpUser, { isLoading } ] = useRegistrationMutation();
 
     const formik = useFormik<FormData>({
         initialValues: {
@@ -62,18 +53,19 @@ export const useRegister = () => {
         validateOnMount: false,
         validateOnBlur: true,
         validateOnChange: true,
-        onSubmit: (values) => handleRegistration(values)
+        onSubmit: async (values) => {
+            try {
+                await signUpUser(values).unwrap()
+                dispatch(toggleLoginMode())
+            } catch (e: any) {
+                setError(e.message)
+            }
+        }
     })
-
-    const handleRegistration = async (values: FormData) => {
-        // const body = JSON.stringify(values)
-
-        mutation.mutate(values)
-    }
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown)
     }
 
-    return { togglePassword, error, formik, mutation, passwordShown }
+    return { togglePassword, error, formik, passwordShown, isLoading }
 }

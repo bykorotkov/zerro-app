@@ -3,13 +3,16 @@ import { Input } from "@/shared/ui/input/ui/Input.tsx"
 import classes from './AuthLogin.module.scss'
 import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
 import { useLogin } from "../../model/hooks/useLogin.ts"
+import { useAppDispatch } from "@/app/providers/store/hooks/redux.ts"
+import { toggleLoginMode } from "@/app/providers/store/reducers/authSlice.ts"
 
-interface AuthLoginProps {
-    toggleAuthMode: () => void
-}
+const AuthLogin = () => {
+    const {formik, error, isLoading} = useLogin();
+    const dispatch = useAppDispatch();
 
-const AuthLogin = ({ toggleAuthMode }: AuthLoginProps) => {
-    const {formik, error, mutation} = useLogin();
+    const handleToggleMode = () => {
+        dispatch(toggleLoginMode());
+    };
 
     return (
         <div className={classes.Wrap}>
@@ -31,10 +34,10 @@ const AuthLogin = ({ toggleAuthMode }: AuthLoginProps) => {
                         <div className={classes.Caption} dangerouslySetInnerHTML={{__html: error}} />
                         : null}
 
-                    {mutation.isPending && <Loader />}
+                    {isLoading && <Loader />}
 
                     <Button className={classes.Button} type={'submit'}>Войти</Button>
-                    <Button className={classes.Button} type={'button'} onClick={toggleAuthMode}>Перейти к регистрации</Button>
+                    <Button className={classes.Button} type={'button'} onClick={handleToggleMode}>Перейти к регистрации</Button>
                 </form>
             </div>
         </div>

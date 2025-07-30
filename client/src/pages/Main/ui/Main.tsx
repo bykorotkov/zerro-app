@@ -3,10 +3,10 @@ import Layout from "@/app/layout/Layout.tsx"
 import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
 import { SideBar } from "@/shared/ui/sidebar"
 import { User } from "@/pages/Main/ui/User/User.tsx"
-import { useMainUser } from "@/pages/Main/model/hooks/useMainUser.ts"
+import { useGetUserQuery } from "@/shared/api/userApi.ts"
 
 export const Main = () => {
-    const { data: user, isLoading, error } = useMainUser()
+    const { data: user, error, isLoading } = useGetUserQuery();
 
     return (
         <Layout>

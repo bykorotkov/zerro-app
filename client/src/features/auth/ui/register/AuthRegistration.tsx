@@ -3,11 +3,17 @@ import {Button} from "@/shared/ui/button/ui/Button.tsx";
 import { Input } from "@/shared/ui/input/ui/Input.tsx"
 import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
 import PasswordIcon from "@/shared/assets/images/icons/PasswordIcon.tsx";
-import { AuthRegistrationProps } from "../../model/types/types.ts"
 import { useRegister } from "../../model/hooks/useRegister.ts"
+import { useAppDispatch } from "@/app/providers/store/hooks/redux.ts"
+import { toggleLoginMode } from "@/app/providers/store/reducers/authSlice.ts"
 
-const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
-   const { passwordShown, mutation, formik, error, togglePassword} = useRegister();
+const AuthRegistration = () => {
+   const { passwordShown, formik, isLoading, error, togglePassword} = useRegister();
+    const dispatch = useAppDispatch();
+
+    const handleToggleMode = () => {
+        dispatch(toggleLoginMode());
+    };
 
     return (
         <div className={classes.Wrap}>
@@ -43,10 +49,10 @@ const AuthRegistration = ({toggleAuthMode}: AuthRegistrationProps) => {
                         <div className={classes.Caption} dangerouslySetInnerHTML={{__html: error}} />
                         : null}
 
-                    {mutation.isPending && <Loader />}
+                    {isLoading && <Loader />}
 
                     <Button className={classes.Button} type={'submit'}>Зарегистрироваться</Button>
-                    <Button onClick={toggleAuthMode} className={classes.Button}>Перейти к авторизации</Button>
+                    <Button onClick={handleToggleMode} className={classes.Button}>Перейти к авторизации</Button>
                 </form>
             </div>
         </div>
