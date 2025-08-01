@@ -10,7 +10,7 @@ export const useHeaderActions = () => {
     }
 
     const showMenu = () => {
-        dispatch(openModal("Menu"))
+        dispatch(openModal(`Menu`))
     }
 
     return { showMenu, logout: handleLogout }

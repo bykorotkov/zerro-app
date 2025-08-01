@@ -1,4 +1,3 @@
+import { About } from "./ui/About.tsx"
 
-import { About } from './ui/About.tsx';
-
-export default About;
+export default About

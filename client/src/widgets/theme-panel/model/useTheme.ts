@@ -1,26 +1,26 @@
-import {useEffect, useState} from "react";
-import {Theme} from "../model/types.ts";
+import { useEffect, useState } from "react"
+import type { Theme } from "../model/types.ts"
 
-const themes: Theme[] = ['light', 'dark'];
+const themes: Theme[] = [`light`, `dark`]
 
 export const useTheme = () => {
     const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
-        return localStorage.getItem("themeType") as Theme || themes[0];
-    });
+        return (localStorage.getItem(`themeType`) as Theme) || themes[0]
+    })
 
     const themeChanger = () => {
-        const currentIndex = themes.indexOf(currentTheme);
-        const nextIndex = (currentIndex + 1) % themes.length;
-        setCurrentTheme(themes[nextIndex]);
-    };
+        const currentIndex = themes.indexOf(currentTheme)
+        const nextIndex = (currentIndex + 1) % themes.length
+        setCurrentTheme(themes[nextIndex])
+    }
 
     useEffect(() => {
-        localStorage.setItem("themeType", currentTheme);
-        const layout = document.getElementById('Layout')
+        localStorage.setItem(`themeType`, currentTheme)
+        const layout = document.getElementById(`Layout`)
         if (layout) {
-            layout.setAttribute("data-theme", currentTheme);
+            layout.setAttribute(`data-theme`, currentTheme)
         }
-    }, [currentTheme]);
+    }, [currentTheme])
 
-    return { currentTheme, themeChanger };
+    return { currentTheme, themeChanger }
 }

@@ -1,3 +1,2 @@
-
-import { NotFound } from './ui/NotFound.tsx'
+import { NotFound } from "./ui/NotFound.tsx"
 export default NotFound

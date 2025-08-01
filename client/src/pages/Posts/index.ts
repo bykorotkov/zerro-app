@@ -1,3 +1,2 @@
-
-import { PostsPage } from './ui/Posts.tsx'
+import { PostsPage } from "./ui/Posts.tsx"
 export default PostsPage

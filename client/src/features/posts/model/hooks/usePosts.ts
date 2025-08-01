@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { PostsTypes } from "../../model/types.ts"
+import type { PostsTypes } from "../../model/types.ts"
 import { getPosts } from "../../api/getPosts.ts"
 
 export const usePosts = () => {
@@ -10,7 +10,7 @@ export const usePosts = () => {
             const response = await getPosts()
             setPosts(response)
         } catch (e) {
-            console.error('Не удается получить посты', e)
+            console.error(`Не удается получить посты`, e)
         }
     }
 

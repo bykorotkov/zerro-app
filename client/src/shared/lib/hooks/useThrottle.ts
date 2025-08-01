@@ -1,5 +1,4 @@
-import {useEffect, useState} from "react";
-
+import { useEffect, useState } from "react"
 
 const useThrottle = <T extends object>(value: T, delay: number): T => {
     const [throttledValue, setThrottledValue] = useState(value)
@@ -15,6 +14,6 @@ const useThrottle = <T extends object>(value: T, delay: number): T => {
     }, [value, delay])
 
     return throttledValue
-};
+}
 
-export default useThrottle;
+export default useThrottle

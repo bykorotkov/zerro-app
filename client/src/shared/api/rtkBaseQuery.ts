@@ -1,12 +1,8 @@
 import $api from "./axios.ts"
-import { AxiosError } from 'axios'
-import { BaseQueryFn } from '@reduxjs/toolkit/query'
+import type { AxiosError } from "axios"
+import type { BaseQueryFn } from "@reduxjs/toolkit/query"
 
-export const customBaseQuery: BaseQueryFn<
-    { url: string },
-    unknown,
-    { status?: number; message: string }
-> = async (args) => {
+export const customBaseQuery: BaseQueryFn<{ url: string }, unknown, { status?: number; message: string }> = async (args) => {
     try {
         const response = await $api.get(args.url)
         return { data: response.data }
@@ -19,8 +15,8 @@ export const customBaseQuery: BaseQueryFn<
         return {
             error: {
                 status: error.response?.status,
-                message: error.response?.data?.message || error.message || 'Unknown error'
-            }
+                message: error.response?.data?.message || error.message || `Unknown error`,
+            },
         }
     }
 }

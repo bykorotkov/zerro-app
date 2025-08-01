@@ -31,18 +31,18 @@ export const usePreloader = () => {
                 delay: 1,
                 scale: 300,
                 duration: 0.8,
-                ease: 'power2.in'
+                ease: `power2.in`,
             })
 
             timeline.to(boxRef.current, {
                 opacity: 0,
                 duration: 0.2,
-                ease: 'power2.in',
+                ease: `power2.in`,
                 onComplete: () => {
                     if (boxRef.current) {
-                        boxRef.current.style.display = 'none'
+                        boxRef.current.style.display = `none`
                     }
-                }
+                },
             })
         }
 

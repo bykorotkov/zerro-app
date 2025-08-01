@@ -1,4 +1,4 @@
-import classes from './Intro.module.scss';
+import classes from "./Intro.module.scss"
 import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
 
 export const Intro = () => {
@@ -9,5 +9,5 @@ export const Intro = () => {
                 <h3>Здесь вы можете ознакомиться с существующими постами портала!</h3>
             </Container>
         </div>
-    );
-};
+    )
+}

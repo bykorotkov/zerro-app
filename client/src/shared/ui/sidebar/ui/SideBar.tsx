@@ -2,7 +2,7 @@ import classes from "./SideBar.module.scss"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import photo from "@/shared/assets/images/temp/person_photo.webp"
 import { Button } from "@/shared/ui/button/ui/Button.tsx"
-import { UserType } from "@/app/types/global.ts"
+import type { UserType } from "@/app/types/global.ts"
 
 export interface SideBarProps {
     user?: UserType
@@ -11,11 +11,14 @@ export interface SideBarProps {
 export const SideBar = ({ user }: SideBarProps) => {
     return (
         <div className={classes.Sidebar}>
-            <Button href={`/user/${user?.id}`} className={classes.Person}>
+            <Button
+                href={`/user/${user?.id}`}
+                className={classes.Person}
+            >
                 <div className={classes.Photo}>
                     <LazyLoadImage
                         src={photo}
-                        alt={""}
+                        alt=""
                     />
                 </div>
 
@@ -27,23 +30,23 @@ export const SideBar = ({ user }: SideBarProps) => {
 
             <ul className={classes.Links}>
                 <li className={classes.Link}>
-                    <Button href={"/"}>Главная</Button>
+                    <Button href="/">Главная</Button>
                 </li>
 
                 <li className={classes.Link}>
-                    <Button href={"/courses"}>Курсы</Button>
+                    <Button href="/courses">Курсы</Button>
                 </li>
 
                 <li className={classes.Link}>
-                    <Button href={"/homework"}>Домашка</Button>
+                    <Button href="/homework">Домашка</Button>
                 </li>
 
                 <li className={classes.Link}>
-                    <Button href={"/practice"}>Практика</Button>
+                    <Button href="/practice">Практика</Button>
                 </li>
 
                 <li className={classes.Link}>
-                    <Button href={"/vocabulary"}>Словарь</Button>
+                    <Button href="/vocabulary">Словарь</Button>
                 </li>
             </ul>
 

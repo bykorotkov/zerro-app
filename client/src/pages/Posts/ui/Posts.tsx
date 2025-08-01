@@ -1,6 +1,6 @@
-import Layout from "@/app/layout/Layout.tsx";
+import Layout from "@/app/layout/Layout.tsx"
 import { Intro } from "@/pages/Posts/ui/Intro/Intro.tsx"
-import classes from './Posts.module.scss'
+import classes from "./Posts.module.scss"
 import { Posts } from "@/features/posts"
 
 export const PostsPage = () => {
@@ -11,5 +11,5 @@ export const PostsPage = () => {
                 <Posts />
             </section>
         </Layout>
-    );
-};
+    )
+}

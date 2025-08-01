@@ -1,7 +1,7 @@
 import cn from "classnames"
 import classes from "../Intro.module.scss"
 import { Button } from "@/shared/ui/button"
-import { UserType } from "@/app/types/global.ts"
+import type { UserType } from "@/app/types/global.ts"
 
 interface UserPostsProps {
     user: UserType
@@ -17,7 +17,8 @@ export const UserPosts = ({ user }: UserPostsProps) => {
             )}
             {user.posts && user.posts.length ? (
                 <div className={classes.Line}>
-                    Ваши посты:{" "}
+                    Ваши посты:
+                    {` `}
                     {user.posts.map((post) => (
                         <div key={post.id}>
                             <Button href={`/posts/${post.id}`}>{post.title}</Button>
@@ -26,8 +27,8 @@ export const UserPosts = ({ user }: UserPostsProps) => {
                 </div>
             ) : (
                 <Button
-                    variant={"secondary"}
-                    href={"/posts/"}
+                    variant="secondary"
+                    href="/posts/"
                 >
                     Создать пост!
                 </Button>

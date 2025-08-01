@@ -1,4 +1,4 @@
-import Layout from "@/app/layout/Layout.tsx";
+import Layout from "@/app/layout/Layout.tsx"
 import { Intro } from "@/pages/UserDetail/ui/intro/Intro.tsx"
 
 export const UserDetail = () => {
@@ -6,5 +6,5 @@ export const UserDetail = () => {
         <Layout>
             <Intro />
         </Layout>
-    );
-};
+    )
+}

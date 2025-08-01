@@ -3,20 +3,20 @@ export interface PostsTypes {
     content: string
     image: string | null
     id?: number
-    createdAt?: Date,
-    userId?: number,
-    author?: PostAuthor,
+    createdAt?: Date
+    userId?: number
+    author?: PostAuthor
 }
 
 export interface PostAuthor {
-    id: number,
-    banned: boolean,
-    banReason?: string,
-    createdAt: string,
-    email: string,
-    phone: string,
-    updatedAt: string,
-    username: string,
+    id: number
+    banned: boolean
+    banReason?: string
+    createdAt: string
+    email: string
+    phone: string
+    updatedAt: string
+    username: string
 }
 
 export interface PostItemProps {
@@ -24,7 +24,7 @@ export interface PostItemProps {
 }
 
 export interface PostFormProps {
-    fetchPosts: () => void;
+    fetchPosts: () => void
 }
 
 export interface PostListProps {

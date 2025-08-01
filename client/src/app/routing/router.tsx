@@ -4,14 +4,14 @@ import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
 import { Container } from "@/shared/ui/сontainer"
 import { APP_ROUTES } from "@/app/routing/routes.ts"
 
-const Auth = lazy(() => import("@/features/auth"))
-const NotFound = lazy(() => import("@/pages/NotFound"))
-const PrivateRoute = lazy(() => import("@/app/routing/PrivateRoute.tsx"))
-const Main = lazy(() => import("@/pages/Main"))
-const Posts = lazy(() => import("@/pages/Posts"))
-const About = lazy(() => import("@/pages/About"))
-const PostDetail = lazy(() => import("@/pages/PostDetail"))
-const UserDetail = lazy(() => import("@/pages/UserDetail"))
+const Auth = lazy(() => import(`@/features/auth`))
+const NotFound = lazy(() => import(`@/pages/NotFound`))
+const PrivateRoute = lazy(() => import(`@/app/routing/PrivateRoute.tsx`))
+const Main = lazy(() => import(`@/pages/Main`))
+const Posts = lazy(() => import(`@/pages/Posts`))
+const About = lazy(() => import(`@/pages/About`))
+const PostDetail = lazy(() => import(`@/pages/PostDetail`))
+const UserDetail = lazy(() => import(`@/pages/UserDetail`))
 
 const Router = () => {
     return (

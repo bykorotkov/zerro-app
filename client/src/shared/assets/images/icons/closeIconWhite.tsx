@@ -1,4 +1,3 @@
-
 const CloseIconWhite = () => {
     return (
         <svg

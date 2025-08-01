@@ -1,5 +1,5 @@
-export type LoaderType = 'default' | 'red' | 'green';
+export type LoaderType = `default` | `red` | `green`
 
 export interface LoaderProps {
-    type?: LoaderType;
+    type?: LoaderType
 }

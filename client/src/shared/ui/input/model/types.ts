@@ -1,15 +1,8 @@
-import { InputHTMLAttributes } from "react"
+import type { InputHTMLAttributes } from "react"
 
-export type InputType =
-    | 'text'
-    | 'tel'
-    | 'password'
-    | 'email'
-    | 'number'
-    | 'file'
-    ;
+export type InputType = `text` | `tel` | `password` | `email` | `number` | `file`
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement>  {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     // className?: string
     type?: InputType
     // placeholder?: string
@@ -19,5 +12,5 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement>  {
     // name?: string
     isError?: boolean
     mask?: string
-    maskReplacement?: Record<string, RegExp>;
+    maskReplacement?: Record<string, RegExp>
 }

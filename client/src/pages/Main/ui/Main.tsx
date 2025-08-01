@@ -6,7 +6,7 @@ import { User } from "@/pages/Main/ui/User/User.tsx"
 import { useGetUserQuery } from "@/shared/api/userApi.ts"
 
 export const Main = () => {
-    const { data: user, error, isLoading } = useGetUserQuery();
+    const { data: user, error, isLoading } = useGetUserQuery()
 
     return (
         <Layout>

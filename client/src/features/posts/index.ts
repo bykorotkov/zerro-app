@@ -1,2 +1,1 @@
-
-export { Posts } from './ui/Posts.tsx';
+export { Posts } from "./ui/Posts.tsx"

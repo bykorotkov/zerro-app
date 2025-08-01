@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import type { PayloadAction } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 
 interface AuthState {
-    isAuth: boolean;
-    isLoginMode: boolean;
-    isLoading: boolean;
+    isAuth: boolean
+    isLoginMode: boolean
+    isLoading: boolean
 }
 
 const initialState: AuthState = {
@@ -13,23 +14,23 @@ const initialState: AuthState = {
 }
 
 const authSlice = createSlice({
-    name: 'auth',
+    name: `auth`,
     initialState,
     reducers: {
         login(state) {
-            state.isAuth = true;
+            state.isAuth = true
         },
         logout(state) {
-            state.isAuth = false;
+            state.isAuth = false
         },
         toggleLoginMode(state) {
-            state.isLoginMode = !state.isLoginMode;
+            state.isLoginMode = !state.isLoginMode
         },
         setLoading(state, action: PayloadAction<boolean>) {
-            state.isLoading = action.payload;
-        }
-    }
-});
+            state.isLoading = action.payload
+        },
+    },
+})
 
-export const { login, logout, toggleLoginMode, setLoading } = authSlice.actions;
-export default authSlice.reducer;
+export const { login, logout, toggleLoginMode, setLoading } = authSlice.actions
+export default authSlice.reducer

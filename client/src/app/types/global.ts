@@ -1,4 +1,4 @@
-import { PostsTypes } from "@/features/posts/model/types.ts"
+import type { PostsTypes } from "@/features/posts/model/types.ts"
 
 export interface UserType {
     id: number
@@ -19,7 +19,7 @@ export interface IBaseResponse {
     }[]
 }
 
-export interface IAuthResponse extends IBaseResponse{
+export interface IAuthResponse extends IBaseResponse {
     // token: string
     accessToken: string
     refreshToken: string

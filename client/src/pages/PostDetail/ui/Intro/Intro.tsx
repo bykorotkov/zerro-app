@@ -10,32 +10,52 @@ import { useGetPostDetailQuery } from "@/pages/PostDetail/api/postDetailApi.ts"
 const Intro = () => {
     const { id } = useParams<{ id: string }>()
 
-    const { data: post, isLoading, error, isError } = useGetPostDetailQuery((Number(id)), {
+    const {
+        data: post,
+        isLoading,
+        error,
+        isError,
+    } = useGetPostDetailQuery(Number(id), {
         skip: !id,
         pollingInterval: 120_000,
     })
 
     if (isLoading) return <Loader />
-    if (isError) return <div>Ошибка: {error?.message}</div>
+    if (isError)
+        return (
+            <div>
+                Ошибка:
+                {error?.message}
+            </div>
+        )
     if (!post) return <NotFound />
 
     return (
         <Container>
             <div className={classes.Post}>
-                <h1>Название поста: {post.title}</h1>
+                <h1>
+                    Название поста:
+                    {post.title}
+                </h1>
                 <p>Пост №{post.id}</p>
                 {post.createdAt ? (
                     <p>
-                        Дата поста: <PostDate isoDate={post.createdAt} />
+                        Дата поста:
+                        {` `}
+                        <PostDate isoDate={post.createdAt} />
                     </p>
                 ) : null}
                 {post.author ? (
                     <p>
-                        Имя автора: <Link href={`/user/${post.author.id}`}>{post.author.username}</Link>
+                        Имя автора:
+                        {` `}
+                        <Link href={`/user/${post.author.id}`}>{post.author.username}</Link>
                     </p>
                 ) : null}
                 <div>
-                    Конент поста: <p dangerouslySetInnerHTML={{ __html: post.content }} />
+                    Конент поста:
+                    {` `}
+                    <p dangerouslySetInnerHTML={{ __html: post.content }} />
                 </div>
             </div>
         </Container>

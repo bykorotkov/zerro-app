@@ -1,4 +1,4 @@
-import { IAuthResponse } from "@/app/types/global.ts"
+import type { IAuthResponse } from "@/app/types/global.ts"
 import $api, { BaseUrl } from "@/shared/api/axios.ts"
 
 export const createPost = async (data: FormData): Promise<IAuthResponse> => {
@@ -6,7 +6,7 @@ export const createPost = async (data: FormData): Promise<IAuthResponse> => {
         const response = await $api.post(`${BaseUrl}/posts`, data)
         return response.data
     } catch (e) {
-        console.log(e)
-        throw new Error('Ошибка при создании поста')
+        console.error(e)
+        throw new Error(`Ошибка при создании поста`)
     }
 }

@@ -1,4 +1,4 @@
-import { UserType } from "@/app/types/global.ts"
+import type { UserType } from "@/app/types/global.ts"
 
 export interface UserProps {
     isLoading: boolean

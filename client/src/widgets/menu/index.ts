@@ -1,2 +1,1 @@
-
-export { Menu } from './ui/Menu.tsx'
+export { Menu } from "./ui/Menu.tsx"

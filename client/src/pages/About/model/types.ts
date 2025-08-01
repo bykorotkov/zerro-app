@@ -19,17 +19,17 @@ export interface AboutPageIntroShieldsTypes {
 }
 
 export interface AboutPageThemeTypes {
-    title: string;
+    title: string
     items: AboutPageThemeItemsTypes[]
 }
 
 export interface AboutPageThemeItemsTypes {
-    title: string;
-    subject: string;
-    text: string;
-    image: string;
-    color: string;
-    link: string;
+    title: string
+    subject: string
+    text: string
+    image: string
+    color: string
+    link: string
     id: number
 }
 
@@ -39,25 +39,25 @@ export interface AboutPageTeachersTypes {
 }
 
 export interface AboutPageTeachersItemsTypes {
-    name: string;
-    text: string;
-    shields: string[];
-    image: string;
+    name: string
+    text: string
+    shields: string[]
+    image: string
     id: number
-    preview: string;
+    preview: string
 }
 
 export interface AboutPageReviewsTypes {
-    title: string;
-    items: AboutPageReviewsItemsTypes[];
+    title: string
+    items: AboutPageReviewsItemsTypes[]
 }
 
 export interface AboutPageReviewsItemsTypes {
-    name: string;
-    date: string;
-    text: string;
-    shield: string;
-    image: string;
+    name: string
+    date: string
+    text: string
+    shield: string
+    image: string
     id: number
 }
 
