@@ -7,11 +7,11 @@ import { customBaseQuery } from "@/shared/api/rtkBaseQuery.ts"
 
 export const authApi = createApi({
     reducerPath: `authApi`,
-    baseQuery: customBaseQuery(),
+    baseQuery: customBaseQuery({ baseUrl: BaseUrl }),
     endpoints: (builder) => ({
         login: builder.mutation<IAuthResponse, AuthLoginFormData>({
             query: (values) => ({
-                url: `${BaseUrl}/auth/login`,
+                url: `/auth/login`,
                 method: `POST`,
                 body: values,
             }),
@@ -23,14 +23,14 @@ export const authApi = createApi({
         }),
         registration: builder.mutation<IAuthResponse, AuthLoginFormData>({
             query: (values) => ({
-                url: `${BaseUrl}/auth/registration`,
+                url: `/auth/registration`,
                 method: `POST`,
                 body: values,
             }),
         }),
         logout: builder.mutation({
             query: () => ({
-                url: `${BaseUrl}/auth/logout`,
+                url: `/auth/logout`,
                 method: `POST`,
             }),
             transformResponse: (response) => {
