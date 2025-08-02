@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
-// import path from 'path';
 
 export default defineConfig({
     plugins: [react(), tsconfigPaths()],
@@ -9,5 +8,8 @@ export default defineConfig({
         alias: {
             "@": `/src`,
         },
+    },
+    esbuild: {
+        platform: 'neutral'
     },
 });
