@@ -9,7 +9,4 @@ export default defineConfig({
             "@": `/src`,
         },
     },
-    esbuild: {
-        platform: 'neutral'
-    },
 });

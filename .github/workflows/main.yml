@@ -8,28 +8,35 @@ jobs:
         node-version: [20.x]
     steps:
       - uses: actions/checkout@v3
-      - name: Staring Node.js ${{ matrix.node-version }}
+
+      - name: Clean cache and modules
+        run: |
+          cd client
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+        working-directory: ./
+
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Navigate to client directory
-        run: cd client
-      - name: install modules
-        run: npm install
+
+      - name: Install dependencies (no optional)
+        run: npm install --no-optional
         working-directory: client
 
-      - name: build project
+      - name: Build project
         run: npm run build --verbose
         working-directory: client
 
-#      - name: ES lint
-#        run: npm run lint
-#        working-directory: client
+      - name: ESLint
+        run: npm run lint
+        working-directory: client
 
-      - name: build sb
+      - name: Build Storybook
         run: npm run build-storybook
         working-directory: client
 
-      - name: unit tests
+      - name: Unit tests
         run: npm run test
         working-directory: client
