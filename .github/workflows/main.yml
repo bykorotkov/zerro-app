@@ -9,24 +9,26 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Clean cache and modules
-        run: |
-          cd client
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
-        working-directory: ./
-
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-      - name: Install dependencies (no optional)
-        run: npm install --no-optional
-        working-directory: client
+      - name: Clean install
+        run: |
+          cd client
+          # Полная очистка всех артефактов
+          rm -rf node_modules package-lock.json .npmrc
+          npm cache clean --force
+          # Явная установка без optional-зависимостей
+          npm install --no-optional --legacy-peer-deps
+          # Принудительно создаем симлинк для обхода бага
+          ln -sf node_modules/rollup/dist/rollup.js node_modules/rollup/dist/rollup.node.js || true
+        working-directory: ./
 
       - name: Build project
-        run: npm run build --verbose
+        run: npm run build
         working-directory: client
 
       - name: ESLint
