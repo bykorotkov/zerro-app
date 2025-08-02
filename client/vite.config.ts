@@ -9,4 +9,8 @@ export default defineConfig({
             "@": `/src`,
         },
     },
+    esbuild: {
+        loader: 'tsx',
+        target: 'es2020'
+    }
 });

@@ -94,6 +94,7 @@
     "testEnvironment": "jsdom"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.46.2"
+    "@rollup/rollup-linux-x64-gnu": "^4.46.2",
+    "@swc/core-linux-x64-gnu": "^1.13.3"
   }
 }
