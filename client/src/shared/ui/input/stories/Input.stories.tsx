@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Input } from "../ui/Input.tsx";
 
 const meta: Meta<typeof Input> = {
-    title: "input" as const,
+    title: "ui/input",
     component: Input,
 };
 

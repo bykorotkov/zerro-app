@@ -2,7 +2,7 @@ import { Loader } from "../ui/Loader.tsx";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Loader> = {
-    title: "loader" as const,
+    title: "ui/loader",
     component: Loader,
 };
 
