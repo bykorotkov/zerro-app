@@ -92,5 +92,8 @@
       "^@/(.*)$": "<rootDir>/src/$1"
     },
     "testEnvironment": "jsdom"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.46.2"
   }
 }

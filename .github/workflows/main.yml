@@ -8,37 +8,28 @@ jobs:
         node-version: [20.x]
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Staring Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Clean install
-        run: |
-          cd client
-          # Полная очистка всех артефактов
-          rm -rf node_modules package-lock.json .npmrc
-          npm cache clean --force
-          # Явная установка без optional-зависимостей
-          npm install --no-optional --legacy-peer-deps
-          # Принудительно создаем симлинк для обхода бага
-          ln -sf node_modules/rollup/dist/rollup.js node_modules/rollup/dist/rollup.node.js || true
-        working-directory: ./
-
-      - name: Build project
-        run: npm run build
+      - name: Navigate to client directory
+        run: cd client
+      - name: install modules
+        run: npm install
         working-directory: client
 
-      - name: ESLint
+      - name: build project
+        run: npm run build --verbose
+        working-directory: client
+
+      - name: ES lint
         run: npm run lint
         working-directory: client
 
-      - name: Build Storybook
+      - name: build sb
         run: npm run build-storybook
         working-directory: client
 
-      - name: Unit tests
+      - name: unit tests
         run: npm run test
         working-directory: client
