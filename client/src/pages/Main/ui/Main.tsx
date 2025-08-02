@@ -1,12 +1,12 @@
-import classes from "./Main.module.scss"
-import Layout from "@/app/layout/Layout.tsx"
-import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
-import { SideBar } from "@/shared/ui/sidebar"
-import { User } from "@/pages/Main/ui/User/User.tsx"
-import { useGetUserQuery } from "@/shared/api/userApi.ts"
+import classes from "./Main.module.scss";
+import Layout from "@/app/layout/Layout.tsx";
+import { Container } from "@/shared/ui/сontainer/ui/Container.tsx";
+import { SideBar } from "@/shared/ui/sidebar";
+import { User } from "@/pages/Main/ui/User/User.tsx";
+import { useGetUserQuery } from "@/shared/api/userApi.ts";
 
 export const Main = () => {
-    const { data: user, error, isLoading } = useGetUserQuery()
+    const { data: user, error, isLoading } = useGetUserQuery();
 
     return (
         <Layout>
@@ -24,5 +24,5 @@ export const Main = () => {
                 </div>
             </Container>
         </Layout>
-    )
-}
+    );
+};

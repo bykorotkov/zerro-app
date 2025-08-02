@@ -1,14 +1,14 @@
-import classes from "./About.module.scss"
-import { Intro } from "@/pages/About/ui/Intro/Intro.tsx"
-import { Themes } from "@/pages/About/ui/Themes/Themes.tsx"
-import { Teachers } from "@/pages/About/ui/Teachers/Teachers.tsx"
-import { Reviews } from "@/pages/About/ui/Reviews/Reviews.tsx"
-import { mockData } from "../model/mockData.ts"
-import type { AboutPageTypes } from "../model/types.ts"
-import Layout from "@/app/layout/Layout.tsx"
+import classes from "./About.module.scss";
+import { Intro } from "@/pages/About/ui/Intro/Intro.tsx";
+import { Themes } from "@/pages/About/ui/Themes/Themes.tsx";
+import { Teachers } from "@/pages/About/ui/Teachers/Teachers.tsx";
+import { Reviews } from "@/pages/About/ui/Reviews/Reviews.tsx";
+import { mockData } from "../model/mockData.ts";
+import type { AboutPageTypes } from "../model/types.ts";
+import Layout from "@/app/layout/Layout.tsx";
 
 export const About = () => {
-    const data: AboutPageTypes = mockData
+    const data: AboutPageTypes = mockData;
 
     return (
         <Layout>
@@ -19,5 +19,5 @@ export const About = () => {
                 {data.reviews ? <Reviews data={data.reviews} /> : null}
             </div>
         </Layout>
-    )
-}
+    );
+};

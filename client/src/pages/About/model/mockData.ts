@@ -1,23 +1,23 @@
-import heartIcon from "@/shared/assets/images/heartIcon.svg"
-import starIcon from "@/shared/assets/images/starIcon.svg"
-import introImage from "@/shared/assets/images/main/IntroImg.jpg"
-import review1 from "@/shared/assets/images/main/reviews/img1.png"
-import review2 from "@/shared/assets/images/main/reviews/img2.png"
-import review3 from "@/shared/assets/images/main/reviews/img3.png"
-import review4 from "@/shared/assets/images/main/reviews/img4.png"
-import teacher1 from "@/shared/assets/images/main/teachers/teacher1.png"
-import teacher2 from "@/shared/assets/images/main/teachers/teacher2.png"
-import teacher3 from "@/shared/assets/images/main/teachers/teacher3.png"
-import teacher4 from "@/shared/assets/images/main/teachers/teacher4.png"
-import teacherPrev1 from "@/shared/assets/images/main/teachers/teacher1prev.png"
-import teacherPrev2 from "@/shared/assets/images/main/teachers/teacher2prev.png"
-import teacherPrev3 from "@/shared/assets/images/main/teachers/teacher3prev.png"
-import teacherPrev4 from "@/shared/assets/images/main/teachers/teacher4prev.png"
-import theme1 from "@/shared/assets/images/main/themes/theme1.png"
-import theme2 from "@/shared/assets/images/main/themes/theme2.png"
-import theme3 from "@/shared/assets/images/main/themes/theme3.png"
-import theme4 from "@/shared/assets/images/main/themes/theme4.png"
-import theme5 from "@/shared/assets/images/main/themes/theme5.png"
+import heartIcon from "@/shared/assets/images/heartIcon.svg";
+import starIcon from "@/shared/assets/images/starIcon.svg";
+import introImage from "@/shared/assets/images/main/IntroImg.jpg";
+import review1 from "@/shared/assets/images/main/reviews/img1.png";
+import review2 from "@/shared/assets/images/main/reviews/img2.png";
+import review3 from "@/shared/assets/images/main/reviews/img3.png";
+import review4 from "@/shared/assets/images/main/reviews/img4.png";
+import teacher1 from "@/shared/assets/images/main/teachers/teacher1.png";
+import teacher2 from "@/shared/assets/images/main/teachers/teacher2.png";
+import teacher3 from "@/shared/assets/images/main/teachers/teacher3.png";
+import teacher4 from "@/shared/assets/images/main/teachers/teacher4.png";
+import teacherPrev1 from "@/shared/assets/images/main/teachers/teacher1prev.png";
+import teacherPrev2 from "@/shared/assets/images/main/teachers/teacher2prev.png";
+import teacherPrev3 from "@/shared/assets/images/main/teachers/teacher3prev.png";
+import teacherPrev4 from "@/shared/assets/images/main/teachers/teacher4prev.png";
+import theme1 from "@/shared/assets/images/main/themes/theme1.png";
+import theme2 from "@/shared/assets/images/main/themes/theme2.png";
+import theme3 from "@/shared/assets/images/main/themes/theme3.png";
+import theme4 from "@/shared/assets/images/main/themes/theme4.png";
+import theme5 from "@/shared/assets/images/main/themes/theme5.png";
 
 export const mockData = {
     intro: {
@@ -167,4 +167,4 @@ export const mockData = {
             },
         ],
     },
-}
+};

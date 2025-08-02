@@ -1,10 +1,10 @@
-import classes from "./Footer.module.scss"
-import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
-import { Button } from "@/shared/ui/button/ui/Button.tsx"
-import { useScrollTop } from "@/widgets/footer/model/hooks/useScrollTop.ts"
+import classes from "./Footer.module.scss";
+import { Container } from "@/shared/ui/сontainer/ui/Container.tsx";
+import { Button } from "@/shared/ui/button/ui/Button.tsx";
+import { useScrollTop } from "@/widgets/footer/model/hooks/useScrollTop.ts";
 
 export const Footer = () => {
-    const { toTop } = useScrollTop()
+    const { toTop } = useScrollTop();
 
     return (
         <footer className={classes.Footer}>
@@ -21,5 +21,5 @@ export const Footer = () => {
                 </div>
             </Container>
         </footer>
-    )
-}
+    );
+};

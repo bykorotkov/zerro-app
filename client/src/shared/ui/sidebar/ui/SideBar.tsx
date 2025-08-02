@@ -1,11 +1,11 @@
-import classes from "./SideBar.module.scss"
-import { LazyLoadImage } from "react-lazy-load-image-component"
-import photo from "@/shared/assets/images/temp/person_photo.webp"
-import { Button } from "@/shared/ui/button/ui/Button.tsx"
-import type { UserType } from "@/app/types/global.ts"
+import classes from "./SideBar.module.scss";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import photo from "@/shared/assets/images/temp/person_photo.webp";
+import { Button } from "@/shared/ui/button/ui/Button.tsx";
+import type { UserType } from "@/app/types/global.ts";
 
 export interface SideBarProps {
-    user?: UserType
+    user?: UserType;
 }
 
 export const SideBar = ({ user }: SideBarProps) => {
@@ -52,5 +52,5 @@ export const SideBar = ({ user }: SideBarProps) => {
 
             <div className={classes.Payment}>Оплачено 5 занятий</div>
         </div>
-    )
-}
+    );
+};

@@ -1,6 +1,6 @@
-import type { ButtonVariant } from "../model/types.ts"
-import cn from "classnames"
-import classes from "../ui/Button.module.scss"
+import type { ButtonVariant } from "../model/types.ts";
+import cn from "classnames";
+import classes from "../ui/Button.module.scss";
 
 export const getButtonClass = (variant: ButtonVariant = `primary`, className?: string) => {
     return cn(
@@ -10,8 +10,8 @@ export const getButtonClass = (variant: ButtonVariant = `primary`, className?: s
             [classes.Secondary]: variant === `secondary`,
         },
         className,
-    )
-}
+    );
+};
 
 export const getLinkClass = (variant: ButtonVariant = `primary`, className?: string) => {
     return cn(
@@ -21,5 +21,5 @@ export const getLinkClass = (variant: ButtonVariant = `primary`, className?: str
             [classes.Secondary]: variant === `secondary`,
         },
         className,
-    )
-}
+    );
+};

@@ -1,19 +1,19 @@
-import classes from "./AuthRegistration.module.scss"
-import { Button } from "@/shared/ui/button/ui/Button.tsx"
-import { Input } from "@/shared/ui/input/ui/Input.tsx"
-import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
-import PasswordIcon from "@/shared/assets/images/icons/PasswordIcon.tsx"
-import { useRegister } from "../../model/hooks/useRegister.ts"
-import { useAppDispatch } from "@/app/providers/store/hooks/redux.ts"
-import { toggleLoginMode } from "@/app/providers/store/reducers/authSlice.ts"
+import classes from "./AuthRegistration.module.scss";
+import { Button } from "@/shared/ui/button/ui/Button.tsx";
+import { Input } from "@/shared/ui/input/ui/Input.tsx";
+import { Loader } from "@/shared/ui/loader/ui/Loader.tsx";
+import PasswordIcon from "@/shared/assets/images/icons/PasswordIcon.tsx";
+import { useRegister } from "../../model/hooks/useRegister.ts";
+import { useAppDispatch } from "@/app/providers/store/hooks/redux.ts";
+import { toggleLoginMode } from "@/app/providers/store/reducers/authSlice.ts";
 
 const AuthRegistration = () => {
-    const { passwordShown, formik, isLoading, error, togglePassword } = useRegister()
-    const dispatch = useAppDispatch()
+    const { passwordShown, formik, isLoading, error, togglePassword } = useRegister();
+    const dispatch = useAppDispatch();
 
     const handleToggleMode = () => {
-        dispatch(toggleLoginMode())
-    }
+        dispatch(toggleLoginMode());
+    };
 
     return (
         <div className={classes.Wrap}>
@@ -115,7 +115,7 @@ const AuthRegistration = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default AuthRegistration
+export default AuthRegistration;

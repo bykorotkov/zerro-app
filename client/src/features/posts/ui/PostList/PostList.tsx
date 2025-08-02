@@ -1,6 +1,6 @@
-import classes from "../Posts.module.scss"
-import { PostItem } from "@/features/posts/ui/PostItem/PostItem.tsx"
-import type { PostListProps } from "@/features/posts/model/types.ts"
+import classes from "../Posts.module.scss";
+import { PostItem } from "@/features/posts/ui/PostItem/PostItem.tsx";
+import type { PostListProps } from "@/features/posts/model/types.ts";
 
 export const PostList = ({ posts }: PostListProps) => {
     return posts && posts.length ? (
@@ -15,5 +15,5 @@ export const PostList = ({ posts }: PostListProps) => {
                 ))}
             </div>
         </div>
-    ) : null
-}
+    ) : null;
+};

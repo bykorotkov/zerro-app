@@ -1,10 +1,10 @@
-import cn from "classnames"
-import classes from "../Intro.module.scss"
-import { Button } from "@/shared/ui/button"
-import type { UserType } from "@/app/types/global.ts"
+import cn from "classnames";
+import classes from "../Intro.module.scss";
+import { Button } from "@/shared/ui/button";
+import type { UserType } from "@/app/types/global.ts";
 
 interface UserPostsProps {
-    user: UserType
+    user: UserType;
 }
 
 export const UserPosts = ({ user }: UserPostsProps) => {
@@ -34,5 +34,5 @@ export const UserPosts = ({ user }: UserPostsProps) => {
                 </Button>
             )}
         </div>
-    )
-}
+    );
+};

@@ -1,11 +1,11 @@
-import classes from "../Posts.module.scss"
-import { Input } from "@/shared/ui/input"
-import { Button } from "@/shared/ui/button"
-import { usePostForm } from "../../model/hooks/usePostForm.ts"
-import type { PostFormProps } from "@/features/posts/model/types.ts"
+import classes from "../Posts.module.scss";
+import { Input } from "@/shared/ui/input";
+import { Button } from "@/shared/ui/button";
+import { usePostForm } from "../../model/hooks/usePostForm.ts";
+import type { PostFormProps } from "@/features/posts/model/types.ts";
 
 export const PostForm = ({ fetchPosts }: PostFormProps) => {
-    const { formik } = usePostForm()
+    const { formik } = usePostForm();
 
     return (
         <form
@@ -47,8 +47,8 @@ export const PostForm = ({ fetchPosts }: PostFormProps) => {
                         id="image"
                         name="image"
                         onChange={(event) => {
-                            const image = event.currentTarget.files ? event.currentTarget.files[0] : null
-                            formik.setFieldValue(`image`, image)
+                            const image = event.currentTarget.files ? event.currentTarget.files[0] : null;
+                            formik.setFieldValue(`image`, image);
                         }}
                         placeholder="загрузите файл..."
                     />
@@ -67,5 +67,5 @@ export const PostForm = ({ fetchPosts }: PostFormProps) => {
                 </Button>
             </div>
         </form>
-    )
-}
+    );
+};

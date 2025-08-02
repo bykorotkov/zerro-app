@@ -1,5 +1,5 @@
 interface IconProps {
-    className?: string
+    className?: string;
 }
 
 const ThemeIcon = ({ className }: IconProps) => {
@@ -32,7 +32,7 @@ const ThemeIcon = ({ className }: IconProps) => {
                 </g>
             </g>
         </svg>
-    )
-}
+    );
+};
 
-export default ThemeIcon
+export default ThemeIcon;

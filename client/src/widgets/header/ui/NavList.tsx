@@ -1,5 +1,5 @@
-import { Button } from "@/shared/ui/button"
-import { NAV_ITEMS } from "../model/constants.ts"
+import { Button } from "@/shared/ui/button";
+import { NAV_ITEMS } from "../model/constants.ts";
 
 export const NavList = () => {
     return (
@@ -10,5 +10,5 @@ export const NavList = () => {
                 </li>
             ))}
         </ul>
-    )
-}
+    );
+};

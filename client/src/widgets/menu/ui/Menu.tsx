@@ -1,8 +1,8 @@
-import classes from "./Menu.module.scss"
-import cn from "classnames"
-import { Modal } from "@/widgets/modal/ui/Modal.tsx"
-import { MenuList } from "./MenuList.tsx"
-import type { MenuProps } from "../model/types.ts"
+import classes from "./Menu.module.scss";
+import cn from "classnames";
+import { Modal } from "@/widgets/modal/ui/Modal.tsx";
+import { MenuList } from "./MenuList.tsx";
+import type { MenuProps } from "../model/types.ts";
 
 export const Menu = ({ className }: MenuProps) => {
     return (
@@ -11,5 +11,5 @@ export const Menu = ({ className }: MenuProps) => {
                 <MenuList />
             </div>
         </Modal>
-    )
-}
+    );
+};

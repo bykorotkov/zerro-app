@@ -6,4 +6,4 @@ export const MENU_ITEMS = [
     { path: `/reviews`, text: `Отзывы` },
     { path: `/prices`, text: `Стоимость` },
     { path: `/contacts`, text: `Контакты` },
-]
+];

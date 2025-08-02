@@ -1,12 +1,12 @@
-import type { ReactElement } from "react"
+import type { ReactElement } from "react";
 
 export interface PrivateRoutProps {
-    element: ReactElement
+    element: ReactElement;
 }
 
 export interface FormData {
-    username: string
-    phone: string
-    email: string
-    password: string
+    username: string;
+    phone: string;
+    email: string;
+    password: string;
 }

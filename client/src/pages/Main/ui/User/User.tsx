@@ -1,12 +1,12 @@
-import classes from "./User.module.scss"
-import cn from "classnames"
-import { Button } from "@/shared/ui/button/ui/Button.tsx"
-import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
-import type { UserProps } from "@/pages/Main/model/types.ts"
+import classes from "./User.module.scss";
+import cn from "classnames";
+import { Button } from "@/shared/ui/button/ui/Button.tsx";
+import { Loader } from "@/shared/ui/loader/ui/Loader.tsx";
+import type { UserProps } from "@/pages/Main/model/types.ts";
 
 export const User = ({ isLoading, error, user }: UserProps) => {
-    if (isLoading) return <Loader />
-    if (error) return <div>Ошибка загрузки данных пользователя</div>
+    if (isLoading) return <Loader />;
+    if (error) return <div>Ошибка загрузки данных пользователя</div>;
 
     return (
         <div className={classes.User}>
@@ -79,5 +79,5 @@ export const User = ({ isLoading, error, user }: UserProps) => {
                 </div>
             ) : null}
         </div>
-    )
-}
+    );
+};

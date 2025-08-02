@@ -1,14 +1,14 @@
-import type { FC, PropsWithChildren } from "react"
-import classes from "./Modal.module.scss"
-import CloseIcon from "@/shared/assets/images/icons/closeIcon.tsx"
-import { useModal } from "@/widgets/modal/model/hooks/useModal.ts"
+import type { FC, PropsWithChildren } from "react";
+import classes from "./Modal.module.scss";
+import CloseIcon from "@/shared/assets/images/icons/closeIcon.tsx";
+import { useModal } from "@/widgets/modal/model/hooks/useModal.ts";
 
 export type ModalType = {
-    children: React.ReactNode
-}
+    children: React.ReactNode;
+};
 
 export const Modal: FC<PropsWithChildren<ModalType>> = ({ children }) => {
-    const { handleClose } = useModal()
+    const { handleClose } = useModal();
 
     return (
         <div className={classes.Wrapper}>
@@ -20,5 +20,5 @@ export const Modal: FC<PropsWithChildren<ModalType>> = ({ children }) => {
             </div>
             {children}
         </div>
-    )
-}
+    );
+};

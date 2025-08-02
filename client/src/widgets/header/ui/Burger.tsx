@@ -1,8 +1,8 @@
-import classes from "../ui/Header.module.scss"
-import { useHeaderActions } from "../model/hooks/useHeaderActions.ts"
+import classes from "../ui/Header.module.scss";
+import { useHeaderActions } from "../model/hooks/useHeaderActions.ts";
 
 export const Burger = () => {
-    const { showMenu } = useHeaderActions()
+    const { showMenu } = useHeaderActions();
 
     return (
         <div
@@ -16,5 +16,5 @@ export const Burger = () => {
             </div>
             <div className={classes.Burger}>Меню</div>
         </div>
-    )
-}
+    );
+};

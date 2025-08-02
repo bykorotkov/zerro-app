@@ -1,6 +1,6 @@
-import "@testing-library/jest-dom"
-import { fireEvent, render, screen } from "@testing-library/react"
-import { Input } from "../ui/Input.tsx"
+import "@testing-library/jest-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { Input } from "../ui/Input.tsx";
 
 describe(`input component`, () => {
     test(`input has value`, () => {
@@ -9,10 +9,10 @@ describe(`input component`, () => {
                 value="value"
                 onChange={() => {}}
             />,
-        )
-        const inputElement = screen.getByRole(`textbox`) as HTMLInputElement
-        expect(inputElement.value).toBe(`value`)
-    })
+        );
+        const inputElement = screen.getByRole(`textbox`) as HTMLInputElement;
+        expect(inputElement.value).toBe(`value`);
+    });
 
     test(`input has empty value`, () => {
         render(
@@ -20,10 +20,10 @@ describe(`input component`, () => {
                 value=""
                 onChange={() => {}}
             />,
-        )
-        const inputElement = screen.getByRole(`textbox`) as HTMLInputElement
-        expect(inputElement.value).toBe(``)
-    })
+        );
+        const inputElement = screen.getByRole(`textbox`) as HTMLInputElement;
+        expect(inputElement.value).toBe(``);
+    });
 
     test(`applies correct additional class if it is provided`, () => {
         render(
@@ -32,16 +32,16 @@ describe(`input component`, () => {
                 value=""
                 onChange={() => {}}
             />,
-        )
-        const inputElement = screen.getByRole(`textbox`) as HTMLInputElement
-        expect(inputElement).toHaveClass(`Class`)
-    })
+        );
+        const inputElement = screen.getByRole(`textbox`) as HTMLInputElement;
+        expect(inputElement).toHaveClass(`Class`);
+    });
 
     test(`input updates properly on change`, () => {
-        let inputValue = ``
+        let inputValue = ``;
         const handleChange = jest.fn((e) => {
-            inputValue = e.target.value
-        })
+            inputValue = e.target.value;
+        });
 
         const { rerender } = render(
             <Input
@@ -49,31 +49,31 @@ describe(`input component`, () => {
                 onChange={handleChange}
                 value={inputValue}
             />,
-        )
-        const inputElement = screen.getByPlaceholderText(/input value/i) as HTMLInputElement
+        );
+        const inputElement = screen.getByPlaceholderText(/input value/i) as HTMLInputElement;
 
-        const newValue = `test`
+        const newValue = `test`;
         for (const char of newValue) {
-            inputValue += char
-            fireEvent.change(inputElement, { target: { value: inputValue } })
+            inputValue += char;
+            fireEvent.change(inputElement, { target: { value: inputValue } });
             rerender(
                 <Input
                     placeholder="input value"
                     onChange={handleChange}
                     value={inputValue}
                 />,
-            )
+            );
         }
 
-        expect(handleChange).toHaveBeenCalledTimes(newValue.length)
-        expect(inputElement.value).toBe(newValue)
-    })
+        expect(handleChange).toHaveBeenCalledTimes(newValue.length);
+        expect(inputElement.value).toBe(newValue);
+    });
 
     test(`phone mask has proper value on change`, () => {
-        let inputValue = ``
+        let inputValue = ``;
         const handleChange = jest.fn((e) => {
-            inputValue = e.target.value
-        })
+            inputValue = e.target.value;
+        });
 
         const { rerender } = render(
             <Input
@@ -81,14 +81,14 @@ describe(`input component`, () => {
                 placeholder="phone input value"
                 onChange={handleChange}
             />,
-        )
+        );
 
-        const inputElement = screen.getByPlaceholderText(/phone input value/i) as HTMLInputElement
+        const inputElement = screen.getByPlaceholderText(/phone input value/i) as HTMLInputElement;
 
-        const newPhoneVal = `+7 (960) 999-99-43`
+        const newPhoneVal = `+7 (960) 999-99-43`;
         for (const char of newPhoneVal) {
-            inputValue += char
-            fireEvent.change(inputElement, { target: { value: inputValue } })
+            inputValue += char;
+            fireEvent.change(inputElement, { target: { value: inputValue } });
             rerender(
                 <Input
                     type="tel"
@@ -96,11 +96,11 @@ describe(`input component`, () => {
                     onChange={handleChange}
                     value={inputValue}
                 />,
-            )
+            );
         }
 
-        expect(handleChange).toHaveBeenCalledTimes(newPhoneVal.length)
-        expect(inputElement.value).toBe(newPhoneVal)
-        expect(inputElement.value.length).toBe(18)
-    })
-})
+        expect(handleChange).toHaveBeenCalledTimes(newPhoneVal.length);
+        expect(inputElement.value).toBe(newPhoneVal);
+        expect(inputElement.value.length).toBe(18);
+    });
+});

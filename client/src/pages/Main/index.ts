@@ -1,2 +1,2 @@
-import { Main } from "./ui/Main.tsx"
-export default Main
+import { Main } from "./ui/Main.tsx";
+export default Main;

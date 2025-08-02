@@ -1,10 +1,10 @@
-import classes from "./AnimatedComponent.module.scss"
-import rick from "@/shared/assets/images/rickImg.jpg"
-import { usePreloader } from "@/widgets/preloader/model/hooks/usePreloader.ts"
-import type { FC } from "react"
+import classes from "./AnimatedComponent.module.scss";
+import rick from "@/shared/assets/images/rickImg.jpg";
+import { usePreloader } from "@/widgets/preloader/model/hooks/usePreloader.ts";
+import type { FC } from "react";
 
 const AnimatedComponent: FC = () => {
-    const { boxRef, logoRef } = usePreloader()
+    const { boxRef, logoRef } = usePreloader();
 
     return (
         <div
@@ -21,7 +21,7 @@ const AnimatedComponent: FC = () => {
                 />
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default AnimatedComponent
+export default AnimatedComponent;

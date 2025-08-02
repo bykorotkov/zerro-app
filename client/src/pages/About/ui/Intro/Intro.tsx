@@ -1,9 +1,9 @@
-import classes from "./Intro.module.scss"
-import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
-import type { AboutPageIntroTypes } from "../../model/types.ts"
+import classes from "./Intro.module.scss";
+import { Container } from "@/shared/ui/сontainer/ui/Container.tsx";
+import type { AboutPageIntroTypes } from "../../model/types.ts";
 
 interface IntroProps {
-    data: AboutPageIntroTypes
+    data: AboutPageIntroTypes;
 }
 
 export const Intro = ({ data }: IntroProps) => {
@@ -57,5 +57,5 @@ export const Intro = ({ data }: IntroProps) => {
                 ) : null}
             </Container>
         </div>
-    )
-}
+    );
+};

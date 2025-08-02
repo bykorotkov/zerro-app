@@ -1,9 +1,9 @@
-import { createApi } from "@reduxjs/toolkit/query/react"
-import type { IAuthResponse } from "@/app/types/global.ts"
-import type { AuthLoginFormData } from "@/app/types/authTypes.ts"
-import Cookies from "js-cookie"
-import { BaseUrl } from "@/shared/api/axios.ts"
-import { customBaseQuery } from "@/shared/api/rtkBaseQuery.ts"
+import { createApi } from "@reduxjs/toolkit/query/react";
+import type { IAuthResponse } from "@/app/types/global.ts";
+import type { AuthLoginFormData } from "@/app/types/authTypes.ts";
+import Cookies from "js-cookie";
+import { BaseUrl } from "@/shared/api/axios.ts";
+import { customBaseQuery } from "@/shared/api/rtkBaseQuery.ts";
 
 export const authApi = createApi({
     reducerPath: `authApi`,
@@ -16,9 +16,9 @@ export const authApi = createApi({
                 body: values,
             }),
             transformResponse: (response: IAuthResponse) => {
-                localStorage.setItem(`token`, response.accessToken)
-                Cookies.set(`refreshToken`, response.refreshToken, { secure: true, sameSite: `None` })
-                return response
+                localStorage.setItem(`token`, response.accessToken);
+                Cookies.set(`refreshToken`, response.refreshToken, { secure: true, sameSite: `None` });
+                return response;
             },
         }),
         registration: builder.mutation<IAuthResponse, AuthLoginFormData>({
@@ -34,12 +34,12 @@ export const authApi = createApi({
                 method: `POST`,
             }),
             transformResponse: (response) => {
-                localStorage.removeItem(`token`)
-                Cookies.remove(`refreshToken`)
-                return response
+                localStorage.removeItem(`token`);
+                Cookies.remove(`refreshToken`);
+                return response;
             },
         }),
     }),
-})
+});
 
-export const { useLoginMutation, useRegistrationMutation, useLogoutMutation } = authApi
+export const { useLoginMutation, useRegistrationMutation, useLogoutMutation } = authApi;

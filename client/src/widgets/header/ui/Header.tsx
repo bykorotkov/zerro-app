@@ -1,13 +1,13 @@
-import classes from "./Header.module.scss"
-import { Button } from "@/shared/ui/button/ui/Button.tsx"
-import { useHeaderScroll } from "../model/hooks/useHeaderScroll.ts"
-import { useHeaderActions } from "../model/hooks/useHeaderActions.ts"
-import { NavList } from "../ui/NavList.tsx"
-import { Burger } from "../ui/Burger.tsx"
+import classes from "./Header.module.scss";
+import { Button } from "@/shared/ui/button/ui/Button.tsx";
+import { useHeaderScroll } from "../model/hooks/useHeaderScroll.ts";
+import { useHeaderActions } from "../model/hooks/useHeaderActions.ts";
+import { NavList } from "../ui/NavList.tsx";
+import { Burger } from "../ui/Burger.tsx";
 
 export const Header = () => {
-    const { isHeaderVisible } = useHeaderScroll()
-    const { logout } = useHeaderActions()
+    const { isHeaderVisible } = useHeaderScroll();
+    const { logout } = useHeaderActions();
 
     return (
         <header
@@ -32,5 +32,5 @@ export const Header = () => {
                 <Button onClick={logout}>Выход</Button>
             </div>
         </header>
-    )
-}
+    );
+};

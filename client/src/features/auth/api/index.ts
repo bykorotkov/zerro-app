@@ -1,1 +1,1 @@
-export { authApi } from "./authApi.ts"
+export { authApi } from "./authApi.ts";

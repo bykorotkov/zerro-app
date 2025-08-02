@@ -1,2 +1,2 @@
-import { UserDetail } from "./ui/UserDetail.tsx"
-export default UserDetail
+import { UserDetail } from "./ui/UserDetail.tsx";
+export default UserDetail;

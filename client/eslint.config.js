@@ -32,6 +32,7 @@ export default tseslint.config(
             /* ========== Базовые правила ========== */
             'no-console': ['error', { allow: ['error'] }], // Запрет console.log (кроме console.error)
             'prettier/prettier': 'error', // Интеграция с Prettier
+            "semi": ["error", "always"],
 
             /* ========== Стилистические правила ========== */
             '@stylistic/quotes': ['error', 'backtick', { avoidEscape: true }], // Обратные кавычки `

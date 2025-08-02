@@ -1,3 +1,3 @@
 export interface MenuProps {
-    className?: string
+    className?: string;
 }

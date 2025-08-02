@@ -1,13 +1,13 @@
-import classes from "./Teachers.module.scss"
-import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
-import { LazyLoadImage } from "react-lazy-load-image-component"
-import cn from "classnames"
-import { CSSTransition, TransitionGroup } from "react-transition-group"
-import type { TeachersProps } from "@/pages/About/model/types.ts"
-import { useActiveTeacher } from "@/pages/About/model/hooks/useActiveTeacher.ts"
+import classes from "./Teachers.module.scss";
+import { Container } from "@/shared/ui/сontainer/ui/Container.tsx";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import cn from "classnames";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import type { TeachersProps } from "@/pages/About/model/types.ts";
+import { useActiveTeacher } from "@/pages/About/model/hooks/useActiveTeacher.ts";
 
 export const Teachers = ({ data }: TeachersProps) => {
-    const { changeTeacher, activeTeacherIndex } = useActiveTeacher()
+    const { changeTeacher, activeTeacherIndex } = useActiveTeacher();
 
     return (
         <section className={classes.Wrap}>
@@ -92,5 +92,5 @@ export const Teachers = ({ data }: TeachersProps) => {
                 </div>
             </Container>
         </section>
-    )
-}
+    );
+};

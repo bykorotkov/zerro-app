@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import { Button } from "../ui/Button.tsx"
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from "../ui/Button.tsx";
 
 const meta: Meta<typeof Button> = {
     title: `ui/button`,
     component: Button,
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Button>
+type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
     args: {
@@ -16,7 +16,7 @@ export const Primary: Story = {
         variant: `primary`,
         children: `Primary button`,
     },
-}
+};
 
 export const Secondary: Story = {
     args: {
@@ -24,4 +24,4 @@ export const Secondary: Story = {
         variant: `secondary`,
         children: `Secondary button`,
     },
-}
+};

@@ -1,9 +1,9 @@
-import classes from "../Intro.module.scss"
-import { Button } from "@/shared/ui/button"
-import type { UserType } from "@/app/types/global.ts"
+import classes from "../Intro.module.scss";
+import { Button } from "@/shared/ui/button";
+import type { UserType } from "@/app/types/global.ts";
 
 interface UserInfoProps {
-    user: UserType
+    user: UserType;
 }
 
 export const UserInfo = ({ user }: UserInfoProps) => {
@@ -43,5 +43,5 @@ export const UserInfo = ({ user }: UserInfoProps) => {
                 </div>
             ) : null}
         </>
-    )
-}
+    );
+};

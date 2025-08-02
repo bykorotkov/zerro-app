@@ -1,14 +1,14 @@
-import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
-import { useParams } from "react-router-dom"
-import NotFound from "@/pages/NotFound"
-import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
-import classes from "./Intro.module.scss"
-import { Link } from "@/shared/ui/link/ui/Link.tsx"
-import { PostDate } from "@/features/posts/ui/PostDate/PostDate.tsx"
-import { useGetPostDetailQuery } from "@/pages/PostDetail/api/postDetailApi.ts"
+import { Container } from "@/shared/ui/сontainer/ui/Container.tsx";
+import { useParams } from "react-router-dom";
+import NotFound from "@/pages/NotFound";
+import { Loader } from "@/shared/ui/loader/ui/Loader.tsx";
+import classes from "./Intro.module.scss";
+import { Link } from "@/shared/ui/link/ui/Link.tsx";
+import { PostDate } from "@/features/posts/ui/PostDate/PostDate.tsx";
+import { useGetPostDetailQuery } from "@/pages/PostDetail/api/postDetailApi.ts";
 
 const Intro = () => {
-    const { id } = useParams<{ id: string }>()
+    const { id } = useParams<{ id: string }>();
 
     const {
         data: post,
@@ -18,17 +18,17 @@ const Intro = () => {
     } = useGetPostDetailQuery(Number(id), {
         skip: !id,
         pollingInterval: 120_000,
-    })
+    });
 
-    if (isLoading) return <Loader />
+    if (isLoading) return <Loader />;
     if (isError)
         return (
             <div>
                 Ошибка:
                 {error?.message}
             </div>
-        )
-    if (!post) return <NotFound />
+        );
+    if (!post) return <NotFound />;
 
     return (
         <Container>
@@ -59,7 +59,7 @@ const Intro = () => {
                 </div>
             </div>
         </Container>
-    )
-}
+    );
+};
 
-export default Intro
+export default Intro;

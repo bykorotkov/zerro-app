@@ -1,18 +1,18 @@
-import { Button } from "@/shared/ui/button/ui/Button.tsx"
-import { Input } from "@/shared/ui/input/ui/Input.tsx"
-import classes from "./AuthLogin.module.scss"
-import { Loader } from "@/shared/ui/loader/ui/Loader.tsx"
-import { useLogin } from "../../model/hooks/useLogin.ts"
-import { useAppDispatch } from "@/app/providers/store/hooks/redux.ts"
-import { toggleLoginMode } from "@/app/providers/store/reducers/authSlice.ts"
+import { Button } from "@/shared/ui/button/ui/Button.tsx";
+import { Input } from "@/shared/ui/input/ui/Input.tsx";
+import classes from "./AuthLogin.module.scss";
+import { Loader } from "@/shared/ui/loader/ui/Loader.tsx";
+import { useLogin } from "../../model/hooks/useLogin.ts";
+import { useAppDispatch } from "@/app/providers/store/hooks/redux.ts";
+import { toggleLoginMode } from "@/app/providers/store/reducers/authSlice.ts";
 
 const AuthLogin = () => {
-    const { formik, error, isLoading } = useLogin()
-    const dispatch = useAppDispatch()
+    const { formik, error, isLoading } = useLogin();
+    const dispatch = useAppDispatch();
 
     const handleToggleMode = () => {
-        dispatch(toggleLoginMode())
-    }
+        dispatch(toggleLoginMode());
+    };
 
     return (
         <div className={classes.Wrap}>
@@ -79,7 +79,7 @@ const AuthLogin = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default AuthLogin
+export default AuthLogin;

@@ -1,8 +1,8 @@
-import classes from "./Themes.module.scss"
-import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
-import type { ThemesProps } from "../../model/types.ts"
-import { LazyLoadImage } from "react-lazy-load-image-component"
-import { Button } from "@/shared/ui/button/ui/Button.tsx"
+import classes from "./Themes.module.scss";
+import { Container } from "@/shared/ui/сontainer/ui/Container.tsx";
+import type { ThemesProps } from "../../model/types.ts";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Button } from "@/shared/ui/button/ui/Button.tsx";
 
 export const Themes = ({ data }: ThemesProps) => {
     return (
@@ -54,5 +54,5 @@ export const Themes = ({ data }: ThemesProps) => {
                 ) : null}
             </Container>
         </section>
-    )
-}
+    );
+};

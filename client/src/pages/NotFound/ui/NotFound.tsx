@@ -1,5 +1,5 @@
-import { Button } from "@/shared/ui/button/ui/Button.tsx"
-import classes from "./NotFound.module.scss"
+import { Button } from "@/shared/ui/button/ui/Button.tsx";
+import classes from "./NotFound.module.scss";
 
 export const NotFound = () => {
     return (
@@ -8,5 +8,5 @@ export const NotFound = () => {
 
             <Button href="/">Вернуться</Button>
         </div>
-    )
-}
+    );
+};

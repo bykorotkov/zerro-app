@@ -1,8 +1,8 @@
-import classes from "./Reviews.module.scss"
-import { Container } from "@/shared/ui/сontainer/ui/Container.tsx"
-import { LazyLoadImage } from "react-lazy-load-image-component"
-import cn from "classnames"
-import type { ReviewsProps } from "@/pages/About/model/types.ts"
+import classes from "./Reviews.module.scss";
+import { Container } from "@/shared/ui/сontainer/ui/Container.tsx";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import cn from "classnames";
+import type { ReviewsProps } from "@/pages/About/model/types.ts";
 
 export const Reviews = ({ data }: ReviewsProps) => {
     return (
@@ -71,5 +71,5 @@ export const Reviews = ({ data }: ReviewsProps) => {
                 ) : null}
             </Container>
         </section>
-    )
-}
+    );
+};

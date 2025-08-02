@@ -1,5 +1,5 @@
 interface IconProps {
-    className?: string
+    className?: string;
 }
 
 const PasswordIcon = ({ className }: IconProps) => {
@@ -27,7 +27,7 @@ const PasswordIcon = ({ className }: IconProps) => {
                 strokeLinejoin="round"
             ></path>
         </svg>
-    )
-}
+    );
+};
 
-export default PasswordIcon
+export default PasswordIcon;

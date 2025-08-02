@@ -16,7 +16,7 @@ const CloseIconWhite = () => {
                 stroke="white"
             />
         </svg>
-    )
-}
+    );
+};
 
-export default CloseIconWhite
+export default CloseIconWhite;
