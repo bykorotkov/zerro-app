@@ -7,10 +7,12 @@ interface AuthState {
     isLoading: boolean
 }
 
+const hasToken = Boolean(localStorage.getItem('token'));
+
 const initialState: AuthState = {
-    isAuth: false,
+    isAuth: hasToken,
     isLoginMode: true,
-    isLoading: true,
+    isLoading: !hasToken,
 }
 
 const authSlice = createSlice({
@@ -19,9 +21,11 @@ const authSlice = createSlice({
     reducers: {
         login(state) {
             state.isAuth = true
+            state.isLoading = false
         },
         logout(state) {
             state.isAuth = false
+            localStorage.removeItem('token')
         },
         toggleLoginMode(state) {
             state.isLoginMode = !state.isLoginMode

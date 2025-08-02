@@ -5,7 +5,7 @@ import { customBaseQuery } from "@/shared/api/rtkBaseQuery.ts"
 
 export const postDetailApi = createApi({
     reducerPath: `postDetailApi`,
-    baseQuery: customBaseQuery,
+    baseQuery: customBaseQuery(),
     endpoints: (builder) => ({
         getPostDetail: builder.query<PostsTypes, number>({
             query: (id) => ({ url: `${BaseUrl}/posts/${id}` }),

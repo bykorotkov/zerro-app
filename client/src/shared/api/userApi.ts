@@ -5,7 +5,7 @@ import { BaseUrl } from "@/shared/api/axios.ts"
 
 export const userApi = createApi({
     reducerPath: `userApi`,
-    baseQuery: customBaseQuery,
+    baseQuery: customBaseQuery(),
     endpoints: (builder) => ({
         getUser: builder.query<UserType, void>({
             query: () => ({ url: `${BaseUrl}/users/detail` }),
