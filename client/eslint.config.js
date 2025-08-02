@@ -84,4 +84,12 @@ export default tseslint.config(
             '@typescript-eslint/no-require-imports': 'off' // Разрешаем require()
         },
     },
+    {
+        files: ['**/*.stories.tsx'],
+        rules: {
+            '@stylistic/quotes': ['error', 'double', { avoidEscape: true }],
+            '@stylistic/jsx-quotes': ['error', 'prefer-single'],
+            'no-alert': 'off'
+        },
+    }
 )

@@ -3,7 +3,7 @@
 
 # Переход в папку client и выполнение команд
 cd client
-npm run build && npm run build-storybook && npm test
+npm run build && npm run lint && npm run build-storybook && npm test
 
 if [ $? -ne 0 ]; then
   cd ..
