@@ -2,7 +2,7 @@ import { Loader } from "../ui/Loader.tsx";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Loader> = {
-    title: "ui/loader",
+    title: `ui/loader`,
     component: Loader,
 };
 
@@ -12,18 +12,18 @@ type Story = StoryObj<typeof Loader>;
 
 export const Default: Story = {
     args: {
-        type: "default",
+        type: `default`,
     },
 };
 
 export const Red: Story = {
     args: {
-        type: "red",
+        type: `red`,
     },
 };
 
 export const Green: Story = {
     args: {
-        type: "green",
+        type: `green`,
     },
 };

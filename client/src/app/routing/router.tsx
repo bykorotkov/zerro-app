@@ -12,6 +12,8 @@ const Posts = lazy(() => import(`@/pages/Posts`));
 const About = lazy(() => import(`@/pages/About`));
 const PostDetail = lazy(() => import(`@/pages/PostDetail`));
 const UserDetail = lazy(() => import(`@/pages/UserDetail`));
+const Learning = lazy(() => import(`@/pages/Learning`));
+const Subject = lazy(() => import(`@/pages/Subject`));
 
 const Router = () => {
     return (
@@ -48,6 +50,14 @@ const Router = () => {
                 <Route
                     path={APP_ROUTES.USER}
                     element={<PrivateRoute element={<UserDetail />} />}
+                />
+                <Route
+                    path={APP_ROUTES.LEARNING}
+                    element={<PrivateRoute element={<Learning />} />}
+                />
+                <Route
+                    path={APP_ROUTES.SUBJECT}
+                    element={<PrivateRoute element={<Subject />} />}
                 />
                 <Route
                     path={APP_ROUTES.NOT_FOUND}

@@ -11,12 +11,7 @@ export const User = ({ isLoading, error, user }: UserProps) => {
     return (
         <div className={classes.User}>
             <div className={classes.Top}>
-                {user && user.username ? (
-                    <div className={classes.Greeting}>
-                        Привет,
-                        {user.username}! С возвращением ;)
-                    </div>
-                ) : null}
+                {user && user.username ? <div className={classes.Greeting}>Привет, {user.username}! С возвращением ;)</div> : null}
             </div>
 
             {user ? (

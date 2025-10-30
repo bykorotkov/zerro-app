@@ -8,4 +8,6 @@ export const APP_ROUTES = {
     },
     USER: `/user/:id`,
     NOT_FOUND: `*`,
+    LEARNING: `/learning`,
+    SUBJECT: `/subject/:id`,
 };
