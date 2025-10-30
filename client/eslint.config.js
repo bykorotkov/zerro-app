@@ -84,4 +84,10 @@ export default tseslint.config(
             '@typescript-eslint/no-require-imports': 'off' // Разрешаем require()
         },
     },
+    {
+        files: ['**/*.stories.{ts,tsx}'], // Паттерн для всех стори‑файлов
+        rules: {
+            '@stylistic/quotes': 'off', // Отключаем правило про кавычки
+        },
+    }
 )
