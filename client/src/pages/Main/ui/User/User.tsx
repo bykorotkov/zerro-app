@@ -3,6 +3,8 @@ import cn from "classnames";
 import { Button } from "@/shared/ui/button/ui/Button.tsx";
 import { Loader } from "@/shared/ui/loader/ui/Loader.tsx";
 import type { UserProps } from "@/pages/Main/model/types.ts";
+import { mockStories } from "@/shared/mock/stories.ts";
+import { Stories } from "@/widgets/stories";
 
 export const User = ({ isLoading, error, user }: UserProps) => {
     if (isLoading) return <Loader />;
@@ -13,6 +15,8 @@ export const User = ({ isLoading, error, user }: UserProps) => {
             <div className={classes.Top}>
                 {user && user.username ? <div className={classes.Greeting}>Привет, {user.username}! С возвращением ;)</div> : null}
             </div>
+
+            {mockStories && mockStories.length ? <Stories /> : null}
 
             {user ? (
                 <div className={classes.Content}>

@@ -6,6 +6,7 @@ import { postDetailApi } from "@/pages/PostDetail/api/postDetailApi.ts";
 import { userApi } from "@/shared/api/userApi.ts";
 import { authApi } from "@/features/auth/api/authApi.ts";
 import { lessonsApi } from "@/entities/lessons/api/getLessons.ts";
+import { storiesApi } from "@/widgets/stories/api/storiesApi.ts";
 
 const rootReducer = combineReducers({
     modalReducer,
@@ -14,13 +15,20 @@ const rootReducer = combineReducers({
     [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [lessonsApi.reducerPath]: lessonsApi.reducer,
+    [storiesApi.reducerPath]: storiesApi.reducer,
 });
 
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(postDetailApi.middleware, userApi.middleware, authApi.middleware, lessonsApi.middleware),
+            getDefaultMiddleware().concat(
+                postDetailApi.middleware,
+                userApi.middleware,
+                authApi.middleware,
+                lessonsApi.middleware,
+                storiesApi.middleware,
+            ),
     });
 };
 

@@ -1,0 +1,193 @@
+@use "@/app/css/variables" as *;
+
+.Container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 30px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.StoriesItem {
+  height: 167px;
+  width: 94px;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  padding: 0 8px 10px;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0),
+                    rgba(200,200,200,0.3),
+                    rgba(100,100,100,0.95)
+    );
+    z-index: 1;
+  }
+}
+
+.ViewerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ViewerPanel {
+  width: min(420px, 95vw);
+  height: min(760px, 92vh);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: #121212;
+}
+
+.CloseButton {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 4;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 0;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+
+.ProgressRow {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 52px;
+  display: flex;
+  gap: 4px;
+  z-index: 3;
+}
+
+.ProgressTrack {
+  flex: 1;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+}
+
+.ProgressFill {
+  height: 100%;
+  background: #fff;
+  transition: width 80ms linear;
+}
+
+.ViewerVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ViewerMeta {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+
+  img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    object-fit: cover;
+    border: 2px solid #fff;
+  }
+}
+
+.NavLeft,
+.NavRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  border: 0;
+  background: transparent;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.NavLeft {
+  left: 0;
+}
+
+.NavRight {
+  right: 0;
+}
+
+.StoriesCaption {
+  z-index: 2;
+}
+
+.Avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid $greyLight;
+  border-radius: 100%;
+  width: 42px;
+  height: 42px;
+  margin: 0 auto;
+  padding: 3px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+  }
+
+  &.Active {
+    border-color: $blue;
+  }
+}
+
+.Username {
+  margin-top: 8px;
+  text-align: center;
+  color: $blueLight;
+}
+
+.VideoPreview {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
