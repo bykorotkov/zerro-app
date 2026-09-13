@@ -1,105 +1,163 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 import type { StoryType } from "@/widgets/stories/model/types/stories.ts";
 import classes from "./Stories.module.scss";
+import { ProgressBar } from "@/widgets/stories/ui/ProgressBar.tsx";
+
+const HOLD_MS = 200;
 
 interface StoriesViewerProps {
-    stories: StoryType[];
-    initialIndex: number;
+    story: StoryType;
     onClose: () => void;
-    onStorySeen: (storyId: number) => void;
+    onSyncSeenParts: (storyId: number, seenPartIds: number[], isStoryFullySeen: boolean) => void;
 }
 
-const STORY_DURATION_MS = 6000;
+export const StoriesViewer = memo(({ story, onClose, onSyncSeenParts }: StoriesViewerProps) => {
+    const initialIndex = story.parts.findIndex((part) => !part.isSeen);
+    const [partIndex, setPartIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
+    const [isPaused, setIsPaused] = useState(false);
+    const partIndexRef = useRef(partIndex);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const didHoldRef = useRef(false);
+    const pressActiveRef = useRef(false);
 
-export const StoriesViewer = ({ stories, initialIndex, onClose, onStorySeen }: StoriesViewerProps) => {
-    const [activeIndex, setActiveIndex] = useState(initialIndex);
-    const [progress, setProgress] = useState(0);
-    const frameRef = useRef<number | null>(null);
-    const startTimeRef = useRef<number>(0);
+    partIndexRef.current = partIndex;
 
-    const activeStory = stories[activeIndex];
+    const activePart = story.parts[partIndex];
 
-    const goToNextStory = useCallback(() => {
-        if (activeIndex >= stories.length - 1) {
+    const clearHoldTimer = useCallback(() => {
+        if (holdTimerRef.current !== null) {
+            clearTimeout(holdTimerRef.current);
+            holdTimerRef.current = null;
+        }
+    }, []);
+
+    useEffect(() => {
+        return () => clearHoldTimer();
+    }, [clearHoldTimer]);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        if (isPaused) {
+            video.pause();
+        } else {
+            void video.play().catch(() => undefined);
+        }
+    }, [isPaused, activePart?.id]);
+
+    const goToNextPart = useCallback(() => {
+        const currentIndex = partIndexRef.current;
+
+        if (currentIndex >= story.parts.length - 1) {
             onClose();
             return;
         }
-        setActiveIndex((prev) => prev + 1);
-    }, [onClose, setActiveIndex, activeIndex, stories.length]);
 
-    const goToPrevStory = () => {
-        if (activeIndex === 0) {
-            return;
-        }
-        setActiveIndex((prev) => prev - 1);
-    };
+        setPartIndex(currentIndex + 1);
+    }, [onClose, story.parts.length]);
 
-    useEffect(() => {
-        if (!activeStory) {
+    const goToPrevPart = useCallback(() => {
+        const currentIndex = partIndexRef.current;
+
+        if (currentIndex <= 0) {
+            onClose();
             return;
         }
 
-        onStorySeen(activeStory.id);
-        setProgress(0);
-        startTimeRef.current = performance.now();
+        setPartIndex(currentIndex - 1);
+    }, [onClose]);
 
-        const animate = (timestamp: number) => {
-            const elapsed = timestamp - startTimeRef.current;
-            const nextProgress = Math.min((elapsed / STORY_DURATION_MS) * 100, 100);
-            setProgress(nextProgress);
+    const handleNavPointerDown = useCallback(
+        (event: ReactPointerEvent<HTMLButtonElement>) => {
+            if (event.button !== 0) return;
 
-            if (nextProgress >= 100) {
-                goToNextStory();
+            pressActiveRef.current = true;
+            didHoldRef.current = false;
+            clearHoldTimer();
+            holdTimerRef.current = setTimeout(() => {
+                didHoldRef.current = true;
+                setIsPaused(true);
+            }, HOLD_MS);
+        },
+        [clearHoldTimer],
+    );
+
+    const endNavPress = useCallback(
+        (action: `prev` | `next` | `cancel`) => {
+            if (!pressActiveRef.current) return;
+
+            pressActiveRef.current = false;
+            clearHoldTimer();
+
+            if (didHoldRef.current) {
+                didHoldRef.current = false;
+                setIsPaused(false);
                 return;
             }
 
-            frameRef.current = requestAnimationFrame(animate);
-        };
+            if (action === `prev`) {
+                goToPrevPart();
+            } else if (action === `next`) {
+                goToNextPart();
+            }
+        },
+        [clearHoldTimer, goToNextPart, goToPrevPart],
+    );
 
-        frameRef.current = requestAnimationFrame(animate);
+    useEffect(() => {
+        const seenPartIds = story.parts.slice(0, partIndex + 1).map((part) => part.id);
+        const isStoryFullySeen = partIndex === story.parts.length - 1;
 
-        return () => {
-            if (frameRef.current) {
-                cancelAnimationFrame(frameRef.current);
+        onSyncSeenParts(story.id, seenPartIds, isStoryFullySeen);
+    }, [partIndex, story.id, story.parts, onSyncSeenParts]);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === `Escape`) {
+                onClose();
             }
         };
-    }, [activeIndex, activeStory?.id, activeStory, goToNextStory, onStorySeen]);
 
-    if (!activeStory) {
+        window.addEventListener(`keydown`, handleKeyDown);
+        return () => window.removeEventListener(`keydown`, handleKeyDown);
+    }, [onClose]);
+
+    if (!activePart) {
         return null;
     }
 
     return (
-        <div className={classes.ViewerOverlay}>
+        <div
+            className={classes.ViewerOverlay}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`История ${story.username}`}
+        >
             <div className={classes.ViewerPanel}>
                 <button
                     type="button"
                     className={classes.CloseButton}
                     onClick={onClose}
+                    aria-label="Закрыть"
                 >
-                    x
+                    ×
                 </button>
 
-                <div className={classes.ProgressRow}>
-                    {stories.map((story) => {
-                        // const currentProgress = index < activeIndex ? 100 : index === activeIndex ? progress : 0;
-                        return (
-                            <div
-                                className={classes.ProgressTrack}
-                                key={story.id}
-                            >
-                                <div
-                                    className={classes.ProgressFill}
-                                    style={{ width: `${Math.floor(progress)}%` }}
-                                />
-                            </div>
-                        );
-                    })}
-                </div>
+                <ProgressBar
+                    story={story}
+                    goToNextPart={goToNextPart}
+                    partIndex={partIndex}
+                    isPaused={isPaused}
+                />
 
                 <video
+                    key={activePart.id}
+                    ref={videoRef}
                     className={classes.ViewerVideo}
-                    src={activeStory.userVideo}
+                    src={activePart.userVideo}
                     autoPlay
                     muted
                     playsInline
@@ -107,23 +165,31 @@ export const StoriesViewer = ({ stories, initialIndex, onClose, onStorySeen }: S
 
                 <div className={classes.ViewerMeta}>
                     <img
-                        src={activeStory.userAvatar}
-                        alt={activeStory.username}
+                        src={activePart.userAvatar}
+                        alt={activePart.username}
                     />
-                    <span>{activeStory.username}</span>
+                    <span>{activePart.username}</span>
                 </div>
 
                 <button
                     type="button"
                     className={classes.NavLeft}
-                    onClick={goToPrevStory}
+                    onPointerDown={handleNavPointerDown}
+                    onPointerUp={() => endNavPress(`prev`)}
+                    onPointerLeave={() => endNavPress(`cancel`)}
+                    onPointerCancel={() => endNavPress(`cancel`)}
+                    aria-label="Предыдущая часть"
                 />
                 <button
                     type="button"
                     className={classes.NavRight}
-                    onClick={goToNextStory}
+                    onPointerDown={handleNavPointerDown}
+                    onPointerUp={() => endNavPress(`next`)}
+                    onPointerLeave={() => endNavPress(`cancel`)}
+                    onPointerCancel={() => endNavPress(`cancel`)}
+                    aria-label="Следующая часть"
                 />
             </div>
         </div>
     );
-};
+});

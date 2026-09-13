@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useVideoThumbnail from "@/shared/lib/hooks/useVideoThumbnails.ts";
 
-export const UseGenerateThumbnail = (userVideo: string) => {
+export const useGenerateThumbnail = (userVideo: string) => {
     const [generatedThumbnail, setGeneratedThumbnail] = useState<string | null>(null);
     const [isGeneratingThumbnail, setIsGeneratingThumbnail] = useState(false);
     const [_, setThumbnailError] = useState<boolean>(false);

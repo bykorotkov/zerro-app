@@ -1,66 +1,109 @@
-import classes from "./Stories.module.scss";
 import { mockStories } from "@/shared/mock/stories.ts";
-import { StoriesItem } from "@/widgets/stories/ui/StoriesItem.tsx";
 import { useGetStoriesQuery } from "@/widgets/stories/api/storiesApi.ts";
-import { useMemo, useState } from "react";
 import type { StoryType } from "@/widgets/stories/model/types/stories.ts";
+import { StoriesItem } from "@/widgets/stories/ui/StoriesItem.tsx";
 import { StoriesViewer } from "@/widgets/stories/ui/StoriesViewer.tsx";
+import { useCallback, useEffect, useState } from "react";
+import classes from "./Stories.module.scss";
 
 export const Stories = () => {
     const { data } = useGetStoriesQuery();
     const [seenStoryIds, setSeenStoryIds] = useState<number[]>([]);
-    const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+    const [seenPartIdsByStory, setSeenPartIdsByStory] = useState<Record<number, number[]>>({});
+    const [viewerStoryId, setViewerStoryId] = useState<number | null>(null);
+    const [stories, setStories] = useState<StoryType[]>([]);
 
-    const stories: StoryType[] = useMemo(() => {
-        if (data?.length) {
-            return data.map((story) => ({
+    useEffect(() => {
+        const mapParts = (storyId: number, parts: StoryType[`parts`]) => {
+            const seenPartIds = seenPartIdsByStory[storyId] ?? [];
+
+            return parts.map((part) => ({
+                ...part,
+                isSeen: seenPartIds.includes(part.id),
+            }));
+        };
+
+        let rawStories: StoryType[];
+
+        if (data) {
+            rawStories = data.map((story) => ({
                 id: story.id,
                 userId: story.userId,
                 username: story.username,
                 userAvatar: story.userAvatar,
-                userVideo: story.userVideo,
                 timestamp: story.createdAt,
-                views: story.views,
                 isSeen: seenStoryIds.includes(story.id),
+                parts: mapParts(story.id, story.parts),
+            }));
+        } else {
+            rawStories = mockStories.map((story) => ({
+                ...story,
+                isSeen: seenStoryIds.includes(story.id),
+                parts: mapParts(story.id, story.parts),
             }));
         }
 
-        return mockStories.map((story) => ({
-            ...story,
-            isSeen: seenStoryIds.includes(story.id),
-        }));
-    }, [data, seenStoryIds]);
+        if (viewerStoryId !== null) {
+            setStories(rawStories);
+            return;
+        }
 
-    const sortedStories = useMemo(() => {
-        return [...stories].sort((a, b) => {
+        const sorted = [...rawStories].sort((a, b) => {
             if (a.isSeen !== b.isSeen) {
                 return a.isSeen ? 1 : -1;
             }
 
             return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
         });
-    }, [stories]);
 
-    const markStoryAsSeen = (storyId: number) => {
-        setSeenStoryIds((prev) => (prev.includes(storyId) ? prev : [...prev, storyId]));
-    };
+        setStories(sorted);
+    }, [data, seenStoryIds, seenPartIdsByStory, viewerStoryId]);
+
+    const syncSeenParts = useCallback((storyId: number, seenPartIds: number[], isStoryFullySeen: boolean) => {
+        setSeenPartIdsByStory((prev) => {
+            const previous = prev[storyId] ?? [];
+            const sameLength = previous.length === seenPartIds.length;
+            const sameIds = sameLength && previous.every((id, index) => id === seenPartIds[index]);
+
+            if (sameIds) {
+                return prev;
+            }
+
+            return {
+                ...prev,
+                [storyId]: seenPartIds,
+            };
+        });
+
+        setSeenStoryIds((prev) => {
+            const alreadySeen = prev.includes(storyId);
+
+            if (isStoryFullySeen) {
+                return alreadySeen ? prev : [...prev, storyId];
+            }
+
+            return alreadySeen ? prev.filter((id) => id !== storyId) : prev;
+        });
+    }, []);
+
+    const activeStory = viewerStoryId !== null ? stories.find((story) => story.id === viewerStoryId) : undefined;
 
     return (
         <div className={classes.Container}>
-            {sortedStories.map((singleStory, index) => (
+            {stories.map((singleStory) => (
                 <StoriesItem
                     key={singleStory.id}
                     data={singleStory}
-                    onOpen={() => setViewerIndex(index)}
+                    onOpen={() => setViewerStoryId(singleStory.id)}
                 />
             ))}
 
-            {viewerIndex !== null ? (
+            {activeStory ? (
                 <StoriesViewer
-                    stories={sortedStories}
-                    initialIndex={viewerIndex}
-                    onClose={() => setViewerIndex(null)}
-                    onStorySeen={markStoryAsSeen}
+                    key={activeStory.id}
+                    story={activeStory}
+                    onClose={() => setViewerStoryId(null)}
+                    onSyncSeenParts={syncSeenParts}
                 />
             ) : null}
         </div>

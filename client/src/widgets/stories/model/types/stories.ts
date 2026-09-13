@@ -3,10 +3,9 @@ export interface StoryApiType {
     userId: number;
     username: string;
     userAvatar: string;
-    userVideo: string;
-    views: number;
     createdAt: string;
     updatedAt: string;
+    parts: StoryPart[];
 }
 
 export interface StoryType {
@@ -14,8 +13,18 @@ export interface StoryType {
     userId: number;
     username: string;
     userAvatar: string;
+    timestamp: string;
+    isSeen: boolean;
+    parts: StoryPart[];
+}
+
+export interface StoryPart {
+    id: number;
+    isSeen: boolean;
+    username: string;
+    userAvatar: string;
     userVideo: string;
+    userId: number;
     timestamp: string;
     views: number;
-    isSeen: boolean;
 }
