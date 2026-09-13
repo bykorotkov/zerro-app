@@ -1,6 +1,6 @@
 import { mockStories } from "@/shared/mock/stories.ts";
 import { useGetStoriesQuery } from "@/widgets/stories/api/storiesApi.ts";
-import type { StoryType } from "@/widgets/stories/model/types/stories.ts";
+import type { StoryEntryMode, StoryType } from "@/widgets/stories/model/types/stories.ts";
 import { StoriesItem } from "@/widgets/stories/ui/StoriesItem.tsx";
 import { StoriesViewer } from "@/widgets/stories/ui/StoriesViewer.tsx";
 import { useCallback, useEffect, useState } from "react";
@@ -11,6 +11,7 @@ export const Stories = () => {
     const [seenStoryIds, setSeenStoryIds] = useState<number[]>([]);
     const [seenPartIdsByStory, setSeenPartIdsByStory] = useState<Record<number, number[]>>({});
     const [viewerStoryId, setViewerStoryId] = useState<number | null>(null);
+    const [entryMode, setEntryMode] = useState<StoryEntryMode>(`start`);
     const [stories, setStories] = useState<StoryType[]>([]);
 
     useEffect(() => {
@@ -86,6 +87,34 @@ export const Stories = () => {
         });
     }, []);
 
+    const openStory = useCallback((storyId: number, mode: StoryEntryMode = `start`) => {
+        setEntryMode(mode);
+        setViewerStoryId(storyId);
+    }, []);
+
+    const closeViewer = useCallback(() => {
+        setViewerStoryId(null);
+    }, []);
+
+    const goToAdjacentStory = useCallback(
+        (direction: `next` | `prev`) => {
+            if (viewerStoryId === null) return;
+
+            const currentIndex = stories.findIndex((story) => story.id === viewerStoryId);
+            if (currentIndex < 0) return;
+
+            const nextIndex = direction === `next` ? currentIndex + 1 : currentIndex - 1;
+
+            if (nextIndex < 0 || nextIndex >= stories.length) {
+                closeViewer();
+                return;
+            }
+
+            openStory(stories[nextIndex].id, direction === `next` ? `start` : `end`);
+        },
+        [viewerStoryId, stories, closeViewer, openStory],
+    );
+
     const activeStory = viewerStoryId !== null ? stories.find((story) => story.id === viewerStoryId) : undefined;
 
     return (
@@ -94,7 +123,7 @@ export const Stories = () => {
                 <StoriesItem
                     key={singleStory.id}
                     data={singleStory}
-                    onOpen={() => setViewerStoryId(singleStory.id)}
+                    onOpen={() => openStory(singleStory.id, `start`)}
                 />
             ))}
 
@@ -102,7 +131,10 @@ export const Stories = () => {
                 <StoriesViewer
                     key={activeStory.id}
                     story={activeStory}
-                    onClose={() => setViewerStoryId(null)}
+                    entryMode={entryMode}
+                    onClose={closeViewer}
+                    onNextStory={() => goToAdjacentStory(`next`)}
+                    onPrevStory={() => goToAdjacentStory(`prev`)}
                     onSyncSeenParts={syncSeenParts}
                 />
             ) : null}

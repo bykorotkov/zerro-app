@@ -28,3 +28,5 @@ export interface StoryPart {
     timestamp: string;
     views: number;
 }
+
+export type StoryEntryMode = `start` | `end`;
