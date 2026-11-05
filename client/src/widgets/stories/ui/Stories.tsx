@@ -1,91 +1,88 @@
-import { mockStories } from "@/shared/mock/stories.ts";
-import { useGetStoriesQuery } from "@/widgets/stories/api/storiesApi.ts";
-import type { StoryEntryMode, StoryType } from "@/widgets/stories/model/types/stories.ts";
+import { useGetStoriesQuery, useSyncStorySeenMutation } from "@/widgets/stories/api/storiesApi.ts";
+import type { StoryApiType, StoryEntryMode, StoryPart, StoryType } from "@/widgets/stories/model/types/stories.ts";
 import { StoriesItem } from "@/widgets/stories/ui/StoriesItem.tsx";
 import { StoriesViewer } from "@/widgets/stories/ui/StoriesViewer.tsx";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import classes from "./Stories.module.scss";
 
+const mapApiStories = (data: StoryApiType[]): StoryType[] => {
+    return data.map((story: StoryApiType): StoryType => {
+        const parts: StoryPart[] = story.parts.map((part: StoryPart) => ({
+            ...part,
+            isSeen: Boolean(part.isSeen),
+        }));
+        const isSeen = parts.length > 0 && parts.every((part: StoryPart) => part.isSeen);
+
+        return {
+            id: story.id,
+            userId: story.userId,
+            username: story.username,
+            userAvatar: story.userAvatar,
+            timestamp: story.createdAt,
+            isSeen,
+            parts,
+        };
+    });
+};
+
+const sortStories = (list: StoryType[]) => {
+    return [...list].sort((a, b) => {
+        if (a.isSeen !== b.isSeen) {
+            return a.isSeen ? 1 : -1;
+        }
+
+        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+    });
+};
+
 export const Stories = () => {
-    const { data } = useGetStoriesQuery();
-    const [seenStoryIds, setSeenStoryIds] = useState<number[]>([]);
-    const [seenPartIdsByStory, setSeenPartIdsByStory] = useState<Record<number, number[]>>({});
+    const { data, isLoading, isError } = useGetStoriesQuery();
+    const [syncStorySeen] = useSyncStorySeenMutation();
     const [viewerStoryId, setViewerStoryId] = useState<number | null>(null);
     const [entryMode, setEntryMode] = useState<StoryEntryMode>(`start`);
     const [stories, setStories] = useState<StoryType[]>([]);
+    const storiesRef = useRef(stories);
+    const viewerStoryIdRef = useRef(viewerStoryId);
+
+    storiesRef.current = stories;
+    viewerStoryIdRef.current = viewerStoryId;
 
     useEffect(() => {
-        const mapParts = (storyId: number, parts: StoryType[`parts`]) => {
-            const seenPartIds = seenPartIdsByStory[storyId] ?? [];
-
-            return parts.map((part) => ({
-                ...part,
-                isSeen: seenPartIds.includes(part.id),
-            }));
-        };
-
-        let rawStories: StoryType[];
-
-        if (data) {
-            rawStories = data.map((story) => ({
-                id: story.id,
-                userId: story.userId,
-                username: story.username,
-                userAvatar: story.userAvatar,
-                timestamp: story.createdAt,
-                isSeen: seenStoryIds.includes(story.id),
-                parts: mapParts(story.id, story.parts),
-            }));
-        } else {
-            rawStories = mockStories.map((story) => ({
-                ...story,
-                isSeen: seenStoryIds.includes(story.id),
-                parts: mapParts(story.id, story.parts),
-            }));
-        }
-
-        if (viewerStoryId !== null) {
-            setStories(rawStories);
+        if (!data) {
+            setStories([]);
             return;
         }
 
-        const sorted = [...rawStories].sort((a, b) => {
-            if (a.isSeen !== b.isSeen) {
-                return a.isSeen ? 1 : -1;
-            }
+        // Пока viewer открыт — не пересобираем список из API (иначе цикл seen → cache → effect)
+        if (viewerStoryId !== null) {
+            return;
+        }
 
-            return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-        });
+        setStories(sortStories(mapApiStories(data)));
+    }, [data, viewerStoryId]);
 
-        setStories(sorted);
-    }, [data, seenStoryIds, seenPartIdsByStory, viewerStoryId]);
+    const syncSeenParts = useCallback(
+        (storyId: number, seenPartIds: number[], _isStoryFullySeen: boolean) => {
+            setStories((prev) =>
+                prev.map((story) => {
+                    if (story.id !== storyId) {
+                        return story;
+                    }
 
-    const syncSeenParts = useCallback((storyId: number, seenPartIds: number[], isStoryFullySeen: boolean) => {
-        setSeenPartIdsByStory((prev) => {
-            const previous = prev[storyId] ?? [];
-            const sameLength = previous.length === seenPartIds.length;
-            const sameIds = sameLength && previous.every((id, index) => id === seenPartIds[index]);
+                    const parts = story.parts.map((part) => ({
+                        ...part,
+                        isSeen: seenPartIds.includes(part.id),
+                    }));
+                    const isSeen = parts.length > 0 && parts.every((part) => part.isSeen);
 
-            if (sameIds) {
-                return prev;
-            }
+                    return { ...story, parts, isSeen };
+                }),
+            );
 
-            return {
-                ...prev,
-                [storyId]: seenPartIds,
-            };
-        });
-
-        setSeenStoryIds((prev) => {
-            const alreadySeen = prev.includes(storyId);
-
-            if (isStoryFullySeen) {
-                return alreadySeen ? prev : [...prev, storyId];
-            }
-
-            return alreadySeen ? prev.filter((id) => id !== storyId) : prev;
-        });
-    }, []);
+            void syncStorySeen({ storyId, partIds: seenPartIds });
+        },
+        [syncStorySeen],
+    );
 
     const openStory = useCallback((storyId: number, mode: StoryEntryMode = `start`) => {
         setEntryMode(mode);
@@ -98,24 +95,42 @@ export const Stories = () => {
 
     const goToAdjacentStory = useCallback(
         (direction: `next` | `prev`) => {
-            if (viewerStoryId === null) return;
+            const currentId = viewerStoryIdRef.current;
+            if (currentId === null) return;
 
-            const currentIndex = stories.findIndex((story) => story.id === viewerStoryId);
+            const list = storiesRef.current;
+            const currentIndex = list.findIndex((story) => story.id === currentId);
             if (currentIndex < 0) return;
 
             const nextIndex = direction === `next` ? currentIndex + 1 : currentIndex - 1;
 
-            if (nextIndex < 0 || nextIndex >= stories.length) {
+            if (nextIndex < 0 || nextIndex >= list.length) {
                 closeViewer();
                 return;
             }
 
-            openStory(stories[nextIndex].id, direction === `next` ? `start` : `end`);
+            openStory(list[nextIndex].id, direction === `next` ? `start` : `end`);
         },
-        [viewerStoryId, stories, closeViewer, openStory],
+        [closeViewer, openStory],
     );
 
+    const handleNextStory = useCallback(() => {
+        goToAdjacentStory(`next`);
+    }, [goToAdjacentStory]);
+
+    const handlePrevStory = useCallback(() => {
+        goToAdjacentStory(`prev`);
+    }, [goToAdjacentStory]);
+
     const activeStory = viewerStoryId !== null ? stories.find((story) => story.id === viewerStoryId) : undefined;
+
+    if (isLoading) {
+        return null;
+    }
+
+    if (isError || stories.length === 0) {
+        return null;
+    }
 
     return (
         <div className={classes.Container}>
@@ -133,8 +148,8 @@ export const Stories = () => {
                     story={activeStory}
                     entryMode={entryMode}
                     onClose={closeViewer}
-                    onNextStory={() => goToAdjacentStory(`next`)}
-                    onPrevStory={() => goToAdjacentStory(`prev`)}
+                    onNextStory={handleNextStory}
+                    onPrevStory={handlePrevStory}
                     onSyncSeenParts={syncSeenParts}
                 />
             ) : null}

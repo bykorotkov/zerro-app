@@ -1,7 +1,13 @@
 export class CreateStoryDto {
-    readonly userId: number;
     readonly username: string;
     readonly userAvatar: string;
-    readonly userVideo: string;
-    readonly views?: number;
+    readonly parts: Array<{
+        id: number;
+        userId: number;
+        username: string;
+        userAvatar: string;
+        userVideo: string;
+        timestamp: string;
+        views?: number;
+    }>;
 }

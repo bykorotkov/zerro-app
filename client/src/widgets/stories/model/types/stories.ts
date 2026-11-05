@@ -20,7 +20,7 @@ export interface StoryType {
 
 export interface StoryPart {
     id: number;
-    isSeen: boolean;
+    isSeen?: boolean;
     username: string;
     userAvatar: string;
     userVideo: string;

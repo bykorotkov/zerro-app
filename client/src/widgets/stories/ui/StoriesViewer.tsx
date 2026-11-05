@@ -1,8 +1,9 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
-import type { PointerEvent as ReactPointerEvent } from "react";
 import type { StoryEntryMode, StoryType } from "@/widgets/stories/model/types/stories.ts";
-import classes from "./Stories.module.scss";
 import { ProgressBar } from "@/widgets/stories/ui/ProgressBar.tsx";
+import type { PointerEvent as ReactPointerEvent } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { useSyncSeenParts } from "../model/hooks/useSyncSeenParts";
+import classes from "./Stories.module.scss";
 
 const HOLD_MS = 200;
 const SWIPE_THRESHOLD_PX = 56;
@@ -179,12 +180,7 @@ export const StoriesViewer = memo(({ story, entryMode, onClose, onNextStory, onP
         [clearHoldTimer, goToNextPart, goToPrevPart, onClose, onNextStory, onPrevStory],
     );
 
-    useEffect(() => {
-        const seenPartIds = story.parts.slice(0, partIndex + 1).map((part) => part.id);
-        const isStoryFullySeen = partIndex === story.parts.length - 1;
-
-        onSyncSeenParts(story.id, seenPartIds, isStoryFullySeen);
-    }, [partIndex, story.id, story.parts, onSyncSeenParts]);
+    useSyncSeenParts({ onSyncSeenParts, story, partIndex });
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
