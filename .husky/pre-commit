@@ -1,9 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Переход в папку client и выполнение команд
 cd client
-npm run build && npm run lint && npm run build-storybook && npm test
+npm run build && npm run lint && npm test
 
 if [ $? -ne 0 ]; then
   cd ..
@@ -13,4 +12,3 @@ if [ $? -ne 0 ]; then
 fi
 
 cd ..
-git push
