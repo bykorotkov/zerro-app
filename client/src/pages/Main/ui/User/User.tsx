@@ -1,13 +1,13 @@
-import classes from "./User.module.scss";
-import cn from "classnames";
+import type { UserProps } from "@/pages/Main/model/types.ts";
 import { Button } from "@/shared/ui/button/ui/Button.tsx";
 import { Loader } from "@/shared/ui/loader/ui/Loader.tsx";
-import type { UserProps } from "@/pages/Main/model/types.ts";
 import { Stories } from "@/widgets/stories";
+import cn from "classnames";
+import classes from "./User.module.scss";
 
 export const User = ({ isLoading, error, user }: UserProps) => {
     if (isLoading) return <Loader />;
-    if (error) return <div>Ошибка загрузки данных пользователя</div>;
+    if (error) return <div className={classes.Error}>Ошибка загрузки данных пользователя</div>;
 
     return (
         <div className={classes.User}>

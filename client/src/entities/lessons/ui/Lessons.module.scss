@@ -1,27 +1,29 @@
+@use "@/app/css/variables" as *;
+@use "@/app/css/mixins" as *;
 
 .Lessons {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 40px;
-  margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 40px;
+    margin-top: 50px;
 }
 
 .Lesson {
-  border: 1px solid #000;
-  padding: 20px;
-  border-radius: 21px;
-  height: 300px;
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
+    border: 1px solid var(--text);
+    transition: $transition;
+    padding: 20px;
+    border-radius: 21px;
+    height: 300px;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
 
-  span {
-    font-weight: 700;
-    text-decoration: underline;
-  }
+    span {
+        font-weight: 700;
+        text-decoration: underline;
+    }
 }
 
 .Link {
-  margin-top: auto;
+    margin-top: auto;
 }
-

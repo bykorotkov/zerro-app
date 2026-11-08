@@ -4,71 +4,71 @@
 *,
 *:before,
 *:after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: auto;
-  --progress-percent: 0%;
+    scroll-behavior: auto;
+    --progress-percent: 0%;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: Nunito, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Nunito, sans-serif;
 }
 
 a {
-  color: inherit;
-  outline: none;
-  text-decoration: none;
+    color: inherit;
+    outline: none;
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 img {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 p {
-  margin: 0 0;
-  padding: 0;
+    margin: 0 0;
+    padding: 0;
 }
 
 menu {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 ul {
-  padding: 0;
-  list-style-type: disc;
+    padding: 0;
+    list-style-type: disc;
 }
 
 ol {
-  padding: 0;
-  list-style-type: decimal;
+    padding: 0;
+    list-style-type: decimal;
 }
 
 ol li,
 ul li {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 ul,
 ol {
-  margin: 0;
+    margin: 0;
 }
 
 form {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 h1,
@@ -76,65 +76,80 @@ h2,
 h3,
 h4,
 h5 {
-  margin: 0;
+    margin: 0;
 }
 
 button,
 input,
 select,
 textarea {
-  color: inherit;
-  outline: none;
-  border-radius: 0;
-  border: none;
-  appearance: none;
-  box-shadow: none;
-  font-family: inherit;
+    color: inherit;
+    outline: none;
+    border-radius: 0;
+    border: none;
+    appearance: none;
+    box-shadow: none;
+    font-family: inherit;
 }
 
 textarea {
-  overflow: auto;
-  resize: vertical;
+    overflow: auto;
+    resize: vertical;
 }
 
 table {
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
 }
 
 table td,
 table th {
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-collapse: collapse;
-  text-align: left;
-  vertical-align: top;
-  font-weight: normal;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
+    text-align: left;
+    vertical-align: top;
+    font-weight: normal;
 }
 
 button {
-  padding: 0;
-  border: none;
-  outline: none;
-  background: transparent;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
 }
 
 .no-scroll {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .enter-active {
-  visibility: visible !important;
-  opacity: 1 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .enter-done {
-  visibility: visible !important;
-  opacity: 1 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
+:root {
+    --bg: #{$lightBg};
+    --text: #{$black};
+    --surface: #{$white};
+    --content-bg: #{$blueSuperLight};
+    --link: #{$black};
+    --content-bg-accent: #{$blueLight};
+}
 
-
+[data-theme="dark"] {
+    --bg: #{$darkBg};
+    --text: #{$white};
+    --surface: #{$darkBg};
+    --content-bg: #{$darkBlue};
+    --link: #{$blueSuperLight};
+    --content-bg-accent: #{$midBlue};
+}

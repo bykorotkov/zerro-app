@@ -16,10 +16,7 @@ export const useTheme = () => {
 
     useEffect(() => {
         localStorage.setItem(`themeType`, currentTheme);
-        const layout = document.getElementById(`Layout`);
-        if (layout) {
-            layout.setAttribute(`data-theme`, currentTheme);
-        }
+        document.documentElement.setAttribute(`data-theme`, currentTheme);
     }, [currentTheme]);
 
     return { currentTheme, themeChanger };
